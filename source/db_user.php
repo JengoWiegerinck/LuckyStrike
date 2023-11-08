@@ -21,7 +21,7 @@ function checkEmail($email)
 
 function insertUser($username, $email, $password){
 
-    $result = db_insertData("INSERT INTO user (username, email, password) VALUES ('$username', '$email', '$password')");
+    $result = db_insertData("INSERT INTO user (username, email, password, klasse) VALUES ('$username', '$email', '$password', 0)");
     return $result;
 }
 
