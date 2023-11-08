@@ -78,7 +78,7 @@ class user {
     /**
      * Get the value of admin
      */ 
-    public function getAdmin()
+    public function getKlasse()
     {
         return $this->klasse;
     }
