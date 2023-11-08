@@ -1,15 +1,22 @@
+<?php 
+    require_once '../layouts/default.php';
+    $pageTitle = 'Lucky Strike';
+?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-        <title>Bootverhuur</title>
-        <link rel="stylesheet" type="text/css" href="Bootverhuur Style.css">
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-<body>
+<body class="bg-whiteKleur">
+<div class="bg-yellowKleur drop-shadow-[0_10px_10px_rgb(210,174,57)] h-14 sticky top-0">
+  <div class="container mx-auto flex justify-between items-center max-w-screen-xl">
+    <div class="flex items-center space-x-4">
+      <img src="../Lucky_Strike_logo.svg.png" alt="Logo" class="w-14 h-14">
+      
+    </div>
+    <div>
+        <nav class="space-x-8">
+        <a href="#" class="text-blackKleur">Reserveren</a>
+        <a href="#" class="text-blackKleur">Contact</a>
+        <a href="#" class="text-blackKleur">Over ons</a>
+        <a href="#" class="text-blackKleur">Inloggen</a>
+      </nav>
+    </div>
+  </div>
+</div>
