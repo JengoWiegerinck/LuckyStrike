@@ -4,10 +4,10 @@
 
 
 function db_connect(){
-    $servername = "localhost";
-    $username   = "root";
-    $password   = "";
-    $dbname     = "luckystrike";
+    $servername = "gc-webhosting.nl";
+    $username   = "jwiegerinck_luckystrike";
+    $password   = "luckystrike001";
+    $dbname     = "jwiegerinck_luckystrike";
 
     $mysqli = new mysqli($servername, $username, $password, $dbname);
 
