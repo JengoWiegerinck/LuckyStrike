@@ -8,6 +8,7 @@ function getUser($email, $password){
         return $user;
     }
     return "No user found!";
+
 }
 
 function checkEmail($email)
