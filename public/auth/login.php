@@ -11,19 +11,17 @@ if(isset($_POST['submit']))
 
     if($user == "No user found!")
     {
-        echo '<script>alert("Er is al een account voor dit email")</script>';
+        echo '<script>alert("Dit is niet de goede combinatie")</script>';
     }else
     {
         setcookie("CurrUser", (new user($user))->getId(), time() + 3600, "/", "");
-        header('location: ../Activities/overview.php');
+        header('location: ../index.php');
     }
 }
 ?>
 
 <html>
 <head>
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  -->
-    <link rel="stylesheet" href="../../Css/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Open+Sans:wght@500;600;800&family=Rubik:wght@500&display=swap" rel="stylesheet">
 
     <script>
@@ -40,25 +38,25 @@ if(isset($_POST['submit']))
         }
     </script>
 </head>
-<body>   
+<body>
     <div class="container">
+        <form action="" method="post">
+            <div >
+                <h3>Email</h3>
+                <input type="email" name="email" value="" required>
+            </div>
 
-                    <!-- <label>Username</label> -->
-                    <h3>Email</h3>
-                    <input type="email" name="email" class="form-control" value="" required>
-                </div>    
-                <div class="form-group">
-                    <!-- <label>Password</label> -->
-                    <h3 class="titleh3">Wachtwoord</h3>
-                    <input type="password" name="password" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn" value="Login" name="submit" onclick="alert();">
-                </div>
-                <p>Nog geen account? <a class="linkColorText" href="signUp.php">Registreer nu</a>.</p>
-                
-            </form>
-        </div>
+            <div >
+                <h3 class="titleh3">Wachtwoord</h3>
+                <input type="password" name="password" required>
+            </div>
+
+            <div >
+                <input type="submit" value="Login" name="submit">
+            </div>
+
+            <p>Nog geen account? <a href="signUp.php">Registreer nu</a>.</p>
+        </form>
     </div>  
 </body>
 
