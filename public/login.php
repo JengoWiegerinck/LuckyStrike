@@ -1,6 +1,6 @@
 <?php
-require_once "../header.php";
-require_once "../../source/db_user.php";
+require_once "header.php";
+require_once "../source/db_user.php";
 
 if(isset($_POST['submit']))
 {
@@ -65,5 +65,5 @@ if(isset($_POST['submit']))
 
 
 <?php
-require_once "../footer.php";
+require_once "footer.php";
 ?>

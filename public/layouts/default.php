@@ -47,6 +47,7 @@
                 yellowKleur: '#d2ae39', // Geel
                 blackKleur: '#1b1b19',  // Zwart
             }
+            
         }
     }
 }
