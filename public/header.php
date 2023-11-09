@@ -1,5 +1,7 @@
 <?php 
     require_once __DIR__ . '\layouts\default.php';
+    require_once "../source/db_user.php";
+    require_once "../source/useful_functions.php";
     $pageTitle = 'Lucky Strike';
 ?>
 
@@ -13,10 +15,30 @@
     </div>
     <div>
         <nav class="space-x-8">
-        <a href="#" class="text-whiteKleur">Reserveren</a>
-        <a href="#" class="text-whiteKleur">Contact</a>
-        <a href="#" class="text-whiteKleur">Over ons</a>
-        <a href="#" class="text-whiteKleur">Inloggen</a>
+        <a href="#" class="text-blackKleur">Contact</a>
+        <a href="#" class="text-blackKleur">Over ons</a>
+                        <?php
+                        if (isset($_COOKIE['CurrUser'])) {
+                        ?> 
+                            <a href="#"><?php 
+                            $user = new user(getUserById($_COOKIE['CurrUser']));
+                            echo $user->getUsername();
+                        ?></a>
+                        <?php
+                          if(!checkCustomer($user->getKlasse())) {
+                            ?>
+                            <a href="../config/admin.php">Beheer</a>
+                            <?php
+                          }
+                        } else { ?>
+                            <a href="../auth/login.php" class="text-blackKleur">Inloggen</a>
+                        <?php } 
+                            if (isset($_COOKIE['CurrUser'])) {
+                            ?> 
+                                <a href="../auth/logout.php" class="text-blackKleur">uitloggen</a>
+                            <?php
+                            }?>
+                        
       </nav>
     </div>
   </div>
