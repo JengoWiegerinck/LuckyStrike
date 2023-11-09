@@ -12,11 +12,13 @@ function checkAdmin($admin)
 
 //how to use it
 /*
+if (isset($_COOKIE['CurrUser'])) {
     $user = new user(getUserById($_COOKIE['CurrUser']));
     if (checkAdmin($user->getKlasse()))
     {
 
     }
+}
 */
 function checkEmployee($employee)
 {
@@ -28,4 +30,13 @@ function checkEmployee($employee)
     return $employeeBool;
 }
 
+function checkCustomer($customer)
+{
+    $customerBool = false;
+    if ($customer = 2) 
+    {
+        $customerBool = true;
+    }
+    return $customerBool;
+}
 ?>
