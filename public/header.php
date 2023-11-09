@@ -5,7 +5,7 @@
 
 <body class="bg-whiteKleur">
 
-<div class="bg-yellowKleur drop-shadow-[0_10px_10px_rgb(210,174,57)] h-14 sticky top-0">
+<div class="bg-blackKleur drop-shadow-[0_5px_3px_rgb(0,0,0)] h-14 sticky top-0">
   <div class="container mx-auto flex justify-between items-center max-w-screen-xl">
     <div class="flex items-center space-x-4">
       <img src="../assets/img/Lucky_Strike_logo.svg.png" alt="Logo" class="w-14 h-14">
@@ -13,10 +13,10 @@
     </div>
     <div>
         <nav class="space-x-8">
-        <a href="#" class="text-blackKleur">Reserveren</a>
-        <a href="#" class="text-blackKleur">Contact</a>
-        <a href="#" class="text-blackKleur">Over ons</a>
-        <a href="#" class="text-blackKleur">Inloggen</a>
+        <a href="#" class="text-whiteKleur">Reserveren</a>
+        <a href="#" class="text-whiteKleur">Contact</a>
+        <a href="#" class="text-whiteKleur">Over ons</a>
+        <a href="#" class="text-whiteKleur">Inloggen</a>
       </nav>
     </div>
   </div>
