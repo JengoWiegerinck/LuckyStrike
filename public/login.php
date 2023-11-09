@@ -38,6 +38,7 @@ if(isset($_POST['submit']))
         }
     </script>
 </head>
+
 <body>
     <div class="flex items-center justify-between min-w-[100vw] px-[10%] py-20">
         <div class="w-1/2">

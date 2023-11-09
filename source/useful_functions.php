@@ -3,7 +3,7 @@
 function checkAdmin($admin)
 {
     $adminBool = false;
-    if ($admin = 2) 
+    if ($admin == 2) 
     {
         $adminBool = true;
     }
@@ -23,7 +23,7 @@ if (isset($_COOKIE['CurrUser'])) {
 function checkEmployee($employee)
 {
     $employeeBool = false;
-    if ($employee = 2) 
+    if ($employee == 1) 
     {
         $employeeBool = true;
     }
@@ -33,7 +33,7 @@ function checkEmployee($employee)
 function checkCustomer($customer)
 {
     $customerBool = false;
-    if ($customer = 2) 
+    if ($customer == 0) 
     {
         $customerBool = true;
     }
