@@ -20,14 +20,14 @@
                         <?php
                         if (isset($_COOKIE['CurrUser'])) {
                         ?> 
-                            <a href="#"><?php 
+                            <a class="text-whiteKleur" href="#"><?php 
                             $user = new user(getUserById($_COOKIE['CurrUser']));
                             echo $user->getUsername();
                         ?></a>
                         <?php
                           if(!checkCustomer($user->getKlasse())) {
                             ?>
-                            <a href="../config/admin.php">Beheer</a>
+                            <a class="text-whiteKleur" href="../config/admin.php">Beheer</a>
                             <?php
                           }
                         } else { ?>

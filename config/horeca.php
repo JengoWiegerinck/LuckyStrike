@@ -4,7 +4,13 @@ require_once("../source/useful_functions.php");
 require_once("../source/db_user.php");
 require_once("../source/db_horeca.php");
 
+if (isset($_COOKIE['CurrUser'])) {
+    $user = new user(getUserById($_COOKIE['CurrUser']));
+    if (checkAdmin($user->getKlasse()))
+    {
 
+    
+    
 ?>
 
 <link rel="stylesheet" href="../../Css/admin.css">
@@ -74,3 +80,10 @@ require_once("../source/db_horeca.php");
         })
     })
 </script>
+<?php
+}else{
+    header('location: ../public/index.php');
+}
+}
+include '../public/footer.php';
+?>

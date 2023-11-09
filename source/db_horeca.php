@@ -10,7 +10,7 @@ function getAllFood()
 
 function insertFood($name, $price)
 {
-    $result = db_insertData("INSERT INTO user (name, price) VALUES ('$name', '$price')");
+    $result = db_insertData("INSERT INTO food (name, price) VALUES ('$name', '$price')");
     return $result;
 }
 ?>
