@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
 
     if ($insertedId > 0) {
         setcookie("CurrUser", $insertedId, time() + 3600, "/", "");
-        header('location: ../public/index.php');
+        header('location: ../index.php');
         exit();
     }
 }
