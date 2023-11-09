@@ -31,11 +31,11 @@
                             <?php
                           }
                         } else { ?>
-                            <a href="../auth/login.php" class="text-blackKleur">Inloggen</a>
+                            <a href="login.php" class="text-blackKleur">Inloggen</a>
                         <?php } 
                             if (isset($_COOKIE['CurrUser'])) {
                             ?> 
-                                <a href="../auth/logout.php" class="text-blackKleur">uitloggen</a>
+                                <a href="../public/logout.php" class="text-blackKleur">Uitloggen</a>
                             <?php
                             }?>
                         
