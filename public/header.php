@@ -1,6 +1,6 @@
 <?php 
     require_once '../layouts/default.php';
-    // include('../layouts/default.php');
+    include('../layouts/default.php');
     $pageTitle = 'Lucky Strike';
 ?>
 
