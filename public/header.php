@@ -15,8 +15,8 @@
     </div>
     <div>
         <nav class="space-x-8">
-        <a href="#" class="text-blackKleur">Contact</a>
-        <a href="#" class="text-blackKleur">Over ons</a>
+        <a href="#" class="text-whiteKleur">Contact</a>
+        <a href="#" class="text-whiteKleur">Over ons</a>
                         <?php
                         if (isset($_COOKIE['CurrUser'])) {
                         ?> 
@@ -31,11 +31,11 @@
                             <?php
                           }
                         } else { ?>
-                            <a href="../public/login.php" class="text-blackKleur">Inloggen</a>
+                            <a href="login.php" class="text-whiteKleur">Inloggen</a>
                         <?php } 
                             if (isset($_COOKIE['CurrUser'])) {
                             ?> 
-                                <a href="../public/logout.php" class="text-blackKleur">Uitloggen</a>
+                                <a href="logout.php" class="text-whiteKleur">uitloggen</a>
                             <?php
                             }?>
                         
