@@ -3,7 +3,7 @@
 function checkAdmin($admin)
 {
     $adminBool = false;
-    if ($admin = 2) 
+    if ($admin == 2) 
     {
         $adminBool = true;
     }
@@ -12,20 +12,31 @@ function checkAdmin($admin)
 
 //how to use it
 /*
+if (isset($_COOKIE['CurrUser'])) {
     $user = new user(getUserById($_COOKIE['CurrUser']));
     if (checkAdmin($user->getKlasse()))
     {
 
     }
+}
 */
 function checkEmployee($employee)
 {
     $employeeBool = false;
-    if ($employee = 2) 
+    if ($employee == 1) 
     {
         $employeeBool = true;
     }
     return $employeeBool;
 }
 
+function checkCustomer($customer)
+{
+    $customerBool = false;
+    if ($customer == 0) 
+    {
+        $customerBool = true;
+    }
+    return $customerBool;
+}
 ?>
