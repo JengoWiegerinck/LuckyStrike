@@ -11,6 +11,20 @@ function getUser($email, $password){
 
 }
 
+
+function insertUser($username, $email, $password){
+
+    $result = db_insertData("INSERT INTO user (username, email, password, klasse) VALUES ('$username', '$email', '$password', 0)");
+    return $result;
+}
+
+function getUserById($id)
+{
+    $result = db_getData("SELECT * FROM user WHERE id = '$id'");
+    return $result;
+}
+
+
 function checkEmail($email)
 {
     $user = db_getData("SELECT * FROM user WHERE email = '$email'");
@@ -18,12 +32,6 @@ function checkEmail($email)
         return $user;
     }
     return "No user found!";
-}
-
-function insertUser($username, $email, $password){
-
-    $result = db_insertData("INSERT INTO user (username, email, password, klasse) VALUES ('$username', '$email', '$password', 0)");
-    return $result;
 }
 
 ?>

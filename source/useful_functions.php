@@ -13,7 +13,7 @@ function checkAdmin($admin)
 //how to use it
 /*
     $user = new user(getUserById($_COOKIE['CurrUser']));
-    if (checkAmin($user->getKlasse()))
+    if (checkAdmin($user->getKlasse()))
     {
 
     }
