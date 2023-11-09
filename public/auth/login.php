@@ -38,7 +38,7 @@ if(isset($_POST['submit']))
         }
     </script>
 </head>
-<body>
+
     <div class="container">
         <form action="" method="post">
             <div >
