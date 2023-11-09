@@ -30,4 +30,13 @@ function checkEmployee($employee)
     return $employeeBool;
 }
 
+function checkCustomer($customer)
+{
+    $customerBool = false;
+    if ($customer = 2) 
+    {
+        $customerBool = true;
+    }
+    return $customerBool;
+}
 ?>

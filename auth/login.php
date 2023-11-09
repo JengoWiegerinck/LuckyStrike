@@ -15,7 +15,7 @@ if(isset($_POST['submit']))
     }else
     {
         setcookie("CurrUser", (new user($user))->getId(), time() + 3600, "/", "");
-        header('location: ../index.php');
+        header('location: ../public/index.php');
     }
 }
 ?>
