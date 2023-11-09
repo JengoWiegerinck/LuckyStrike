@@ -1,5 +1,6 @@
 <?php 
     require_once '../layouts/default.php';
+    // include('../layouts/default.php');
     $pageTitle = 'Lucky Strike';
 ?>
 
@@ -16,7 +17,7 @@
         <a href="#" class="text-blackKleur">Reserveren</a>
         <a href="#" class="text-blackKleur">Contact</a>
         <a href="#" class="text-blackKleur">Over ons</a>
-        <a href="#" class="text-blackKleur">Inloggen</a>
+        <a href="auth/login.php" class="text-blackKleur">Inloggen</a>
       </nav>
     </div>
   </div>
