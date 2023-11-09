@@ -31,7 +31,7 @@
                             <?php
                           }
                         } else { ?>
-                            <a href="login.php" class="text-blackKleur">Inloggen</a>
+                            <a href="../public/login.php" class="text-blackKleur">Inloggen</a>
                         <?php } 
                             if (isset($_COOKIE['CurrUser'])) {
                             ?> 
