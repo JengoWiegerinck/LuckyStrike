@@ -126,6 +126,13 @@
                 </div>
               </div>
       
+              <div class="md:col-span-5">
+                <div class="inline-flex items-center">
+                  <input type="checkbox" name="hulpmiddelen" id="hulpmiddelen" class="form-checkbox" />
+                  <label for="hulpmiddelen" class="ml-2">Ik wil graag een baan met hulpmiddelen</label>
+                </div>
+              </div>
+
               <div class="md:col-span-5 text-right">
                 <div class="inline-flex items-end">
                   <button class="bg-yellowKleur hover:bg-blackKleur text-white font-bold py-2 px-4 rounded">Submit</button>

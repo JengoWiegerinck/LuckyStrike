@@ -7,7 +7,7 @@
 
 <body class="bg-whiteKleur">
 
-<div class="bg-blackKleur drop-shadow-[0_5px_3px_rgb(0,0,0)] h-14 sticky top-0">
+<div class="bg-blackKleur drop-shadow-[0_5px_3px_rgb(0,0,0)] h-14 sticky top-0 z-[1]">
   <div class="container mx-auto flex justify-between items-center max-w-screen-xl">
     <div class="flex items-center space-x-4">
       <img src="../assets/img/Lucky_Strike_logo.svg.png" alt="Logo" class="w-14 h-14">
@@ -44,4 +44,7 @@
   </div>
 </div>
 
-<img src="../assets/img/bodyBackground.jpg" alt="Image" class="w-full h-screen object-cover object-center absolute top-0 z-[-1] opacity-20">
+<div class="h-screen absolute top-0 z-[-1]">
+        <img src="../assets/img/bodyBackground.jpg" alt="Gradient Image" class="w-full h-full object-cover object-center opacity-20">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-whiteKleur opacity-100"></div>
+    </div>
