@@ -16,8 +16,12 @@
         
         <!-- Left Section with Home and Contact -->
         <div class="flex items-center space-x-8">
-            <a href="#" class="text-whiteKleur">Home</a>
+            <a href="../public/index.php" class="text-whiteKleur">Home</a>
             <a href="#" class="text-whiteKleur">Contact</a>
+            <?php
+                if (isset($_COOKIE['CurrUser'])) {
+                    echo '<a class="text-whiteKleur" href="../public/reservation.php">Reservering';
+                    echo '</a>'; } ?>
         </div>
 
     </div>
@@ -51,11 +55,11 @@
                         echo '<a class="text-whiteKleur" href="../config/admin.php">Beheer</a>';
                     }
                 } else {
-                    echo '<a href="login.php" class="text-whiteKleur">Inloggen</a>';
+                    echo '<a href="../public/login.php" class="text-whiteKleur">Inloggen</a>';
                 }
 
                 if (isset($_COOKIE['CurrUser'])) {
-                    echo '<a href="logout.php" class="text-whiteKleur">uitloggen</a>';
+                    echo '<a href="../public/logout.php" class="text-whiteKleur">uitloggen</a>';
                 }
             ?>
         </div>

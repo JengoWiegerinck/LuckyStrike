@@ -1,4 +1,8 @@
-<?php include 'header.php'; ?>
+<?php include 
+'header.php'; 
+if (isset($_COOKIE['CurrUser'])) {
+  $user = new user(getUserById($_COOKIE['CurrUser']));
+?>
     <div class="py-20 px-[10%] ">
 
         <!-- component -->
@@ -18,12 +22,12 @@
             <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
               <div class="md:col-span-5">
                 <label for="username">Gebruikersnaam</label>
-                <input type="text" name="username" id="username" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="Gebruikersnaam"/>
+                <input type="text" name="username" id="username" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo $user->getUsername(); ?>"/>
               </div>
 
               <div class="md:col-span-5">
                 <label for="email">Emailadres</label>
-                <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="John@email.com" />
+                <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo $user->getEmail(); ?>"/>
               </div>
 
               <div class="md:col-span-3">
@@ -82,13 +86,6 @@
                 <div class="inline-flex items-center">
                   <input type="checkbox" name="hulpmiddelen" id="hulpmiddelen" class="form-checkbox" />
                   <label for="hulpmiddelen" class="ml-2">Ik wil graag 2 uur bowlen</label>
-                </div>
-              </div>
-
-              <div class="md:col-span-5">
-                <div class="inline-flex items-center">
-                  <input type="checkbox" name="hulpmiddelen" id="hulpmiddelen" class="form-checkbox" />
-                  <label for="hulpmiddelen" class="ml-2">Ik wil graag een baan met hulpmiddelen</label>
                 </div>
               </div>
 
@@ -186,4 +183,8 @@
         ?>
     </div> 
 
-<?php include 'footer.php'; ?>
+<?php
+}else{
+  header('location: login.php');
+}
+include 'footer.php'; ?>
