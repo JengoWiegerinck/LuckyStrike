@@ -78,15 +78,6 @@
                 <input type="time" name="stopTime" id="stopTime" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
               </div>
 
-              
-
-              <div class="md:col-span-5">
-                <div class="inline-flex items-center">
-                  <input type="checkbox" name="hulpmiddelen" id="hulpmiddelen" class="form-checkbox" />
-                  <label for="hulpmiddelen" class="ml-2">Ik wil graag een baan met hulpmiddelen</label>
-                </div>
-              </div>
-
               <div class="md:col-span-2">
                 <label for="volwassen">Hoeveel volwassenen?</label>
                 <div class="h-10 w-28 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
@@ -121,6 +112,13 @@
                 </div>
               </div>
       
+              <div class="md:col-span-5">
+                <div class="inline-flex items-center">
+                  <input type="checkbox" name="hulpmiddelen" id="hulpmiddelen" class="form-checkbox" />
+                  <label for="hulpmiddelen" class="ml-2">Ik wil graag een baan met hulpmiddelen</label>
+                </div>
+              </div>
+
               <div class="md:col-span-5 text-right">
                 <div class="inline-flex items-end">
                   <button class="bg-yellowKleur hover:bg-blackKleur text-white font-bold py-2 px-4 rounded">Submit</button>
