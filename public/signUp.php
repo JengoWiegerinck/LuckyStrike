@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
 
         if(checkEmail($email) == "No user found!")
         {
-            $insertedId = insertUser($username, $email, $password);
+            $insertedId = insertCustomer($username, $email, $password);
         }else{
             echo '<script>alert("Er is al een account voor dit email")</script>';
         }
