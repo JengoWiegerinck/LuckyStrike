@@ -33,7 +33,44 @@
 
               <div class="md:col-span-1">
                 <label for="startTime">Starttijd</label>
-                <input type="time" name="startTime" id="startTime" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+                <input id="appt-time" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" list="times" type="time" name="appt-time" value="00:00" step="3600">
+              <?php 
+              if(date("l") == "Monday" || date("l") == "Tuesday" || date("l") == "Wednesday" || date("l") == "Thursday")
+              {
+              ?>
+              <datalist id="times">
+                  <option value="01:00:00">
+                  <option value="14:00:00">
+                  <option value="15:00:00">
+                  <option value="16:00:00">
+                  <option value="17:00:00">
+                  <option value="18:00:00">
+                  <option value="19:00:00">
+                  <option value="20:00:00">
+                  <option value="21:00:00">
+                  <option value="22:00:00">
+              </datalist>
+              <?php
+              }
+              if(date("l") == "Friday" || date("l") == "Saturday" || date("l") == "Sunday")
+              {
+                ?>
+                <datalist id="times">
+                  <option value="14:00:00">
+                  <option value="15:00:00">
+                  <option value="16:00:00">
+                  <option value="17:00:00">
+                  <option value="18:00:00">
+                  <option value="19:00:00">
+                  <option value="20:00:00">
+                  <option value="21:00:00">
+                  <option value="22:00:00">
+                  <option value="23:00:00">
+                  <option value="00:00:00">
+              </datalist>
+                <?php
+              }
+              ?>
               </div>
 
               <div class="md:col-span-1">

@@ -22,6 +22,7 @@
 
     </div>
 
+
          <!-- Center Section with Logo -->
          <div class="flex items-center">
          <img src="../assets/img/luckystrike.png" alt="Logo" class="w-14 h-14 z-[2] relative top-[-40px]"

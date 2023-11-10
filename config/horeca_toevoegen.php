@@ -22,25 +22,45 @@ if (isset($_COOKIE['CurrUser'])) {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
         <body>
-            <h1 class="text-[40px] font-bold">Toevoegen</h1>
+            <div class="flex justify-center w-[100vw] items-center">
+                <div class="bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
+                <h1 class="text-[40px] font-bold text-center pt-6">Toevoegen</h1>
+    
+                <div class="grid justify-items-center">
+                    <form method="POST" action="">
+                        <div class="w-full my-4">
+                            <p class="font-bold">Naam</p>
+                            <input type="text" name="name" class="py-2 px-4 rounded-sm border" placeholder="Naam" required />
+                        </div>
+                        <div class="w-full my-4">
+                            <p class="font-bold">Prijs</p>
+                            <input type="text" name="price" id="price" class="py-2 px-4 rounded-sm border" placeholder="Prijs" required />
+                        </div>
+                        <input name="toevoegen" type="submit" value="Toevoegen" class="h-10 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" />
+                        <div class="flex flex-wrap pt-6">
+                         <!-- terug knop -->
+                        <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="Terug"  onclick="window.location.href='horeca.php';"/> 
+                        </div> 
+                    </form>
+                    
+                    </div>   
+                </div>
 
-            <div class="w-1/2 my-8">
-                <form method="POST" action="">
-                    <div class="w-full my-4">
-                        <p class="font-bold">Naam</p>
-                        <input type="text" name="name" class="py-2 px-4 rounded-sm border" placeholder="Naam" required />
-                    </div>
-                    <div class="w-full my-4">
-                        <p class="font-bold">Prijs</p>
-                        <input type="text" name="price" id="price" class="py-2 px-4 rounded-sm border" placeholder="Prijs" required />
-                    </div>
-                    <input name="toevoegen" type="submit" value="Toevoegen" class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur hover:text-whiteKleur hover:border-redKleur" />
-                </form>
             </div>
 
             <script>
-                $("#price").on("input", function(event) {
-                $(this).val($(this).val().replace(/^[a-zA-Z]+(\.[a-zA-Z]{0,2})?$/, ""));
+                $(document).ready(function() 
+                {
+                    $('#price').on('input', function() 
+                    {
+                        var inputValue = $(this).val();
+                        var pattern = /^[0-9]+(\.[0-9]{0,2})?$/;
+                        
+                        if (!pattern.test(inputValue)) 
+                        {
+                            $(this).val('');
+                        }
+                    });
                 });
             </script>
         </body>
