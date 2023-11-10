@@ -7,41 +7,58 @@
 
 <body class="bg-whiteKleur">
 
-<div class="bg-blackKleur drop-shadow-[0_5px_3px_rgb(0,0,0)] h-14 sticky top-0 z-[1]">
-  <div class="container mx-auto flex justify-between items-center max-w-screen-xl">
-    <div class="flex items-center space-x-4">
-      <img src="../assets/img/Lucky_Strike_logo.svg.png" alt="Logo" class="w-14 h-14">
-      
+<div class="h-1/5 w-full relative">
+    <img class="w-full h-full object-cover" src="../assets/img/bowling+alleys+in+okc.jpg" alt="">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-blackKleur"></div>
+</div>
+<div class="bg-blackKleur h-14 w-full flex">
+<div class="container flex justify-center max-w-screen-xl w-1/2">
+        
+        <!-- Left Section with Home and Contact -->
+        <div class="flex items-center space-x-8">
+            <a href="#" class="text-whiteKleur">Home</a>
+            <a href="#" class="text-whiteKleur">Contact</a>
+        </div>
+
     </div>
-    <div>
-        <nav class="space-x-8">
-        <a href="#" class="text-whiteKleur">Contact</a>
-        <a href="#" class="text-whiteKleur">Over ons</a>
-                        <?php
-                        if (isset($_COOKIE['CurrUser'])) {
-                        ?> 
-                            <a class="text-whiteKleur" href="#"><?php 
-                            $user = new user(getUserById($_COOKIE['CurrUser']));
-                            echo $user->getUsername();
-                        ?></a>
-                        <?php
-                          if(!checkCustomer($user->getKlasse())) {
-                            ?>
-                            <a class="text-whiteKleur" href="../config/admin.php">Beheer</a>
-                            <?php
-                          }
-                        } else { ?>
-                            <a href="login.php" class="text-whiteKleur">Inloggen</a>
-                        <?php } 
-                            if (isset($_COOKIE['CurrUser'])) {
-                            ?> 
-                                <a href="logout.php" class="text-whiteKleur">uitloggen</a>
-                            <?php
-                            }?>
-                        
-      </nav>
+
+         <!-- Center Section with Logo -->
+         <div class="flex items-center">
+         <img src="../assets/img/luckystrike.png" alt="Logo" class="w-14 h-14 z-[2] relative top-[-40px]"
+         style="scale: 4.5; 
+         filter: 
+         drop-shadow(1px 0 0 rgba(27, 27, 25, 1)) 
+         drop-shadow(0 1px 0 rgba(27, 27, 25, 1))
+         drop-shadow(-1px 0 0 rgba(27, 27, 25, 1)) 
+         drop-shadow(0 -1px 0 rgba(27, 27, 25, 1));">
+        </div>
+        
+    
+    <div class="container justify-center  flex max-w-screen-xl w-1/2">
+
+        <!-- Right Section with Over Ons and Inloggen -->
+        <div class="flex items-center space-x-8">
+            <a href="#" class="text-whiteKleur">Over ons</a>
+            <?php
+                if (isset($_COOKIE['CurrUser'])) {
+                    echo '<a class="text-whiteKleur" href="#">';
+                    $user = new user(getUserById($_COOKIE['CurrUser']));
+                    echo $user->getUsername();
+                    echo '</a>';
+
+                    if (!checkCustomer($user->getKlasse())) {
+                        echo '<a class="text-whiteKleur" href="../config/admin.php">Beheer</a>';
+                    }
+                } else {
+                    echo '<a href="login.php" class="text-whiteKleur">Inloggen</a>';
+                }
+
+                if (isset($_COOKIE['CurrUser'])) {
+                    echo '<a href="logout.php" class="text-whiteKleur">uitloggen</a>';
+                }
+            ?>
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="h-screen absolute top-0 z-[-1]">
