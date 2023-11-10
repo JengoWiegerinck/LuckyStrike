@@ -73,12 +73,17 @@
               ?>
               </div>
 
-              <div class="md:col-span-1">
+              <!-- <div class="md:col-span-1">
                 <label for="stopTime">Stoptijd</label>
                 <input type="time" name="stopTime" id="stopTime" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
-              </div>
+              </div> -->
 
-              
+              <div class="md:col-span-5">
+                <div class="inline-flex items-center">
+                  <input type="checkbox" name="hulpmiddelen" id="hulpmiddelen" class="form-checkbox" />
+                  <label for="hulpmiddelen" class="ml-2">Ik wil graag 2 uur bowlen</label>
+                </div>
+              </div>
 
               <div class="md:col-span-5">
                 <div class="inline-flex items-center">
