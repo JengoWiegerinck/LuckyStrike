@@ -39,4 +39,14 @@ function checkCustomer($customer)
     }
     return $customerBool;
 }
+
+function gates($gatesBool)
+{
+    $gates = false;
+    if ($gatesBool == 1) 
+    {
+        $gates = true;
+    }
+    return $gates;
+}
 ?>
