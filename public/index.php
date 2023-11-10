@@ -33,7 +33,7 @@
         <div class="container mx-auto text-center">
             <h2 class="text-3xl font-semibold text-gray-800">Welkom bij Lucky Strike Bowling!</h2>
             <p class="text-gray-600 mt-4">Ervaar de opwinding van het omverwerpen van kegels en geniet van een geweldige tijd met vrienden en familie.</p>
-            <a href="#" class="inline-block mt-8 px-6 py-3 bg-yellowKleur text-whiteKleur font-bold rounded">Maak een reservering</a>
+            <a href="reservation.php" class="inline-block mt-8 px-6 py-3 bg-yellowKleur text-whiteKleur font-bold rounded">Maak een reservering</a>
         </div>
     </section>
 
