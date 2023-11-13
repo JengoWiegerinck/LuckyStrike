@@ -29,7 +29,7 @@ function getLaneByName($laneName)
     if ($lane->num_rows > 0) {
         return $lane;
     } else {
-        return "Geen activiteit gevonden";
+        return "Geen baan gevonden";
     }
 }
 function insertLane($name, $gates)
