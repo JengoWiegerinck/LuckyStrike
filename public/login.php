@@ -40,7 +40,7 @@ if(isset($_POST['submit']))
 </head>
 
 <body>
-    <div class="flex items-center justify-between min-w-[100vw] px-[10%] py-20">
+    <div class="flex items-center justify-between px-[10%] py-20">
         <div class="w-1/2">
             <h1 class="text-[40px] font-bold text-blackKleur">Welkom bij Lucky Strike, <br>log in met je gegevens.</h1>
             <p class="text-[20px] font-medium text-blackKleur mt-4">Nog geen account? <a href="signUp.php" class="text-yellowKleur">Registreer hier</a>.</p>
