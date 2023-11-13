@@ -30,7 +30,7 @@
 </div>
 
     <!-- Footer Bottom Section -->
-    <div class="bg-blackKleur">
+    <div id="website-footer" class="bg-blackKleur">
         <div class="container mx-auto text-whiteKleur flex justify-between max-w-screen-xl font-light py-4">
             <div>&copy; CodeRoLuJengstars 2023</div>
             <div>Software Squad</div>

@@ -15,14 +15,16 @@
 <div class="container flex justify-center max-w-screen-xl w-1/2">
         
         <!-- Left Section with Home and Contact -->
-        <div class="flex items-center space-x-8">
-            <a href="../public/index.php" class="text-whiteKleur">Home</a>
-            <a href="#" class="text-whiteKleur">Contact</a>
-            <?php
-                if (isset($_COOKIE['CurrUser'])) {
-                    echo '<a class="text-whiteKleur" href="../public/reservation.php">Reservering';
-                    echo '</a>'; } ?>
-        </div>
+<div class="flex items-center space-x-8">
+    <a href="../public/index.php" class="text-whiteKleur">Home</a>
+    <a href="#" class="text-whiteKleur" onclick="scrollToFooter()">Contact</a>
+    <?php
+    if (isset($_COOKIE['CurrUser'])) {
+        echo '<a class="text-whiteKleur" href="../public/reservation.php">Reservering';
+        echo '</a>';
+    }
+    ?>
+</div>
 
     </div>
 
@@ -70,3 +72,13 @@
         <img src="../assets/img/bodyBackground.jpg" alt="Gradient Image" class="w-full h-full object-cover object-center opacity-20">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-whiteKleur opacity-100"></div>
     </div>
+
+    <!-- JavaScript to handle scrolling -->
+<script>
+    function scrollToFooter() {
+        // Scroll to the footer
+        document.getElementById('website-footer').scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+</script>
