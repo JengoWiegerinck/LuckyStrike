@@ -49,4 +49,27 @@ function gates($gatesBool)
     }
     return $gates;
 }
+
+function formateDate($date)
+    {
+        return date("d-m-Y H:i", strtotime($date));
+    }
+
+    function formateDatum($date)
+    {
+        return date("Y-m-d", strtotime($date));
+    }
+
+    function formateTime($date)
+    {
+        return date("H:i", strtotime($date));
+    }
+    function formateDateTime($date, $time)
+    {
+        $newDate = date("Y-m-d", strtotime($date));
+        $newTime = date("H:i", strtotime($time));
+        $dateTime = $newDate . ' ' . $newTime;
+        return $dateTime;
+    }
+
 ?>
