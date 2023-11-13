@@ -13,14 +13,13 @@ if (isset($_COOKIE['CurrUser'])) {
         {
             if ($_GET['type'] == 'lane')
             {
-                deleteFood($_GET['id']);
+                deleteLane($_GET['id']);
             }
         }
     
 ?>
 
 <link rel="stylesheet" href="../../Css/admin.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
 <link href="//cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Open+Sans:wght@500;600;800&family=Rubik:wght@500&display=swap" rel="stylesheet">
@@ -38,9 +37,9 @@ if (isset($_COOKIE['CurrUser'])) {
             <tbody>
                 <?php $lanes = getAllLane();
                 while ($lane = $lanes->fetch_assoc()) {?>
-                <tr>
-                    <td><?php echo $lane['username']?></td>
-                    <td><?php if(gates($lane['gates']))
+                <tr class="odd:bg-blackKleur/20">
+                    <td class="border border-blackKleur/30"><?php echo $lane['username']?></td>
+                    <td class="border border-blackKleur/30"><?php if(gates($lane['gates']))
                     { 
                         echo "&#10003;";
                     }else
@@ -49,7 +48,7 @@ if (isset($_COOKIE['CurrUser'])) {
                     }?></td>
 
 
-                    <td>
+                    <td class="border border-blackKleur/30">
                         <button class="functionBtn btnEdit" title="Aanpassen" id="<?php echo $lane['id'] ?>"><i class="bi bi-pencil-square"></i></button>
                         <button class="functionBtn btnDelete" title="Verwijderen" id="<?php echo $lane['id'] ?>"><i class="bi bi-trash"></i></button>
                     </td>

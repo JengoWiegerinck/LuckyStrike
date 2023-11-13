@@ -5,6 +5,8 @@
     $pageTitle = 'Lucky Strike';
 ?>
 
+
+
 <body class="bg-whiteKleur">
 
 <div class="h-1/5 w-full relative">
@@ -70,3 +72,4 @@
         <img src="../assets/img/bodyBackground.jpg" alt="Gradient Image" class="w-full h-full object-cover object-center opacity-20">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-whiteKleur opacity-100"></div>
     </div>
+</body>
