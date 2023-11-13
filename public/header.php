@@ -16,12 +16,11 @@
         
         <!-- Left Section with Home and Contact -->
 <div class="flex items-center space-x-8">
-    <a href="../public/index.php" class="text-whiteKleur">Home</a>
-    <a href="#" class="text-whiteKleur" onclick="scrollToFooter()">Contact</a>
+    <a href="../public/index.php" class="text-whiteKleur hidden md:inline">Home</a>
+    <a href="#" class="text-whiteKleur hidden md:inline" onclick="scrollToFooter()">Contact</a>
     <?php
     if (isset($_COOKIE['CurrUser'])) {
-        echo '<a class="text-whiteKleur" href="../public/reservation.php">Reservering';
-        echo '</a>';
+        echo '<a class="text-whiteKleur hidden md:inline" href="../public/reservation.php">Reservering</a>';
     }
     ?>
 </div>
@@ -45,7 +44,6 @@
 
         <!-- Right Section with Over Ons and Inloggen -->
         <div class="flex items-center space-x-8">
-            <a href="#" class="text-whiteKleur">Over ons</a>
             <?php
                 if (isset($_COOKIE['CurrUser'])) {
                     echo '<a class="text-whiteKleur" href="#">';
