@@ -9,7 +9,7 @@ if (isset($_COOKIE['CurrUser'])) {
             $name = $_POST['name'];
             $prijs = $_POST['price'];
 
-            $insertId = insertFood($name, $prijs);
+            $insertId = insertHoreca($name, $prijs);
 
             if ($insertId > 0) {
                 header('location: horeca.php');

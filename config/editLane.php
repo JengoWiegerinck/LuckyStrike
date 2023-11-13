@@ -28,7 +28,7 @@ if (isset($_COOKIE['CurrUser'])) {
         <body>
             <div class="flex justify-center w-[100vw] items-center">
                 <div class="bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
-                <h1 class="text-[40px] font-bold text-center pt-6">Toevoegen</h1>
+                <h1 class="text-[40px] font-bold text-center pt-6">Updaten</h1>
     
                 <div class="grid justify-items-center">
                     <form method="POST" action="">

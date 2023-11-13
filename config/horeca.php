@@ -13,14 +13,13 @@ if (isset($_COOKIE['CurrUser'])) {
         {
             if ($_GET['type'] == 'food')
             {
-                deleteFood($_GET['id']);
+                deleteHoreca($_GET['id']);
             }
         }
     
 ?>
 
 <link rel="stylesheet" href="../../Css/admin.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
 <link href="//cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Open+Sans:wght@500;600;800&family=Rubik:wght@500&display=swap" rel="stylesheet">
@@ -36,13 +35,13 @@ if (isset($_COOKIE['CurrUser'])) {
                 </tr>
             </thead>
             <tbody>
-                <?php $foods = getAllFood();
+                <?php $foods = getAllHoreca();
                 while ($food = $foods->fetch_assoc()) {?>
-                <tr>
-                    <td><?php echo $food['name']?></td>
-                    <td><?php echo "€" . number_format((float)$food['price'], 2, '.', '')?></td>
+                <tr class="odd:bg-blackKleur/20">
+                    <td class="border border-blackKleur/30"><?php echo $food['name']?></td>
+                    <td class="border border-blackKleur/30"><?php echo "€" . number_format((float)$food['price'], 2, '.', '')?></td>
 
-                    <td>
+                    <td class="border border-blackKleur/30">
                         <!-- <button class="functionBtn btnEdit" title="Aanpassen" id="<?php echo $food['id'] ?>"><i class="bi bi-pencil-square"></i></button> -->
                         <button class="functionBtn btnDelete" title="Verwijderen" id="<?php echo $food['id'] ?>"><i class="bi bi-trash"></i></button>
                     </td>

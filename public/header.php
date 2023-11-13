@@ -5,6 +5,8 @@
     $pageTitle = 'Lucky Strike';
 ?>
 
+
+
 <body class="bg-whiteKleur">
 
 <div class="h-1/5 w-full relative">
@@ -80,3 +82,6 @@
         });
     }
 </script>
+
+</body>
+

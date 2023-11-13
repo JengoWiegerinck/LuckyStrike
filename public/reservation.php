@@ -43,7 +43,6 @@ if (isset($_COOKIE['CurrUser'])) {
               {
               ?>
               <datalist id="times">
-                  <option value="01:00:00">
                   <option value="14:00:00">
                   <option value="15:00:00">
                   <option value="16:00:00">
