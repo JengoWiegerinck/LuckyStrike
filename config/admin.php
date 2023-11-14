@@ -16,16 +16,16 @@ if (checkAdmin($user->getKlasse()))
 {
     ?>
         
-        <div class="h-56 grid gap-4 grid-cols-3 content-center">
+        <div class="h-[60%] md:h-[50%] grid gap-4 grid-cols-1 py-20 md:grid-cols-2 content-center justify-items-center">
 
-            <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="horeca"onclick="window.location.href='horeca.php';"/>
-            <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="medewerker account"  onclick="window.location.href='employee.php';"/>
+            <input class="h-10 w-3/4 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="horeca"onclick="window.location.href='horeca.php';"/>
+            <input class="h-10 w-3/4 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="medewerker account"  onclick="window.location.href='employee.php';"/>
 
-            <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="klanten account" onclick="window.location.href='customer.php';"/>
+            <input class="h-10 w-3/4 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="klanten account" onclick="window.location.href='customer.php';"/>
             
-            <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="reserveringen" onclick="window.location.href='reservations.php';"/>
+            <input class="h-10 w-3/4 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="reserveringen" onclick="window.location.href='reservations.php';"/>
 
-            <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="banen" onclick="window.location.href='lane.php';"/>
+            <input class="h-10 w-3/4 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="banen" onclick="window.location.href='lane.php';"/>
                     
         </div>
         <?php
