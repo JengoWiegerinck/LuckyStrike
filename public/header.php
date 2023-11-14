@@ -48,7 +48,7 @@
         <div class="flex items-center space-x-8">
             <?php
                 if (isset($_COOKIE['CurrUser'])) {
-                    echo '<a class="text-whiteKleur" href="#">';
+                    echo '<a class="text-whiteKleur" href="../public/detail.php">';
                     $user = new user(getUserById($_COOKIE['CurrUser']));
                     echo $user->getUsername();
                     echo '</a>';
