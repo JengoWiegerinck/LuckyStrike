@@ -72,4 +72,26 @@ function formateDate($date)
         return $dateTime;
     }
 
+    function participants($adult, $child){
+        return $adult + $child;
+    }
+
+    function totalPrice($lanePrice, $foodPrice)
+    {
+        return $lanePrice + $foodPrice;
+    }
+
+    function check24Hours($date)
+    {
+        $newDate = date('Y-m-d', strtotime('+1 days'));
+        if($date >= $newDate)
+        {
+            return true;
+        }else{
+            return false;
+        }
+  
+        
+    }
+
 ?>
