@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Start output buffering
 include '../public/header.php';
 require_once '../source/db_lane.php';
 require_once '../source/useful_functions.php';
@@ -65,4 +66,5 @@ if (isset($_COOKIE['CurrUser'])) {
     }
     include '../public/footer.php';
 }
+ob_end_flush(); // Flush the output buffer
 ?>
