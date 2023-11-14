@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Start output buffering
 include '../public/header.php';
 require_once("../source/useful_functions.php");
 require_once("../source/db_user.php");
@@ -27,6 +28,13 @@ if (isset($_COOKIE['CurrUser'])) {
             $date = $_POST['date'];
             $startTime = $_POST['starttime'];
             $endTime = $_POST['stoptime'];
+
+            if(formateTime($startTime) > formateTime($endTime)){
+                echo '<script>alert("Start tijd is na de eind tijd.")</script>';
+                header('Location: reservations.php');
+            }else{
+
+            
             
             $laneId = new laneClass(getLaneByName($laneName));
             
@@ -37,6 +45,7 @@ if (isset($_COOKIE['CurrUser'])) {
             $updated = updateReservation($customerId, $laneId->getId(), $priceBaan, $priceFood, $child, $adult, $start, $end, $id);
 
             header('Location: reservations.php');
+            }
         }    
         
 ?>
@@ -189,4 +198,5 @@ if (isset($_COOKIE['CurrUser'])) {
     }
     include '../public/footer.php';
 }
+ob_end_flush(); // Flush the output buffer
 ?>

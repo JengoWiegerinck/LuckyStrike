@@ -53,4 +53,10 @@ function checkEmail($email)
     return "No user found!";
 }
 
+function updatePassword($password, $id)
+{
+    $result = db_doQuery("UPDATE user SET user.password = '$password' WHERE user.id = '$id'");
+    return $result;
+}
+
 ?>
