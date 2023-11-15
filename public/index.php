@@ -1,8 +1,8 @@
-<?php include 'header.php'; ?>
+<?php require_once 'header.php'; ?>
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-<div class="font-sans w-full py-20 min-h-[100vh]">
+<div class="font-sans w-full pb-20 md:py-20 min-h-[100vh]">
 
 <!-- Main Section on the Left -->
 <section class="grid grid-cols-1 md:grid-cols-2 gap-8 p-4">
@@ -46,7 +46,7 @@
 
     
 </div>
-<?php include 'footer.php'; ?>
+<?php require_once 'footer.php'; ?>
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

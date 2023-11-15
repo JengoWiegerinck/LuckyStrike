@@ -1,5 +1,6 @@
 <?php
-ob_start();
+ob_start(); // Start output buffering
+
 require_once "header.php";
 require_once "../source/db_user.php";
 
@@ -17,6 +18,7 @@ if(isset($_POST['submit']))
     {
         setcookie("CurrUser", (new user($user))->getId(), time() + 3600, "/", "");
         header('location: index.php');
+        exit(); // Make sure to exit after calling header
     }
 }
 ?>
@@ -62,9 +64,12 @@ if(isset($_POST['submit']))
 
     <img src="../assets/img/luckystrike.png" alt="image" class="rounded-md w-0 md:w-[40%] mt-8 md:mt-0 md:ml-8">
 </div>
+</body>
 </html>
 
 <?php
+ob_end_flush(); // Flush the output buffer
 require_once "footer.php";
-ob_end_flush();
+
 ?>
+
