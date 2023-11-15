@@ -28,9 +28,10 @@ if (isset($_COOKIE['CurrUser'])) {
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Open+Sans:wght@500;600;800&family=Rubik:wght@500&display=swap" rel="stylesheet">
 <body>
-    <div class="px-8 ">
-        <h1 class="bold text-center">Reservations</h1>
-        <table id="reservationTable" class="table-fixed border-collapse">
+    <div class="px-8 py-10 md:py-20">
+        <h1 class="bold text-center text-4xl text-blackKleur mb-8">Reserveringen</h1>
+        <div class="mb-4 overflow-x-auto">
+        <table id="reservationTable" class="min-w-full bg-white border border-gray-300">
             <thead>
                 <tr>
                     <th>Klant</th>
@@ -69,6 +70,7 @@ if (isset($_COOKIE['CurrUser'])) {
                 <?php }?>
             </tbody>
         </table>
+        </div>
 
         <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="Terug"  onclick="window.location.href='admin.php';"/>
     </div>
