@@ -97,7 +97,7 @@ if (isset($_COOKIE['CurrUser'])) {
     ?>
     <?php
 if (isset($_COOKIE['CurrUser'])) {
-                    echo '<a href="detail.php" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profiel</a>';
+                    echo '<a href="../public/detail.php" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profiel</a>';
                 }
     ?>
     
@@ -117,7 +117,7 @@ if (isset($_COOKIE['CurrUser'])) {
     </div>';
  } else {
     echo '<div class="py-2">
-        <a href="login.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Inloggen</a>
+        <a href="../public/login.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Inloggen</a>
     </div>';
     //reserveren
     echo '<div class="py-2">

@@ -9,6 +9,7 @@ class reservationsClass {
     private $children;
     private $startTime;
     private $endTime;
+    private $extraLane;
 
     function __construct($sqlResult = null)
     {
@@ -25,6 +26,7 @@ class reservationsClass {
                 $this->adult = $activityArr[6];
                 $this->priceFood = $activityArr[7];
                 $this->children = $activityArr[8];
+                $this->extraLane = $activityArr[9];
             } else {
                 return $this;
             }
@@ -35,7 +37,7 @@ class reservationsClass {
         }
     }
 
-    function setActivity($id, $userId, $laneName, $priceLane, $priceFood, $adult, $children, $startTime, $endTime) 
+    function setReservation($id, $userId, $laneName, $priceLane, $priceFood, $adult, $children, $startTime, $endTime, $extraLane) 
     {
         try {
             $this->id = $id;
@@ -47,6 +49,7 @@ class reservationsClass {
             $this->children = $children;
             $this->startTime = $startTime;
             $this->endTime = $endTime;
+            $this->extraLane = $extraLane;
             return $this;
         } catch (\Throwable $th) {
             //throw $th;
@@ -94,6 +97,10 @@ class reservationsClass {
     }
     
     public function getEndTime()
+    {
+        return $this->endTime;
+    }
+    public function getExtraLane()
     {
         return $this->endTime;
     }

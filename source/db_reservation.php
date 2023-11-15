@@ -8,6 +8,40 @@ function getAllReservation()
     return db_getData("SELECT * FROM reservation");
 }
 
+function getAllReservationAsClass() 
+{
+    //should give back an array with all activities as classes  edit: doesn't work
+    $reservationSql = getAllReservation();
+    $reservationArr = [];
+    while ($reservation = $reservationSql->fetch_assoc()) {
+        $emtyReservations = new reservationsClass();
+
+        $addReservation = $emtyReservations->setReservation(
+            $reservation['id'], 
+            $reservation['userId'],
+            $reservation['laneId'],
+            $reservation['priceLane'],
+            $reservation['priceFood'],
+            $reservation['adult'],
+            $reservation['children'],
+            $reservation['startTime'],
+            $reservation['endTime'],
+            $reservation['extraLane']);
+        array_push($reservationArr, $addReservation);
+    }
+    return $reservationArr;
+}
+
+function laneDateCheck($laneId, $startTime)
+{
+    $result = db_getData("SELECT * FROM reservation WHERE laneId = '$laneId' AND startTime = '$startTime' OR '2024-07-06 19:00:00.00' BETWEEN startTime AND endTime");
+    if ($result->num_rows > 0){
+        return false;
+    }
+    return true;
+    
+}
+
 function getReservationById($id)
 {
     $result = db_getData("SELECT * FROM reservation WHERE id = '$id'");

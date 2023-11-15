@@ -72,11 +72,11 @@ if (isset($_COOKIE['CurrUser'])) {
                         </div>
                         <div class="w-full my-4">
                             <p class="font-bold">Prijs baan:</p>
-                            <input type="number" name="priceLane" id="price" class="py-2 px-4 rounded-sm border" value="<?php echo $reservation->getPriceLane()?>" required />
+                            <input type="number" name="priceLane" id="price" class="py-2 px-4 rounded-sm border" value="<?php echo $reservation->getPriceLane()?>" readonly />
                         </div>
                         <div class="w-full my-4">
                             <p class="font-bold">Prijs eten:</p>
-                            <input type="number" name="priceFood" id="price" class="py-2 px-4 rounded-sm border" value="<?php echo $reservation->getPriceFood()?>" required />
+                            <input type="number" name="priceFood" id="price" class="py-2 px-4 rounded-sm border" value="<?php echo $reservation->getPriceFood()?>" readonly />
                         </div>
                         <div class="w-full my-4">
                             <p class="font-bold">Volwassene:</p>
