@@ -22,7 +22,7 @@ if (isset($_COOKIE['CurrUser'])) {
 ?>
 
 <head>
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
     <div class="grid grid-cols-1 md:grid-cols-2">
@@ -60,18 +60,18 @@ if (isset($_COOKIE['CurrUser'])) {
                 </tr>
               </thead>
               <tbody>
-              <?php $reservations = getReservationById($user->getId());
+              <?php $reservations = getAllReservationFromUser($user->getId());
 
                 while ($reservation = $reservations->fetch_assoc()) { ?>
                 <tr>
                   <td class="p-4 text-center"><?php echo formateDate($reservation['startTime'])?></td>
                   <td class="p-4 text-center">&#8364;<?php echo totalPrice($reservation['price'], $reservation['extraPrice']);?></td>
                   <td class="p-4 text-center"><?php echo participants($reservation['adult'], $reservation['children'])?></td>
-                  <td class="p-4 text-center">
+                  <td class="p-4 text-center" id="edit">
                     <?php
                     if(check24Hours($reservation['startTime']))
                     { ?>
-                    <a href="#"><i class='fas fa-edit'></i></a>
+                    <a class="btnEdit" id="<?php echo $reservation['id'] ?>"><i class='fas fa-edit'></i></a>
                         <?php
                     }else{ ?>
                     <p>bellen voor verandering</p>
@@ -88,6 +88,12 @@ if (isset($_COOKIE['CurrUser'])) {
             </table>
         </div>
     </div>
+    <script>
+        $('#edit').on('click', '.btnEdit', function() {
+            var id = $(this).attr('id');
+            window.location.href = `editDetailReservations.php?id=${id}`;
+        })
+    </script>
 </body>
 
 <?php 

@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once "header.php";
 require_once "../source/db_user.php";
 
@@ -65,4 +66,5 @@ if(isset($_POST['submit']))
 
 <?php
 require_once "footer.php";
+ob_end_flush();
 ?>
