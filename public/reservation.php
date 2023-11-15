@@ -40,12 +40,12 @@ if (isset($_COOKIE['CurrUser'])) {
             <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
               <div class="md:col-span-5">
                 <label for="username">Gebruikersnaam</label>
-                <input type="text" name="username" id="username" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo $user->getUsername(); ?>"/>
+                <input type="text" name="username" id="username" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 readonly-input" value="<?php echo $user->getUsername(); ?>" readonly />
               </div>
 
               <div class="md:col-span-5">
                 <label for="email">Emailadres</label>
-                <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo $user->getEmail(); ?>"/>
+                <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 readonly-input" value="<?php echo $user->getEmail(); ?>" readonly />
               </div>
 
               <div class="md:col-span-3">
@@ -167,3 +167,14 @@ if (isset($_COOKIE['CurrUser'])) {
   header('location: login.php');
 }
 include 'footer.php'; ?>
+
+<style>
+  /* Add this to your CSS file or style section */
+.readonly-input {
+  background-color: #f0f0f0; /* Light gray background */
+  border: 1px solid #ccc;   /* Light border */
+  opacity: 0.7;             /* Reduced opacity */
+  cursor: not-allowed;      /* Change cursor to indicate not editable */
+}
+
+</style>

@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Start output buffering
 require_once "header.php";
 require_once "../source/db_user.php";
 
@@ -13,12 +14,17 @@ if(isset($_POST['submit'])){
             $insertedId = insertCustomer($username, $email, $password);
         }else{
             echo '<script>alert("Er is al een account voor dit email")</script>';
+            // go back to register page
+            echo '<script>';
+                                echo 'window.location.href = "./signUp.php";';
+                            echo '</script>';
+
         }
         
 
     if ($insertedId > 0) {
         setcookie("CurrUser", $insertedId, time() + 3600, "/", "");
-        header('location: ../index.php');
+        header('location: ./index.php');
         exit();
     }
 }
@@ -58,6 +64,7 @@ if(isset($_POST['submit'])){
 </html>
 
 <?php
+ob_end_flush(); // Flush the output buffer
 require_once "footer.php";
 
 ?>
