@@ -39,4 +39,59 @@ function checkCustomer($customer)
     }
     return $customerBool;
 }
+
+function gates($gatesBool)
+{
+    $gates = false;
+    if ($gatesBool == 1) 
+    {
+        $gates = true;
+    }
+    return $gates;
+}
+
+function formateDate($date)
+    {
+        return date("d-m-Y H:i", strtotime($date));
+    }
+
+    function formateDatum($date)
+    {
+        return date("Y-m-d", strtotime($date));
+    }
+
+    function formateTime($date)
+    {
+        return date("H:i", strtotime($date));
+    }
+    function formateDateTime($date, $time)
+    {
+        $newDate = date("Y-m-d", strtotime($date));
+        $newTime = date("H:i", strtotime($time));
+        $dateTime = $newDate . ' ' . $newTime;
+        return $dateTime;
+    }
+
+    function participants($adult, $child){
+        return $adult + $child;
+    }
+
+    function totalPrice($lanePrice, $foodPrice)
+    {
+        return $lanePrice + $foodPrice;
+    }
+
+    function check24Hours($date)
+    {
+        $newDate = date('Y-m-d', strtotime('+1 days'));
+        if($date >= $newDate)
+        {
+            return true;
+        }else{
+            return false;
+        }
+  
+        
+    }
+
 ?>

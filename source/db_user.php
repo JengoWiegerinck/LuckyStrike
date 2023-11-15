@@ -10,20 +10,39 @@ function getUser($email, $password){
     return "No user found!";
 
 }
-
-
-function insertUser($username, $email, $password){
-
-    $result = db_insertData("INSERT INTO user (username, email, password, role) VALUES ('$username', '$email', '$password', 0)");
-    return $result;
-}
-
 function getUserById($id)
 {
     $result = db_getData("SELECT * FROM user WHERE id = '$id'");
     return $result;
 }
+function getAllUser(){
+    return db_getData("SELECT * FROM user");
+}
 
+function getAllEmployee(){
+    return db_getData("SELECT * FROM user WHERE role = 1");
+}
+
+function getAllCustomer(){
+    return db_getData("SELECT * FROM user WHERE role = 0");
+}
+
+function insertCustomer($username, $email, $password){
+
+    $result = db_insertData("INSERT INTO user (username, email, password, role) VALUES ('$username', '$email', '$password', 0)");
+    return $result;
+}
+
+function insertEmployee($username, $email, $password){
+
+    $result = db_insertData("INSERT INTO user (username, email, password, role) VALUES ('$username', '$email', '$password', 1)");
+    return $result;
+}
+function deleteUser($id){
+
+    $result = db_doQuery("DELETE FROM `user` WHERE id = '$id'");
+    return $result;
+}
 
 function checkEmail($email)
 {
@@ -32,6 +51,12 @@ function checkEmail($email)
         return $user;
     }
     return "No user found!";
+}
+
+function updatePassword($password, $id)
+{
+    $result = db_doQuery("UPDATE user SET user.password = '$password' WHERE user.id = '$id'");
+    return $result;
 }
 
 ?>
