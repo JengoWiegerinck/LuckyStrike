@@ -28,6 +28,7 @@ if (checkAdmin($user->getKlasse()))
 
             <input class="h-10 w-3/4 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="banen" onclick="window.location.href='lane.php';"/>
                     
+            <input class="h-10 w-3/4 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="banen reserveren" onclick="window.location.href='laneReservation.php';"/>
         </div>
         <?php
 }

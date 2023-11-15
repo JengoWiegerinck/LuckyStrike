@@ -54,6 +54,10 @@ function formateDate($date)
     {
         return date("d-m-Y H:i", strtotime($date));
     }
+    function formateDatumNl($date)
+    {
+        return date("d-m-Y", strtotime($date));
+    }
 
     function formateDatum($date)
     {
@@ -70,6 +74,13 @@ function formateDate($date)
         $newTime = date("H:i", strtotime($time));
         $dateTime = $newDate . ' ' . $newTime;
         return $dateTime;
+    }
+    function isWeekend($date) {
+        $date = strtotime($date);
+        $dayOfWeek = date("l", $date);
+        $dayOfWeek = strtolower($dayOfWeek);
+        
+        return ($dayOfWeek == "friday" || $dayOfWeek == "saturday" || $dayOfWeek == "sunday");
     }
 
     function participants($adult, $child){
