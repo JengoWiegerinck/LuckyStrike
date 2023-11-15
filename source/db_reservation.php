@@ -34,11 +34,16 @@ function getAllReservationAsClass()
 
 function laneDateCheck($laneId, $startTime)
 {
-    $result = db_getData("SELECT * FROM reservation WHERE laneId = '$laneId' AND startTime = '$startTime' OR '2024-07-06 19:00:00.00' BETWEEN startTime AND endTime");
+    $result = db_getData("SELECT * FROM reservation 
+    WHERE laneId = '$laneId' 
+       AND ('$startTime' >= startTime AND '$startTime' < endTime);");
+    // print_r("SELECT * FROM reservation 
+    // WHERE laneId = '$laneId' 
+    // AND ('$startTime' >= startTime AND '$startTime' < endTime);");
     if ($result->num_rows > 0){
-        return false;
+        return true;
     }
-    return true;
+    return false;
     
 }
 
