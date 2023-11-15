@@ -1,5 +1,6 @@
 <?php
 ob_start(); // Start output buffering
+
 require_once "header.php";
 require_once "../source/db_user.php";
 
@@ -69,4 +70,6 @@ if(isset($_POST['submit']))
 <?php
 ob_end_flush(); // Flush the output buffer
 require_once "footer.php";
+
 ?>
+

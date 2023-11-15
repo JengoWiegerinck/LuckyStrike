@@ -10,11 +10,9 @@ require_once("../source/reservationsClass.php");
 
 if (isset($_COOKIE['CurrUser'])) {
     $user = new user(getUserById($_COOKIE['CurrUser']));
-    if (checkAdmin($user->getKlasse()) || checkEmployee($user->getKlasse())) {
         if (isset($_GET['id']))
         {
              $reservation = new reservationsClass(getReservationById($_GET['id']));
-             $user = new user(getUserById($reservation->getUserId()));
              $laneName = new laneClass(getLaneById($reservation->getLaneName()));
         if (isset($_POST['updaten'])){
             
@@ -44,7 +42,6 @@ if (isset($_COOKIE['CurrUser'])) {
 
             $updated = updateReservation($customerId, $laneId->getId(), $priceBaan, $priceFood, $child, $adult, $start, $end, $id);
 
-            header('Location: reservations.php');
             }
         }    
         
@@ -64,20 +61,14 @@ if (isset($_COOKIE['CurrUser'])) {
                             <input type="text" name="username" class="py-2 px-4 rounded-sm border" value="<?php echo $user->getEmail()?>" readonly />
                         </div>
                         <div class="w-full my-4">
-                            <p class="font-bold">Baan:</p>
-                            <select name="baan" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
-                                <?php $lanes = getAllLane();
-
-                                while ($lane = $lanes->fetch_assoc()) {
-                                    print_r($lane['username']);
-                                    if($lane['username'] == $laneName->getUsername())
-                                    {
-                                        echo "<option value=". $lane['username'] . " selected>". $lane['username'] . "</option>";
-                                    }else {
-                                        echo "<option value=". $lane['username'] . ">". $lane['username'] . "</option>";
-                                    }
-                                    } ?>
-                            </select>
+                            <p class="font-bold">hulpmiddel</p>
+                            <input type="checkbox" name="gates" class="py-2 px-4 rounded-sm border" 
+                            <?php 
+                            if($laneName->getGates()) 
+                            {
+                                ?> checked <?php
+                            }
+                            ?>/>
                         </div>
                         <div class="w-full my-4">
                             <p class="font-bold">Prijs baan:</p>
@@ -191,9 +182,6 @@ if (isset($_COOKIE['CurrUser'])) {
         </body>
 <?php
         }  
-    } else {
-        header('location: ../public/index.php');
-    }
     include '../public/footer.php';
 }
 ob_end_flush(); // Flush the output buffer

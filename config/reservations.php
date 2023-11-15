@@ -15,6 +15,7 @@ if (isset($_COOKIE['CurrUser'])) {
         {
             if ($_GET['type'] == 'reservations')
             {
+                print_r($_GET['id']);
                 deleteReservation($_GET['id']);
             }
         }
@@ -57,7 +58,7 @@ if (isset($_COOKIE['CurrUser'])) {
                     <td class="border border-blackKleur/30"><?php echo $reservation['adult']?></td>
                     <td class="border border-blackKleur/30"><?php echo $reservation['children']?></td>
                     <td class="border border-blackKleur/30"><?php echo formateDate($reservation['startTime'])?></td>
-                    <td class="border border-blackKleur/30"><?php echo formateDate($reservation['stopTime'])?></td>
+                    <td class="border border-blackKleur/30"><?php echo formateDate($reservation['endTime'])?></td>
 
 
                     <td class="border border-blackKleur/30">
@@ -89,8 +90,8 @@ if (isset($_COOKIE['CurrUser'])) {
                 {"data": "adult"},
                 {"data": "children"},
                 {"data": "starttime"},
-                {"data": "stoptime"},
-                {"data": "function"}
+                {"data": "endTime"},
+                {"data": "function"},
             ]
         });
 

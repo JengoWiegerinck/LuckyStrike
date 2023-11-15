@@ -3,6 +3,24 @@
 if (isset($_COOKIE['CurrUser'])) {
   $user = new user(getUserById($_COOKIE['CurrUser']));
 ?>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+         $(document).ready(function () {
+                $('#appt-time').onclick(function () {
+                    var selectedOption = $(this).val();
+                    var lastOption = $('#times option:last-child').val();
+                    if (selectedOption === lastOption) {
+                        $('#hulpmiddelen').hide();
+                    } else {
+                        $('#hulpmiddelen').show();
+                    }
+                });
+            });
+    </script>
+</head>
+
+<body>
     <div class="py-20 px-[10%] ">
 
         <!-- component -->
@@ -51,7 +69,6 @@ if (isset($_COOKIE['CurrUser'])) {
                   <option value="19:00:00">
                   <option value="20:00:00">
                   <option value="21:00:00">
-                  <option value="22:00:00">
               </datalist>
               <?php
               }
@@ -69,18 +86,11 @@ if (isset($_COOKIE['CurrUser'])) {
                   <option value="21:00:00">
                   <option value="22:00:00">
                   <option value="23:00:00">
-                  <option value="00:00:00">
               </datalist>
                 <?php
               }
               ?>
               </div>
-
-              <!-- <div class="md:col-span-1">
-                <label for="stopTime">Stoptijd</label>
-                <input type="time" name="stopTime" id="stopTime" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
-              </div> -->
-
               <div class="md:col-span-5">
                 <div class="inline-flex items-center">
                   <input type="checkbox" name="hulpmiddelen" id="hulpmiddelen" class="form-checkbox" />
@@ -141,43 +151,13 @@ if (isset($_COOKIE['CurrUser'])) {
       </div>
     </div>
   </div>
-
-
-
-        
-        <!-- <div class="w-1/2 my-8">
-            <form action="POST">
-                <div class="w-full my-4">
-                    <p class="font-bold">Starttijd</p>
-                    <input type="date" class="py-2 px-4 rounded-sm border" placeholder="Starttijd" />
-                </div>
-                <div class="w-full my-4">
-                    <p class="font-bold">Stoptijd</p>
-                    <input type="date" class="py-2 px-4 rounded-sm border" placeholder="Stoptijd" />
-                </div>
-                <div class="w-full my-4">
-                    <p class="font-bold">Deelnemers</p>
-                    <input type="number" class="py-2 px-4 rounded-sm border" placeholder="Deelnemers" />
-                </div>
-                <div class="w-full my-4">
-                    <p class="font-bold">Hulpmiddelen</p>
-                    <input type="number" class="py-2 px-4 rounded-sm border" placeholder="Deelnemers" />
-                </div>
-                <input name="reservation" type="submit" value="Reserveren" class="font-semibold py-2 px-4 bg-red-700" />
-            </form>
-        </div> -->
+  </body>
 
         <?php 
             if(isset($_POST["reservation"])) {
                 $participants = $_POST["participants"];
                 $startTime = $_POST["participants"];
-                $stopTime = $_POST["participants"];
-
-                // $lanes = db_getData(" ");
-
-                // db_insertData("
-                //     INSERT INTO `reservation`(`id`, `userId`, `baanId`, `orderingId`, `price`, `startTime`, `stopTime`, `participants`) VALUES ('','$','','','','','','')
-                // ")
+                $endTime = $_POST["participants"];
             }
         ?>
     </div> 
