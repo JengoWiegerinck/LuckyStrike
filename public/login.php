@@ -16,7 +16,7 @@ if(isset($_POST['submit']))
         echo '<script>alert("Dit is niet de goede combinatie")</script>';
     }else
     {
-        setcookie("CurrUser", (new user($user))->getId(), time() + 3600, "/", "");
+        setcookie("CurrUser", (new user($user))->getId(), time() + (3600 * 8), "/", "");
         header('location: index.php');
         exit(); // Make sure to exit after calling header
     }
