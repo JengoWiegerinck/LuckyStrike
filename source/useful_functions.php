@@ -58,6 +58,18 @@ function formateDate($date)
     {
         return date("d-m-Y", strtotime($date));
     }
+    function formateDateOutDatabase($date)
+    {
+        return date("Y-m-d H:i", strtotime($date));
+    }
+    function formateOnlyHours($date)
+    {
+        return date("H", strtotime($date));
+    }
+    function formateBackToHoureMinute($hours)
+    {
+        return $hours . ":00";
+    }
 
     function formateDatum($date)
     {
@@ -100,9 +112,72 @@ function formateDate($date)
             return true;
         }else{
             return false;
-        }
-  
-        
+        }     
     }
+
+    function isTimeInRange($startTime, $endTime) {
+        $start = DateTime::createFromFormat('H:i', $startTime);
+        $end = DateTime::createFromFormat('H:i', $endTime);
+        
+        $rangeStart = DateTime::createFromFormat('H:i', '18:00');
+        $rangeEnd = DateTime::createFromFormat('H:i', '24:00');
+    
+        $isInRange = ($start >= $rangeStart && $start <= $rangeEnd) || ($end >= $rangeStart && $end <= $rangeEnd);
+    
+        // Calculate the duration in hours and minutes
+        $duration = '';
+        if ($isInRange) {
+            $interval = $start->diff($end);
+            $hours = $interval->format('%h');
+            $minutes = $interval->format('%i');
+            $duration = $hours . ':' . $minutes;
+        }
+    
+        return ['isInRange' => $isInRange, 'duration' => $duration];
+    }
+    function getHourDifference($startTime, $endTime) {
+        $start = DateTime::createFromFormat('H:i', $startTime);
+        $end = DateTime::createFromFormat('H:i', $endTime);
+        
+        if ($start === false || $end === false) {
+            // Geef een foutmelding terug of behandel de fout op een geschikte manier
+            return 'Ongeldige datum/tijd formaat';
+        }
+        // Verschil berekenen in uren
+        $interval = $start->diff($end);
+        $hours = $interval->format('%h');
+    
+        return $hours;
+    }
+
+    function kosten($startTime, $endTime)
+{
+    $prijsNormaal = 24.0;
+    $prijsWeekend = 28.0;
+    $prijsAvond = 33.50;
+
+    $uren = (float) getHourDifference($startTime, $endTime);
+
+    if (isWeekend($startTime))
+    {
+        $result = isTimeInRange($startTime, $endTime);
+        if ($result['isInRange'])
+        {
+            $urenPrijs = (float) $result['duration'];
+            print_r($prijsAvond * $urenPrijs + $uren * $prijsWeekend);
+            return $prijsAvond * $urenPrijs + $uren * $prijsWeekend;
+        }
+        else
+        {
+            print_r($prijsWeekend * $uren);
+            return $prijsWeekend * $uren;
+        }
+    }
+    else
+    {
+        print_r($prijsNormaal * $uren);
+        return $prijsNormaal * $uren;
+    }
+}
 
 ?>

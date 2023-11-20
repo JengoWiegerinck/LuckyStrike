@@ -47,6 +47,22 @@ function laneDateCheck($laneId, $startTime)
     
 }
 
+function timeDay($lane, $datumWithoutTime, $beginTijd)
+{
+    $date = $datumWithoutTime . " " .$beginTijd;
+    $dateEnd = $datumWithoutTime . " 23:00";
+    $result = db_getData("SELECT * FROM reservation 
+    WHERE laneId = '$lane' AND
+       startTime >= '$date' AND
+       startTime <= '$dateEnd' ORDER BY startTime LIMIT 1");
+
+          if($result->num_rows > 0)
+          {
+            return $result;
+          }
+    return false;
+}
+
 function getReservationById($id)
 {
     $result = db_getData("SELECT * FROM reservation WHERE id = '$id'");
