@@ -50,4 +50,12 @@ function updateLane($name, $gates, $id)
     return $result;
 }
 
+function getNumberOfLanes()
+{
+    $query = "SELECT COUNT(*) AS total FROM lane";
+    $result = db_getData($query);
+    $data=mysqli_fetch_assoc($result);
+    return $data['total'];
+}
+
 ?>
