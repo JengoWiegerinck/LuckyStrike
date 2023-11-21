@@ -149,7 +149,7 @@ if (isset($_COOKIE['CurrUser'])) {
 
                   <div class="md:col-span-1">
                     <label for="startTime">Starttijd</label>
-                    <select name="startTime" id="appt-time" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                    <select required name="startTime" id="appt-time" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                       <option default value="">Selecteer</option>
                       <option value="14:00:00">14:00</option>
                       <option value="15:00:00">15:00</option>

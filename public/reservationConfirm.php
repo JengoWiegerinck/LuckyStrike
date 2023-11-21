@@ -62,9 +62,8 @@ if (isset($_COOKIE['CurrUser'])) {
                                         $lanes = getAllLane();
                                         while ($lane = $lanes->fetch_assoc()) {
                                             if ($lane['gates'] == 1) {
-                                                echo "Baan ".$lane['id'] . "<br>";
+                                                echo "Baan " . $lane['id'] . "<br>";
                                             }
-                                            
                                         }
                                         ?>
                                     </p>
@@ -79,7 +78,8 @@ if (isset($_COOKIE['CurrUser'])) {
                                     <p><strong>Volwassenen:</strong> <?php echo $volwassen; ?></p>
                                     <p><strong>Kinderen:</strong> <?php echo $kinderen; ?></p>
 
-                                    <br><hr><br>
+                                    <br>
+                                    <hr><br>
 
                                     <!-- Lane selection form goes here -->
                                     <!-- You can use a dropdown, radio buttons, or any other input method for lane selection -->
@@ -150,14 +150,14 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                                                 ?>
                                                                 <?php if ($bool) { ?>
-                                                                <script>
-                                                                    // make the lane$i unclickable
-                                                                    $("#lane<?php echo $i; ?>").removeClass("lane-header");
+                                                                    <script>
+                                                                        // make the lane$i unclickable
+                                                                        $("#lane<?php echo $i; ?>").removeClass("lane-header");
 
-                                                                    // add a visual indicator that the lane is unavailable by changing the opacity
-                                                                    $(".lane-cell:nth-child(<?php echo $i + 1; ?>)").css("opacity", "0.5");
-                                                                </script>
-                                                            <?php } ?>
+                                                                        // add a visual indicator that the lane is unavailable by changing the opacity
+                                                                        $(".lane-cell:nth-child(<?php echo $i + 1; ?>)").css("opacity", "0.5");
+                                                                    </script>
+                                                                <?php } ?>
                                                             </a>
                                                         </td>
                                                     <?php } ?>
@@ -165,9 +165,19 @@ if (isset($_COOKIE['CurrUser'])) {
                                             <?php } ?>
 
                                         </table>
+                                        <!-- Add hidden input fields for other form data -->
+                                        <input type="hidden" name="username" value="<?php echo htmlspecialchars($username); ?>">
+                                        <input type="hidden" name="email" value="<?php echo htmlspecialchars($email); ?>">
+                                        <input type="hidden" name="date" value="<?php echo htmlspecialchars($date); ?>">
+                                        <input type="hidden" name="startTime" value="<?php echo htmlspecialchars($startTime); ?>">
+                                        <input type="hidden" name="volwassen" value="<?php echo htmlspecialchars($volwassen); ?>">
+                                        <input type="hidden" name="kinderen" value="<?php echo htmlspecialchars($kinderen); ?>">
+                                        <input type="hidden" name="urenBowlen" value="<?php echo isset($urenBowlen) ? htmlspecialchars($urenBowlen) : ''; ?>">
+                                        <!-- Add hidden input field for selected lanes -->
+                                        <input type="hidden" name="selectedLanes" id="selectedLanes" value="">
                                         <!-- back button -->
                                         <a href="reservation.php" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold my-6 py-2 px-4 rounded">Terug</a>
-                                        <button type="submit" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold my-6 py-2 px-4 rounded">Bevestigen</button>
+                                        <button type="submit" id="confirmationButton" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold my-6 py-2 px-4 rounded">Bevestigen</button>
                                     </form>
                                 </div>
                             </div>
@@ -177,35 +187,60 @@ if (isset($_COOKIE['CurrUser'])) {
             </div>
 
             <script>
-            var lanes = [];
-                $(document).ready(function() {
-                    // Add click event to each lane link in th elements
-                    $(".lane-header").on("click", function() {
-                        var laneIndex = $(this).index() - 1; // Subtract 1 to account for the date column
-                        // if a lane is already selected and the user clicks on it again, remove the background color
-                        if (lanes.includes(laneIndex)) {
-                            $(".lane-cell:nth-child(" + (laneIndex + 2) + ")").css("background-color", "");
-                            // Remove the lane from the array
-                            lanes.splice(lanes.indexOf(laneIndex), 1);
-                            return;
-                        }
+    var lanes = [];
 
-                        if (lanes.length == 2) {
-                            // If two lanes are already selected, remove the background color from the cells in the first lane
-                            $(".lane-cell:nth-child(" + (lanes[0] + 2) + ")").css("background-color", "");
-                            // Remove the first lane from the array
-                            lanes.shift();
-                        } 
-                        // Remove background color from all lanes
-                            // $(".lane-cell").css("background-color", "");
+    $(document).ready(function () {
+        // Add click event to each lane link in th elements
+        $(".lane-header").on("click", function () {
+            var laneIndex = $(this).index() - 1; // Subtract 1 to account for the date column
+            // if a lane is already selected and the user clicks on it again, remove the background color
+            if (lanes.includes(laneIndex)) {
+                $(".lane-cell:nth-child(" + (laneIndex + 2) + ")").css("background-color", "");
+                // Remove the lane from the array
+                lanes.splice(lanes.indexOf(laneIndex), 1);
+                return;
+            }
 
-                        // Get the index of the clicked lane header
-                        lanes.push(laneIndex);
-                        // Set background color for the corresponding cells in the clicked lane
-                        $(".lane-cell:nth-child(" + (laneIndex + 2) + ")").css("background-color", "#f0f0f0");
-                    });
-                });
-            </script>
+            if (lanes.length == 2) {
+                // If two lanes are already selected, remove the background color from the cells in the first lane
+                $(".lane-cell:nth-child(" + (lanes[0] + 2) + ")").css("background-color", "");
+                // Remove the first lane from the array
+                lanes.shift();
+            }
+            // Remove background color from all lanes
+            // $(".lane-cell").css("background-color", "");
+
+            // Get the index of the clicked lane header
+            lanes.push(laneIndex);
+            // Set background color for the corresponding cells in the clicked lane
+            $(".lane-cell:nth-child(" + (laneIndex + 2) + ")").css("background-color", "#f0f0f0");
+        });
+
+        // Update the hidden input field with selected lanes and other form data
+        $("#confirmationButton").on("click", function () {
+            // Convert the lanes array to JSON and set the value of the selectedLanes hidden field
+            $("#selectedLanes").val(JSON.stringify(lanes));
+
+            // Get other form data and set the values of the corresponding hidden fields
+            var username = "<?php echo htmlspecialchars($username); ?>";
+            var email = "<?php echo htmlspecialchars($email); ?>";
+            var date = "<?php echo htmlspecialchars($date); ?>";
+            var startTime = "<?php echo htmlspecialchars($startTime); ?>";
+            var volwassen = "<?php echo htmlspecialchars($volwassen); ?>";
+            var kinderen = "<?php echo htmlspecialchars($kinderen); ?>";
+            var urenBowlen = "<?php echo isset($urenBowlen) ? htmlspecialchars($urenBowlen) : ''; ?>";
+
+            $("#username").val(username);
+            $("#email").val(email);
+            $("#date").val(date);
+            $("#startTime").val(startTime);
+            $("#volwassen").val(volwassen);
+            $("#kinderen").val(kinderen);
+            $("#urenBowlen").val(urenBowlen);
+        });
+    });
+</script>
+
         </body>
 
         </html>
