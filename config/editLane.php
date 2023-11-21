@@ -3,7 +3,7 @@ ob_start(); // Start output buffering
 include '../public/header.php';
 require_once '../source/db_lane.php';
 require_once '../source/useful_functions.php';
-include '../source/laneClass.php';
+require_once '../source/laneClass.php';
 
 if (isset($_COOKIE['CurrUser'])) {
     $user = new user(getUserById($_COOKIE['CurrUser']));

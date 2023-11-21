@@ -55,12 +55,12 @@ if (isset($_COOKIE['CurrUser'])) {
         <body>
             <div class="flex justify-center w-[100vw] items-center">
                 <div class="bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
-                <h1 class="text-[40px] font-bold text-center pt-6">Toevoegen</h1>
+                <h1 class="text-[40px] font-bold text-center pt-6">Update</h1>
     
                 <div class="grid justify-items-center">
                     <form method="POST" action="">
                         <div class="w-full my-4">
-                            <p class="font-bold">Klant naam:</p>
+                            <p class="font-bold">Klant email:</p>
                             <input type="text" name="username" class="py-2 px-4 rounded-sm border" value="<?php echo $user->getEmail()?>" readonly />
                         </div>
                         <div class="w-full my-4">
@@ -145,7 +145,6 @@ if (isset($_COOKIE['CurrUser'])) {
                           {
                           ?>
                           <datalist id="times">
-                              <option value="14:00:00">
                               <option value="15:00:00">
                               <option value="16:00:00">
                               <option value="17:00:00">
@@ -161,7 +160,6 @@ if (isset($_COOKIE['CurrUser'])) {
                           {
                             ?>
                             <datalist id="times">
-                              <option value="14:00:00">
                               <option value="15:00:00">
                               <option value="16:00:00">
                               <option value="17:00:00">

@@ -47,6 +47,22 @@ function laneDateCheck($laneId, $startTime)
     
 }
 
+function timeDay($lane, $datumWithoutTime, $beginTijd)
+{
+    $date = $datumWithoutTime . " " .$beginTijd;
+    $dateEnd = $datumWithoutTime . " 23:00";
+    $result = db_getData("SELECT * FROM reservation 
+    WHERE laneId = '$lane' AND
+       startTime >= '$date' AND
+       startTime <= '$dateEnd' ORDER BY startTime LIMIT 1");
+
+          if($result->num_rows > 0)
+          {
+            return $result;
+          }
+    return false;
+}
+
 function getReservationById($id)
 {
     $result = db_getData("SELECT * FROM reservation WHERE id = '$id'");
@@ -61,13 +77,10 @@ function getAllReservationFromUser($id)
 
 function insertReservation($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime)
 {
-    if(checkAvailability($startTime, $laneId, $endTime))
-    {
+
         $result = db_insertData("INSERT INTO reservation (userId, laneId, price, startTime, endTime, adult, children, extraPrice) VALUES ('$userId', '$laneId', '$priceLane', '$startTime', '$endTime', '$adult', '$children', '$priceFood')");
+        print_r("INSERT INTO reservation (userId, laneId, price, startTime, endTime, adult, children, extraPrice) VALUES ('$userId', '$laneId', '$priceLane', '$startTime', '$endTime', '$adult', '$children', '$priceFood')");
         return $result;
-    }else{
-        return false;
-    }  
 }
 
 function updateReservation($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime, $id)

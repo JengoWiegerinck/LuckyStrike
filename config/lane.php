@@ -41,7 +41,8 @@ if (isset($_COOKIE['CurrUser'])) {
                 while ($lane = $lanes->fetch_assoc()) {?>
                 <tr class="odd:bg-blackKleur/20">
                     <td class="border border-blackKleur/30"><?php echo $lane['username']?></td>
-                    <td class="border border-blackKleur/30"><?php if(gates($lane['gates']))
+                    <td class="border border-blackKleur/30">
+                        <?php if(gates($lane['gates']))
                     { 
                         echo "&#10003;";
                     }else
