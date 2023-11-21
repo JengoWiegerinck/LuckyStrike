@@ -26,12 +26,36 @@ if (isset($_COOKIE['CurrUser'])) {
             }
         $reservationCheck = new reservationsClass(timeDay($lane->getId(), formateDatum($tijd), formateTime($tijd)));
         $prijsTotaal;
+
         if(isset($_POST['prijs']))
         {
             $selectedValue = $_POST['endTime'];
-            
-            $prijsTotaal = kosten($tijd, $selectedValue);
-            print_r($selectedValue);
+            $username = $_POST['username'];
+            $volwassen = $_POST['volwassen'];
+            $kinderen = $_POST['kinderen'];
+
+            $prijsTotaal = kosten($tijd, $selectedValue);     
+        }
+        if(isset($_POST['reserveren']))
+        {
+            $dateEnd = formateDatum($tijd);
+            $endTime = $_POST['endTime'];
+            $newEndTime = formateDateTime($dateEnd, $endTime);
+            $email = $_POST['username'];
+            $volwassen = $_POST['volwassen'];
+            $kinderen = $_POST['kinderen'];
+            $prijsTotaal = kosten($tijd, $endTime);
+            $baan = $_POST['laneName'];
+            $user = new user(checkEmail($email));
+            $lane = new laneClass(getLaneByName($baan));
+
+            $result = insertReservation($user->getId(), $lane->getId(), $prijsTotaal, 0, $kinderen, $volwassen, $tijd, $newEndTime);
+
+            if ($result > 0) {
+                header('location: laneReservation.php');
+                exit();
+            }
+
         }
         
 ?>
@@ -43,13 +67,13 @@ if (isset($_COOKIE['CurrUser'])) {
         <body>
             <div class="flex justify-center w-[100vw] items-center">
                 <div class="bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
-                <h1 class="text-[40px] font-bold text-center pt-6">Update</h1>
+                <h1 class="text-[40px] font-bold text-center pt-6">Toevoegen</h1>
     
                 <div class="grid justify-items-center">
                     <form method="POST" action="">
                         <div class="w-full my-4">
                             <p class="font-bold">Klant email:</p>
-                            <input type="text" name="username" class="py-2 px-4 rounded-sm border" placeholder="klant@email.com" require />
+                            <input type="text" name="username" <?php if(isset($_POST['prijs'])){$username = $_POST['username']; echo 'value="'.$username.'"';} ?> class="py-2 px-4 rounded-sm border" placeholder="klant@email.com" require />
                         </div>
                         <div class="w-full my-4">
                             <p class="font-bold">Baan:</p>
@@ -78,12 +102,28 @@ if (isset($_COOKIE['CurrUser'])) {
                             {
                                 $hour = '00';
                             }
-                            
+                            if(isset($_POST['prijs']))
+                            {
+                                $selectedValue = $_POST['endTime'];
+                                $selected = $hour . ":00";
+                                if($selected == $selectedValue)
+                                {
+                                    echo '<option selected="selected">'.$hour.':00</option>'; 
+                                }else{
+                                    echo '<option>'.$hour.':00</option>'; 
+                                }
+                                if(formateDateOutDatabase($reservationCheck->getStartTime()) == formateDateTime(formateDatum($tijd), formateBackToHoureMinute($i)))
+                            {
+                                break;
+                            }
+                                
+                            }else{
                             echo '<option>'.$hour.':00</option>'; 
                             if(formateDateOutDatabase($reservationCheck->getStartTime()) == formateDateTime(formateDatum($tijd), formateBackToHoureMinute($i)))
                             {
                                 break;
                             }
+                        }
                           }
                             ?>                 
                           </select>
@@ -92,11 +132,11 @@ if (isset($_COOKIE['CurrUser'])) {
 
                         <div class="w-full my-4">
                             <p class="font-bold">Volwassene:</p>
-                            <input type="number" name="volwassen" id="volwassen" placeholder="0" class="py-2 px-4 rounded-sm border" required />
+                            <input type="number" name="volwassen" id="volwassen" <?php if(isset($_POST['prijs'])){$volwassen = $_POST['volwassen']; echo 'value="'.$volwassen.'"';} ?> placeholder="0" class="py-2 px-4 rounded-sm border" required />
                         </div>
                         <div class="w-full my-4">
                             <p class="font-bold">Kinderen:</p>
-                            <input type="number" name="kinderen" id="kinderen" placeholder="0" class="py-2 px-4 rounded-sm border" />
+                            <input type="number" name="kinderen" <?php if(isset($_POST['prijs'])){$kinderen = $_POST['kinderen']; echo 'value="'.$kinderen.'"';} ?> id="kinderen" placeholder="0" class="py-2 px-4 rounded-sm border" />
                         </div>
                         <div class="w-full my-4">
                         <?php if (!empty($prijsTotaal)) : ?>

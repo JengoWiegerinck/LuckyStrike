@@ -35,14 +35,12 @@ if (isset($_COOKIE['CurrUser'])) {
            
             <tr class="border-b-2 border-gray-300">
                 <th class="text-center font-semibold text-gray-700 p-2"><?php echo formateDatumNl($datum); ?></th>
-                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2">Baan 1</th>
-                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2">Baan 2</th>
-                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2">Baan 3</th>
-                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2">Baan 4</th>
-                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2">Baan 5</th>
-                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2">Baan 6</th>
-                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2">Baan 7</th>
-                <th class="text-center font-semibold text-gray-700 border-l-2 border-gray-300 p-2">Baan 8</th>
+
+                <?php  $lanes = getAllLane();
+                while ($lane = $lanes->fetch_assoc()) {
+                    ?>
+                    <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2"><?php echo $lane['username']?> <?php if(gates($lane['gates'])){echo "*";} ?></th>
+                <?php } ?>
             </tr>
 
             <!-- Timeslots for each day -->
@@ -333,8 +331,6 @@ if (isset($_COOKIE['CurrUser'])) {
                 <?php } ?>
             </tr>
             <?php } ?>
-                <!-- Repeat for each day -->
-                <!-- You can customize the content and add more days as needed -->
             
         </table>
         

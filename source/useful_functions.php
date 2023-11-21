@@ -136,6 +136,7 @@ function formateDate($date)
         return ['isInRange' => $isInRange, 'duration' => $duration];
     }
     function getHourDifference($startTime, $endTime) {
+        $startTime = formateTime($startTime);
         $start = DateTime::createFromFormat('H:i', $startTime);
         $end = DateTime::createFromFormat('H:i', $endTime);
         
@@ -164,18 +165,15 @@ function formateDate($date)
         if ($result['isInRange'])
         {
             $urenPrijs = (float) $result['duration'];
-            print_r($prijsAvond * $urenPrijs + $uren * $prijsWeekend);
             return $prijsAvond * $urenPrijs + $uren * $prijsWeekend;
         }
         else
         {
-            print_r($prijsWeekend * $uren);
             return $prijsWeekend * $uren;
         }
     }
     else
     {
-        print_r($prijsNormaal * $uren);
         return $prijsNormaal * $uren;
     }
 }
