@@ -129,6 +129,7 @@ if (isset($_COOKIE['CurrUser'])) {
                 <p>Vul hier de details in van de reservering.</p>
               </div>
 
+          <form method="post" action="reservationConfirm.php" class="lg:col-span-2">
               <div class="lg:col-span-2">
                 <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                   <div class="md:col-span-5">
@@ -143,12 +144,13 @@ if (isset($_COOKIE['CurrUser'])) {
 
                   <div class="md:col-span-3">
                     <label for="date">Datum</label>
-                    <input type="date" name="date" id="date" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+                    <input required type="date" name="date" id="date" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
                   </div>
 
                   <div class="md:col-span-1">
                     <label for="startTime">Starttijd</label>
-                    <select id="appt-time" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                    <select required name="startTime" id="appt-time" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                      <option default value="">Selecteer</option>
                       <option value="14:00:00">14:00</option>
                       <option value="15:00:00">15:00</option>
                       <option value="16:00:00">16:00</option>
@@ -176,7 +178,7 @@ if (isset($_COOKIE['CurrUser'])) {
                     <label for="volwassen">Hoeveel volwassenen?</label>
                     <div class="h-10 w-28 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
 
-                      <input type="number" name="volwassen" id="volwassen" placeholder="0" class="px-2 text-center appearance-none outline-none text-gray-800 w-full bg-transparent" min="0" max="8" />
+                      <input required type="number" name="volwassen" id="volwassen" placeholder="0" class="px-2 text-center appearance-none outline-none text-gray-800 w-full bg-transparent" min="0" max="8" />
 
                     </div>
                   </div>
@@ -198,7 +200,7 @@ if (isset($_COOKIE['CurrUser'])) {
                 <div class="md:col-span-5 text-right">
     <div class="inline-flex items-end">
         <!-- Wrap the button in a form and set the action attribute to reservationConfirm.php -->
-        <form method="post" action="reservationConfirm.php">
+        
             <button type="submit" name="reservation" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold py-2 px-4 rounded">Verder</button>
         </form>
     </div>
