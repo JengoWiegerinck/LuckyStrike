@@ -14,7 +14,7 @@ function insertReservationData($user, $selectedLanes, $formattedDate, $formatted
     $userId = $user->getId();
 
     // Get lane IDs and cast to int
-
+ 
     $laneId = (int)$selectedLanes[1];
 
     $laneId = $laneId + 1;

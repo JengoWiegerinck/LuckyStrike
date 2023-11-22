@@ -42,7 +42,7 @@ if (isset($_COOKIE['CurrUser'])) {
             $end = formateDateTime($date, $endTime);
 
 
-            $updated = updateReservation($customerId, $laneId->getId(), $priceBaan, $priceFood, $child, $adult, $start, $end, $id);
+            $updated = updateReservation($customerId, $laneId->getId(), $priceBaan, $priceFood, $child, $adult, $start, $end, $id, null);
 
             header('Location: reservations.php');
             }

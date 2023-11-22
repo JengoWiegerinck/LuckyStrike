@@ -83,16 +83,16 @@ if (isset($_COOKIE['CurrUser'])) {
                 <?php
                 }
                 ?>
-                <!-- Add more rows as needed -->
               </tbody>
             </table>
         </div>
     </div>
     <script>
-        $('#edit').on('click', '.btnEdit', function() {
-            var id = $(this).attr('id');
-            window.location.href = `editDetailReservations.php?id=${id}`;
-        })
+       $(document).on('click', '.btnEdit', function() {
+        var id = $(this).attr('id');
+        console.log(id);
+        window.location.href = `editDetailReservations.php?id=${id}`;
+        });
     </script>
 </body>
 
