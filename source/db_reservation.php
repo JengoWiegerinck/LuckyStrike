@@ -63,6 +63,24 @@ function timeDay($lane, $datumWithoutTime, $beginTijd)
     return false;
 }
 
+function timeDayUpdate($lane, $datumWithoutTime, $beginTijd, $userId)
+{
+    $date = $datumWithoutTime . " " .$beginTijd;
+    $dateEnd = $datumWithoutTime . " 23:00";
+    $result = db_getData("SELECT * FROM reservation 
+    WHERE laneId = '$lane' AND
+       startTime >= '$date' AND
+       startTime <= '$dateEnd'AND
+       userId != '$userId'
+        ORDER BY startTime LIMIT 1");
+
+          if($result->num_rows > 0)
+          {
+            return $result;
+          }
+    return false;
+}
+
 function getReservationById($id)
 {
     $result = db_getData("SELECT * FROM reservation WHERE id = '$id'");
@@ -83,11 +101,14 @@ function insertReservation($userId, $laneId, $priceLane, $priceFood, $children, 
         return $result;
 }
 
-function updateReservation($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime, $id)
+
+
+function updateReservation($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime, $id, $extraLane)
 {
     if(checkAvailability($startTime, $laneId, $endTime))
     {
-        $result = db_doQuery("UPDATE `reservation` SET `userId`='$userId',`laneId`='$laneId',   `price`='$priceLane',`extraPrice`='$priceFood',`children`='$children',`adult`='$adult',    `startTime`='$startTime',`endTime`='$endTime' WHERE id = '$id'");
+        $result = db_doQuery("UPDATE `reservation` SET `userId`='$userId',`laneId`='$laneId', `extraLane`='$extraLane', `price`='$priceLane',`extraPrice`='$priceFood',`children`='$children',`adult`='$adult', `startTime`='$startTime',`endTime`='$endTime' WHERE id = '$id'");
+        print_r("UPDATE `reservation` SET `userId`='$userId',`laneId`='$laneId', `extraLane`='$extraLane', `price`='$priceLane',`extraPrice`='$priceFood',`children`='$children',`adult`='$adult', `startTime`='$startTime',`endTime`='$endTime' WHERE id = '$id'");
         return $result;
     }else{
         return false;

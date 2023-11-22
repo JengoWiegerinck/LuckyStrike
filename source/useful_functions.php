@@ -175,3 +175,25 @@ function kosten($startTime, $endTime)
         return $prijsNormaal * $uren;
     }
 }
+
+function laneID1($selectedLanes)
+{
+ 
+ $laneId = (int)$selectedLanes[1];
+
+ $laneId = $laneId + 1;
+return $laneId;
+
+}
+
+function laneID2($selectedLanes)
+{
+ 
+ $laneId = (int)$selectedLanes[1];
+
+ $laneId = $laneId + 1;
+
+ $laneId2 = isset($selectedLanes[3]) ? $selectedLanes[3] + 1 : null;
+
+ return $laneId2;
+}
