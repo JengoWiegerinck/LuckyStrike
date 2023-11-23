@@ -30,8 +30,8 @@
             </div>
             <div class="md:w-1/2 mt-4 md:mt-0 relative">
                 <h3 class="text-xl font-semibold mb-4">Openingstijden</h3>
-                <p>Maandag - Vrijdag: 14:00 - 22:00</p>
-                <p>Zaterdag - Zondag: 14:00 - 00:00</p>
+                <p>Maandag - Donderdag: 14:00 - 22:00</p>
+                <p>Vrijdag - Zondag: 14:00 - 00:00</p>
 
                 <!-- Logo -->
                 <div class="absolute top-0 right-0 mt-4 hidden md:block">
