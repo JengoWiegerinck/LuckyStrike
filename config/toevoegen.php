@@ -26,7 +26,12 @@ if (isset($_COOKIE['CurrUser'])) {
             }
         $reservationCheck = new reservationsClass(timeDay($lane->getId(), formateDatum($tijd), formateTime($tijd)));
         $prijsTotaal;
-
+        $customerEmail = array();
+        $customers = getAllCustomer();
+            while ($customer = $customers->fetch_assoc()) 
+            {
+                $customerEmail = $customer['email'];
+            }
         if(isset($_POST['prijs']))
         {
             $selectedValue = $_POST['endTime'];
@@ -75,6 +80,7 @@ if (isset($_COOKIE['CurrUser'])) {
                             <p class="font-bold">Klant email:</p>
                             <input type="text" name="username" <?php if(isset($_POST['prijs'])){$username = $_POST['username']; echo 'value="'.$username.'"';} ?> class="py-2 px-4 rounded-sm border" placeholder="klant@email.com" require />
                         </div>
+                       
                         <div class="w-full my-4">
                             <p class="font-bold">Baan:</p>
                             <input type="text" name="laneName" class="py-2 px-4 rounded-sm border" value="<?php echo $lane->getUsername(); ?>" readonly />
