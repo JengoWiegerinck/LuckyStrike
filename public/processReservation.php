@@ -34,6 +34,8 @@ function insertReservationData($user, $selectedLanes, $formattedDate, $formatted
     $stoptijd = strtotime("+" . $urenBowlenCheck . " hours", strtotime($formattedStartTime));
     // Format the stop time
     $stoptijdLong = date('Y-m-d H:i:s.000000', $stoptijd);
+    // set date of stoptijdlong to date of starttijdlong but keep time the same
+    $stoptijdLong = substr_replace($stoptijdLong, substr($formattedStartTimeLong, 0, 10), 0, 10);
     // Reformat the stop time to HH:MM
     $stoptijd = date('H:i', $stoptijd);
 

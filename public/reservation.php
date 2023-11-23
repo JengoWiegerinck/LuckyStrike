@@ -1,4 +1,5 @@
 <?php include 'header.php';
+include '../source/db_reservation.php';
 
 if (isset($_COOKIE['CurrUser'])) {
   $user = new user(getUserById($_COOKIE['CurrUser']));
@@ -9,9 +10,59 @@ if (isset($_COOKIE['CurrUser'])) {
 
   <head>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/vader/jquery-ui.css" rel="stylesheet" />
     <script>
       $(document).ready(function() {
-        // Other existing code...
+
+        <?php
+
+        // get all reservations from the user and put them in an array with the correct format
+        $reservations = getAllReservationFromUser($user->getId());
+        $reservationArr = [];
+        $str = "";
+        while ($reservation = $reservations->fetch_assoc()) {
+          $addReservation = $reservation['startTime'];
+          //format the date to date only dd-mm-yyyy
+          $addReservation = date("d-m-Y", strtotime($addReservation));
+          $str = $str . '"' . $addReservation . '", ';
+          array_push($reservationArr, $addReservation);
+        }
+
+        // remove last comma and space
+        $str = substr($str, 0, -2);
+        ?>
+
+        var unavailableDates = [<?php echo $str; ?>];
+
+        function unavailable(date) {
+          // Get the current date
+          var today = new Date();
+          today.setHours(0, 0, 0, 0); // Set the time to midnight for accurate comparison
+
+          // Check if the selected date is before today
+          if (date < today) {
+            return [false, "", "Unavailable"];
+          }
+
+          // Format the selected date to match the array format
+          dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+
+          // Check if the selected date is in the array of unavailable dates
+          if ($.inArray(dmy, unavailableDates) == -1) {
+            return [true, ""];
+          } else {
+            return [false, "", "Unavailable"];
+          }
+        }
+
+        $("#date").datepicker({
+          dateFormat: 'dd MM yy',
+          beforeShowDay: unavailable
+        });
 
         // Event handler for adult input change
         $('#volwassen').on('change', function() {
@@ -55,13 +106,9 @@ if (isset($_COOKIE['CurrUser'])) {
           console.log('Total Participants: ' + totalParticipants);
         }
 
-        // Initialize minDate as tomorrow
-        var tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate());
-        var minDate = tomorrow.toISOString().split('T')[0];
 
-        // Set the min attribute of the date input
-        $('#date').attr('min', minDate);
+
+
 
         $('#date').on('change', function() {
           // Clear the selected time when the date changes
@@ -129,99 +176,92 @@ if (isset($_COOKIE['CurrUser'])) {
                 <p>Vul hier de details in van de reservering.</p>
               </div>
 
-          <form method="post" action="reservationConfirm.php" class="lg:col-span-2">
-              <div class="lg:col-span-2">
-                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                  <div class="md:col-span-5">
-                    <label for="username">Gebruikersnaam</label>
-                    <input type="text" name="username" id="username" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 readonly-input" value="<?php echo $user->getUsername(); ?>" readonly />
+              <form method="post" action="reservationConfirm.php" class="lg:col-span-2">
+                <div class="lg:col-span-2">
+                  <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                    <div class="md:col-span-5">
+                      <label for="username">Gebruikersnaam</label>
+                      <input type="text" name="username" id="username" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 readonly-input" value="<?php echo $user->getUsername(); ?>" readonly />
+                    </div>
+
+                    <div class="md:col-span-5">
+                      <label for="email">Emailadres</label>
+                      <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 readonly-input" value="<?php echo $user->getEmail(); ?>" readonly />
+                    </div>
+
+                    <div class="md:col-span-3">
+                      <label for="date">Datum</label>
+                      <input required autocomplete="off" name="date" id="date" class="h-10 border mt-1 rounded px-4 w-full bg-white" value="" placeholder="" />
+                    </div>
+
+                    <div class="md:col-span-1">
+                      <label for="startTime">Starttijd</label>
+                      <select required name="startTime" id="appt-time" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                        <option default value="">Selecteer</option>
+                        <option value="14:00:00">14:00</option>
+                        <option value="15:00:00">15:00</option>
+                        <option value="16:00:00">16:00</option>
+                        <option value="17:00:00">17:00</option>
+                        <option value="18:00:00">18:00</option>
+                        <option value="19:00:00">19:00</option>
+                        <option value="20:00:00">20:00</option>
+                        <option value="21:00:00">21:00</option>
+                        <option value="22:00:00">22:00</option>
+                        <option value="23:00:00">23:00</option>
+                      </select>
+                    </div>
+
                   </div>
-
-                  <div class="md:col-span-5">
-                    <label for="email">Emailadres</label>
-                    <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 readonly-input" value="<?php echo $user->getEmail(); ?>" readonly />
-                  </div>
-
-                  <div class="md:col-span-3">
-                    <label for="date">Datum</label>
-                    <input required type="date" name="date" id="date" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
-                  </div>
-
-                  <div class="md:col-span-1">
-                    <label for="startTime">Starttijd</label>
-                    <select required name="startTime" id="appt-time" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
-                      <option default value="">Selecteer</option>
-                      <option value="14:00:00">14:00</option>
-                      <option value="15:00:00">15:00</option>
-                      <option value="16:00:00">16:00</option>
-                      <option value="17:00:00">17:00</option>
-                      <option value="18:00:00">18:00</option>
-                      <option value="19:00:00">19:00</option>
-                      <option value="20:00:00">20:00</option>
-                      <option value="21:00:00">21:00</option>
-                      <option value="22:00:00">22:00</option>
-                      <option value="23:00:00">23:00</option>
-                    </select>
-                  </div>
-
-                </div>
-                <div class="md:col-span-5 py-2">
-                  <div class="inline-flex items-center">
-                    <input type="checkbox" name="urenBowlen" id="urenBowlen" class="form-checkbox" />
-                    <label for="urenBowlen" class="ml-2">Ik wil graag 2 uur bowlen</label>
-                  </div>
-                </div>
-
-
-                <div class="flex py-2">
-                  <div class="md:col-span-2 pr-20">
-                    <label for="volwassen">Hoeveel volwassenen?</label>
-                    <div class="h-10 w-28 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-
-                      <input required type="number" name="volwassen" id="volwassen" placeholder="0" class="px-2 text-center appearance-none outline-none text-gray-800 w-full bg-transparent" min="0" max="8" />
-
+                  <div class="md:col-span-5 py-2">
+                    <div class="inline-flex items-center">
+                      <input type="checkbox" name="urenBowlen" id="urenBowlen" class="form-checkbox" />
+                      <label for="urenBowlen" class="ml-2">Ik wil graag 2 uur bowlen</label>
                     </div>
                   </div>
 
-                  <div class="md:col-span-2">
-                    <label for="kinderen">Hoeveel kinderen?</label>
-                    <div class="h-10 w-28 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
 
-                      <input type="number" name="kinderen" id="kinderen" placeholder="0" class="px-2 text-center appearance-none outline-none text-gray-800 w-full bg-transparent" min="0" max="8" />
+                  <div class="flex py-2">
+                    <div class="md:col-span-2 pr-20">
+                      <label for="volwassen">Hoeveel volwassenen?</label>
+                      <div class="h-10 w-28 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
 
+                        <input required type="number" name="volwassen" id="volwassen" placeholder="0" class="px-2 text-center appearance-none outline-none text-gray-800 w-full bg-transparent" min="0" max="8" />
+
+                      </div>
+                    </div>
+
+                    <div class="md:col-span-2">
+                      <label for="kinderen">Hoeveel kinderen?</label>
+                      <div class="h-10 w-28 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
+
+                        <input type="number" name="kinderen" id="kinderen" placeholder="0" class="px-2 text-center appearance-none outline-none text-gray-800 w-full bg-transparent" min="0" max="8" />
+
+                      </div>
                     </div>
                   </div>
-                </div>
 
 
 
 
 
-                <div class="md:col-span-5 text-right">
-    <div class="inline-flex items-end">
-        <!-- Wrap the button in a form and set the action attribute to reservationConfirm.php -->
-        
-            <button type="submit" name="reservation" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold py-2 px-4 rounded">Verder</button>
-        </form>
-    </div>
-</div>
+                  <div class="md:col-span-5 text-right">
+                    <div class="inline-flex items-end">
+                      <!-- Wrap the button in a form and set the action attribute to reservationConfirm.php -->
 
-              </div>
+                      <button type="submit" name="reservation" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold py-2 px-4 rounded">Verder</button>
+              </form>
             </div>
           </div>
+
         </div>
       </div>
     </div>
     </div>
+    </div>
+    </div>
+    </div>
   </body>
 
-  <?php
-  if (isset($_POST["reservation"])) {
-    $participants = $_POST["participants"];
-    $startTime = $_POST["participants"];
-    $endTime = $_POST["participants"];
-  }
-  ?>
 
 <?php
 } else {
@@ -242,6 +282,60 @@ include 'footer.php';
     cursor: not-allowed;
     /* Change cursor to indicate not editable */
   }
+
+  /* Styling for the datepicker */
+.ui-datepicker {
+  background-color: #fff; /* White background for the datepicker */
+}
+
+.ui-datepicker-header {
+  background-color: #333;
+  color: #fdfde0;
+}
+
+.ui-widget-content {
+  background: #fff;
+}
+
+.ui-datepicker-title {
+  margin: 0;
+  color: #fff;
+}
+
+.ui-datepicker-prev,
+.ui-datepicker-next {
+  color: #fff;
+}
+
+.ui-datepicker-calendar {
+  border: 1px solid #fff;
+}
+
+.ui-state-default {
+  background-color: #d2ae39; /* Background color for the date cells */
+  border: 1px solid #fff;
+  color: #333; /* Text color for normal state */
+}
+
+.ui-state-default:hover {
+  background-color: #e0e0e0;
+  color: #333; /* Text color on hover */
+}
+
+.ui-state-active,
+.ui-state-active:hover {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+/* make the background of the th white */
+.ui-datepicker th {
+  background-color: #fff;
+}
+
+
+
 </style>
 </body>
 
