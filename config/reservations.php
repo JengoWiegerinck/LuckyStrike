@@ -12,7 +12,6 @@ if (isset($_COOKIE['CurrUser'])) {
 
         if (isset($_GET['id']) && isset($_GET['type'])) {
             if ($_GET['type'] == 'reservations') {
-                print_r($_GET['id']);
                 deleteReservation($_GET['id']);
             }
         }

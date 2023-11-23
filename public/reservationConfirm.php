@@ -29,7 +29,6 @@ if (isset($_COOKIE['CurrUser'])) {
 
 
 
-
         // Perform any additional processing or validation as needed
         // ...
 
