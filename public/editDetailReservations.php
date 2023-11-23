@@ -8,36 +8,50 @@ require_once("../source/laneClass.php");
 require_once("../source/db_reservation.php");
 require_once("../source/reservationsClass.php");
 
+
 if (isset($_COOKIE['CurrUser'])) {
     $user = new user(getUserById($_COOKIE['CurrUser']));
         if (isset($_GET['id']))
         {
              $reservation = new reservationsClass(getReservationById($_GET['id']));
              $laneName = new laneClass(getLaneById($reservation->getLaneName()));
-             $date = $reservation->getStartTime();
              $adult = $reservation->getAdults();
              $childs = $reservation->getChildren();
-             $time;
+             $fullStartTime = $reservation->getStartTime();
+             $date = formateDatumNl($fullStartTime);
+             $time = formateTime($fullStartTime);
+
+
              if($childs == null)
              {
               $childs = '0';
              }
     
-              if (isset($_POST["datum"])) {
+              if (isset($_POST["datum"])) 
+              {
                 $date = $_POST['date'];
                 $time = $_POST['time'];
-                $date = formateDateTime($date, $time);
+                $dateFormatted = formateDateTime($date, $time);
                 $adult = $_POST['volwassen'];
                 $childs= $_POST['kinderen'];
+                // echo $date;
                 
                 if (isset($_POST["urenBowlen"])) {
                   $urenBowlen = $_POST["urenBowlen"];
                 }
+                $dateStart = $dateFormatted;
               }
               if (isset($_POST["update"])) {
-                $selectedLanes = $_POST["selectedLanes"];
+                $selectedLanes;
+                $dateStart = $_POST["dateStart"];
+                $adult = $_POST['adult'];
+                $childs= $_POST['childs'];
+                if (isset($_POST["selectedLanes"])){
+                  $selectedLanes = $_POST["selectedLanes"];
+                }
+                
                 $urenBowlen = isset($_POST["urenBowlen"]) ? $_POST["urenBowlen"] : '';
-                $price = kosten($date, $time);
+                
 
                 $urenBowlenCheck = 1;
                if ($urenBowlen == "on") {
@@ -45,11 +59,11 @@ if (isset($_COOKIE['CurrUser'])) {
                }
              
                // Calculate end time
-               $stoptijd = strtotime("+" . $urenBowlenCheck . " hours", strtotime($date));
+               $stoptijd = strtotime("+" . $urenBowlenCheck . " hours", strtotime($time));
                // Format the stop time
                $stoptijdLong = date('Y-m-d H:i', $stoptijd);
-
-                $update = updateReservation($user->getId(), laneID1($selectedLanes), $price, '0', $childs, $adult, $date, $stoptijdLong, $reservation->getId(), laneID2($selectedLanes));
+               $price = kosten($dateStart, formateTime($stoptijdLong));
+                $update = updateReservationCustomer($user->getId(), laneID1($selectedLanes), $price, '0', $childs, $adult, $dateStart, $stoptijdLong, $reservation->getId(), laneID2($selectedLanes));
                 if ($update) {
                   header('Location: detail.php');
                 }else{
@@ -70,109 +84,110 @@ if (isset($_COOKIE['CurrUser'])) {
     <title>Baan Agenda</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-      $(document).ready(function() {
-        // Other existing code...
+  $(document).ready(function() {
+    // Event handler for adult input change
+    $('#volwassen').on('change', function() {
+      updateTotalParticipants();
+    });
 
-        // Event handler for adult input change
-        $('#volwassen').on('change', function() {
-          updateTotalParticipants();
-        });
+    // Event handler for child input change
+    $('#kinderen').on('change', function() {
+      updateTotalParticipants();
+    });
 
-        // Event handler for child input change
-        $('#kinderen').on('change', function() {
-          updateTotalParticipants();
-        });
+    function updateTotalParticipants() {
+      // Get the values of adult and child inputs
+      var adults = parseInt($('#volwassen').val()) || 0;
+      var children = parseInt($('#kinderen').val()) || 0;
 
-        function updateTotalParticipants() {
-          // Get the values of adult and child inputs
-          var adults = parseInt($('#volwassen').val()) || 0;
-          var children = parseInt($('#kinderen').val()) || 0;
+      // Enforce the rule: if there is at least 1 child, you need at least 2 adults
+      if (children > 0 && adults < 2) {
+        adults = 2;
+        $('#volwassen').val(adults);
+      }
 
-          // Enforce the rule: if there is at least 1 child, you need at least 2 adults
-          if (children > 0 && adults < 2) {
-            adults = 2;
-            $('#volwassen').val(adults);
-          }
+      // Enforce the rule: maximum of 8 adults
+      if (adults > 8) {
+        adults = 8;
+        $('#volwassen').val(adults);
+      }
 
-          // Enforce the rule: maximum of 8 adults
-          if (adults > 8) {
-            adults = 8;
-            $('#volwassen').val(adults);
-          }
+      // Enforce the rule: maximum total of 10 people
+      var totalParticipants = adults + children;
+      if (totalParticipants > 10) {
+        // If the total exceeds 10, adjust the number of children
+        children = 10 - adults;
+        $('#kinderen').val(children);
+      }
 
-          // Enforce the rule: maximum total of 10 people
-          var totalParticipants = adults + children;
-          if (totalParticipants > 10) {
-            // If the total exceeds 10, adjust the number of children
-            children = 10 - adults;
-            $('#kinderen').val(children);
-          }
+      // Update the total number of participants
+      totalParticipants = adults + children;
 
-          // Update the total number of participants
-          totalParticipants = adults + children;
+      // Display the updated total
+      console.log('Total Participants: ' + totalParticipants);
+    }
 
-          // Display the updated total
-          console.log('Total Participants: ' + totalParticipants);
-        }
+    // Initialize minDate as tomorrow
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1); // Adding 1 to get tomorrow
+    var minDate = tomorrow.toISOString().split('T')[0];
 
-        // Initialize minDate as tomorrow
-        var tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate());
-        var minDate = tomorrow.toISOString().split('T')[0];
+    // Set the min attribute of the date input
+    $('#date').attr('min', minDate);
 
-        // Set the min attribute of the date input
-        $('#date').attr('min', minDate);
+    $('#date').on('change', function() {
+      // Clear the selected time when the date changes
+      $('#appt-time').val('');
 
-        $('#date').on('change', function() {
-          // Clear the selected time when the date changes
-          $('#appt-time').val('');
+      var selectedDate = new Date($(this).val());
 
-          var selectedDate = new Date($(this).val());
+      // Check if the selected date is Saturday (6) or Sunday (0)
+      if (selectedDate.getDay() === 6 || selectedDate.getDay() === 0) {
+        // If Saturday or Sunday, enable options "22:00" and "23:00"
+        $('#appt-time option[value="22:00:00"]').prop('disabled', false);
+        $('#appt-time option[value="23:00:00"]').prop('disabled', false);
+      } else {
+        // If not Saturday or Sunday, disable options "22:00" and "23:00"
+        $('#appt-time option[value="22:00:00"]').prop('disabled', true);
+        $('#appt-time option[value="23:00:00"]').prop('disabled', true);
+      }
 
-          // Check if the selected date is Saturday (6) or Sunday (0)
-          if (selectedDate.getDay() === 6 || selectedDate.getDay() === 0) {
-            // If Saturday or Sunday, enable options "22:00" and "23:00"
-            $('#appt-time option[value="22:00:00"]').prop('disabled', false);
-            $('#appt-time option[value="23:00:00"]').prop('disabled', false);
-          } else {
-            // If not Saturday or Sunday, disable options "22:00" and "23:00"
-            $('#appt-time option[value="22:00:00"]').prop('disabled', true);
-            $('#appt-time option[value="23:00:00"]').prop('disabled', true);
-          }
+      // Check if it's Monday (1), Tuesday (2), Wednesday (3), Thursday (4), or Friday (5)
+      if (selectedDate.getDay() >= 1 && selectedDate.getDay() <= 5) {
+        // If it's a weekday, clear the "urenBowlen" checkbox
+        $('#urenBowlen').prop('checked', false);
+        $('#urenBowlen').prop('disabled', true);
+      } else {
+        // If not a weekday, enable the "urenBowlen" checkbox
+        $('#urenBowlen').prop('disabled', false);
+      }
+    });
 
-          // Check if it's Monday (1), Tuesday (2), Wednesday (3), Thursday (4), or Friday (5)
-          if (selectedDate.getDay() >= 1 && selectedDate.getDay() <= 5) {
-            // If it's a weekday, clear the "urenBowlen" checkbox
-            $('#urenBowlen').prop('checked', false);
-            $('#urenBowlen').prop('disabled', true);
-          } else {
-            // If not a weekday, enable the "urenBowlen" checkbox
-            $('#urenBowlen').prop('disabled', false);
-          }
-        });
+    $('#appt-time').on('change', function() {
+      var selectedTime = $(this).val();
+      var lastOption = $('#appt-time option:last-child').val();
 
-        $('#appt-time').on('change', function() {
-          var selectedTime = $(this).val();
-          var lastOption = $('#appt-time option:last-child').val();
+      // Check if the selected time is the last option
+      if (selectedTime === lastOption) {
+        // Clear the "urenBowlen" checkbox
+        $('#urenBowlen').prop('checked', false);
+        $('#urenBowlen').prop('disabled', true);
+      } else {
+        // If not the last option, enable the "urenBowlen" checkbox
+        $('#urenBowlen').prop('disabled', false);
+      }
 
-          // Check if the selected time is the last option
-          if (selectedTime === lastOption) {
-            // Clear the "urenBowlen" checkbox
-            $('#urenBowlen').prop('checked', false);
-            $('#urenBowlen').prop('disabled', true);
-          } else {
-            // If not the last option, enable the "urenBowlen" checkbox
-            $('#urenBowlen').prop('disabled', false);
-          }
+      // Check if it's 21:00, disable the "urenBowlen" checkbox
+      if (selectedTime === "21:00:00") {
+        $('#urenBowlen').prop('checked', false);
+        $('#urenBowlen').prop('disabled', true);
+      }
+    });
 
-          // Check if it's 21:00, disable the "urenBowlen" checkbox
-          if (selectedTime === "21:00:00") {
-            $('#urenBowlen').prop('checked', false);
-            $('#urenBowlen').prop('disabled', true);
-          }
-        });
-      });
-    </script>
+   
+  });
+</script>
+
 </head>
 <body class="px-8 bg-gray-100 h-screen flex items-center justify-center">
 <div class="flex">
@@ -195,9 +210,9 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                             <!-- Existing code for the timeslots row -->
                                             <tr class="border-b-2 border-gray-300">
-                                                <td class="border-r-2 border-gray-300 p-2"><?php echo date('H:i', strtotime($date)); ?></td>
+                                                <td class="border-r-2 border-gray-300 p-2"><?php echo date('H:i', strtotime($time)); ?></td>
                                                 <?php
-                                                $selectedStartTime = $date;
+                                                $selectedStartTime = $time;
 
                                                 for ($i = 1; $i <= 8; $i++) {
                                                 ?>
@@ -259,7 +274,12 @@ if (isset($_COOKIE['CurrUser'])) {
                                             <?php } ?>
 
                                         </table>
-                                        <button type="submit" id="update" name="update" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold my-6 py-2 px-4 rounded">Update</button>
+     <!-- Add hidden input field for selected lanes -->
+     <input type="hidden" name="selectedLanes" id="selectedLanes" value="">  
+     <input type="hidden" name="adult" id="adult" value="<?php echo $adult;?>">     
+     <input type="hidden" name="childs" id="childs" value="<?php echo $childs;?>">     
+     <input type="hidden" name="dateStart" id="dateStart" value="<?php echo $dateStart;?>">                                  
+     <button type="submit" id="confirmationButton" name="update" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold my-6 py-2 px-4 rounded">Update</button>
                                     </form>
         
     </div>
@@ -347,6 +367,11 @@ if (isset($_COOKIE['CurrUser'])) {
         $("#confirmationButton").on("click", function () {
             $("#selectedLanes").val(JSON.stringify(lanes));
         });
+
+
+$("#update").on("click", function () {
+  $("#selectedLanesInput").val(JSON.stringify(lanes));
+});   
     });
 </script>
 </body>
