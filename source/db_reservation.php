@@ -34,18 +34,34 @@ function getAllReservationAsClass()
 
 function laneDateCheck($laneId, $startTime)
 {
-    $result = db_getData("SELECT * FROM reservation 
-    WHERE laneId = '$laneId' 
-       AND ('$startTime' >= startTime AND '$startTime' < endTime);");
-    // print_r("SELECT * FROM reservation 
-    // WHERE laneId = '$laneId' 
-    // AND ('$startTime' >= startTime AND '$startTime' < endTime);");
-    if ($result->num_rows > 0){
+    $conn = db_connect();
+    
+    // Use prepared statement to prevent SQL injection
+    $stmt = $conn->prepare("SELECT * FROM reservation 
+                            WHERE laneId = ? 
+                               AND (? >= startTime AND ? < endTime)");
+    
+    // Bind parameters
+    $stmt->bind_param("iss", $laneId, $startTime, $startTime);
+
+    // Execute the query
+    $stmt->execute();
+
+    // Get the result
+    $result = $stmt->get_result();
+
+    // Check if there are rows in the result
+    if ($result->num_rows > 0) {
+        $stmt->close();
+        $conn->close();
         return true;
     }
+
+    $stmt->close();
+    $conn->close();
     return false;
-    
 }
+
 
 function timeDay($lane, $datumWithoutTime, $beginTijd)
 {

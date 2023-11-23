@@ -12,7 +12,6 @@ if (isset($_COOKIE['CurrUser'])) {
 
         if (isset($_GET['id']) && isset($_GET['type'])) {
             if ($_GET['type'] == 'reservations') {
-                print_r($_GET['id']);
                 deleteReservation($_GET['id']);
             }
         }
@@ -123,7 +122,7 @@ if (isset($_COOKIE['CurrUser'])) {
                 $('#reservationTable tbody').on('click', '.btnDelete', function() {
                     if (confirm("Weet je zeker dat je dit wil verwijderen?")) {
                         var id = $(this).attr('id');
-                        window.location.href = `reservations.php?id=${id}&type=reserrvations`;
+                        window.location.href = `reservations.php?id=${id}&type=reservations`;
                     }
                 })
             })

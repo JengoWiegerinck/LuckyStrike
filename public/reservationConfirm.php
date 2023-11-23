@@ -29,7 +29,6 @@ if (isset($_COOKIE['CurrUser'])) {
 
 
 
-
         // Perform any additional processing or validation as needed
         // ...
 
@@ -187,59 +186,59 @@ if (isset($_COOKIE['CurrUser'])) {
             </div>
 
             <script>
-    var lanes = [];
+                var lanes = [];
 
-    $(document).ready(function () {
-        // Add click event to each lane link in th elements
-        $(".lane-header").on("click", function () {
-            var laneIndex = $(this).index() - 1; // Subtract 1 to account for the date column
-            // if a lane is already selected and the user clicks on it again, remove the background color
-            if (lanes.includes(laneIndex)) {
-                $(".lane-cell:nth-child(" + (laneIndex + 2) + ")").css("background-color", "");
-                // Remove the lane from the array
-                lanes.splice(lanes.indexOf(laneIndex), 1);
-                return;
-            }
+                $(document).ready(function() {
+                    // Add click event to each lane link in th elements
+                    $(".lane-header").on("click", function() {
+                        var laneIndex = $(this).index() - 1; // Subtract 1 to account for the date column
+                        // if a lane is already selected and the user clicks on it again, remove the background color
+                        if (lanes.includes(laneIndex)) {
+                            $(".lane-cell:nth-child(" + (laneIndex + 2) + ")").css("background-color", "");
+                            // Remove the lane from the array
+                            lanes.splice(lanes.indexOf(laneIndex), 1);
+                            return;
+                        }
 
-            if (lanes.length == 2) {
-                // If two lanes are already selected, remove the background color from the cells in the first lane
-                $(".lane-cell:nth-child(" + (lanes[0] + 2) + ")").css("background-color", "");
-                // Remove the first lane from the array
-                lanes.shift();
-            }
-            // Remove background color from all lanes
-            // $(".lane-cell").css("background-color", "");
+                        if (lanes.length == 2) {
+                            // If two lanes are already selected, remove the background color from the cells in the first lane
+                            $(".lane-cell:nth-child(" + (lanes[0] + 2) + ")").css("background-color", "");
+                            // Remove the first lane from the array
+                            lanes.shift();
+                        }
+                        // Remove background color from all lanes
+                        // $(".lane-cell").css("background-color", "");
 
-            // Get the index of the clicked lane header
-            lanes.push(laneIndex);
-            // Set background color for the corresponding cells in the clicked lane
-            $(".lane-cell:nth-child(" + (laneIndex + 2) + ")").css("background-color", "#f0f0f0");
-        });
+                        // Get the index of the clicked lane header
+                        lanes.push(laneIndex);
+                        // Set background color for the corresponding cells in the clicked lane
+                        $(".lane-cell:nth-child(" + (laneIndex + 2) + ")").css("background-color", "#f0f0f0");
+                    });
 
-        // Update the hidden input field with selected lanes and other form data
-        $("#confirmationButton").on("click", function () {
-            // Convert the lanes array to JSON and set the value of the selectedLanes hidden field
-            $("#selectedLanes").val(JSON.stringify(lanes));
+                    // Update the hidden input field with selected lanes and other form data
+                    $("#confirmationButton").on("click", function() {
+                        // Convert the lanes array to JSON and set the value of the selectedLanes hidden field
+                        $("#selectedLanes").val(JSON.stringify(lanes));
 
-            // Get other form data and set the values of the corresponding hidden fields
-            var username = "<?php echo htmlspecialchars($username); ?>";
-            var email = "<?php echo htmlspecialchars($email); ?>";
-            var date = "<?php echo htmlspecialchars($date); ?>";
-            var startTime = "<?php echo htmlspecialchars($startTime); ?>";
-            var volwassen = "<?php echo htmlspecialchars($volwassen); ?>";
-            var kinderen = "<?php echo htmlspecialchars($kinderen); ?>";
-            var urenBowlen = "<?php echo isset($urenBowlen) ? htmlspecialchars($urenBowlen) : ''; ?>";
+                        // Get other form data and set the values of the corresponding hidden fields
+                        var username = "<?php echo htmlspecialchars($username); ?>";
+                        var email = "<?php echo htmlspecialchars($email); ?>";
+                        var date = "<?php echo htmlspecialchars($date); ?>";
+                        var startTime = "<?php echo htmlspecialchars($startTime); ?>";
+                        var volwassen = "<?php echo htmlspecialchars($volwassen); ?>";
+                        var kinderen = "<?php echo htmlspecialchars($kinderen); ?>";
+                        var urenBowlen = "<?php echo isset($urenBowlen) ? htmlspecialchars($urenBowlen) : ''; ?>";
 
-            $("#username").val(username);
-            $("#email").val(email);
-            $("#date").val(date);
-            $("#startTime").val(startTime);
-            $("#volwassen").val(volwassen);
-            $("#kinderen").val(kinderen);
-            $("#urenBowlen").val(urenBowlen);
-        });
-    });
-</script>
+                        $("#username").val(username);
+                        $("#email").val(email);
+                        $("#date").val(date);
+                        $("#startTime").val(startTime);
+                        $("#volwassen").val(volwassen);
+                        $("#kinderen").val(kinderen);
+                        $("#urenBowlen").val(urenBowlen);
+                    });
+                });
+            </script>
 
         </body>
 
