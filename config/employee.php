@@ -3,6 +3,8 @@ ob_start(); // Start output buffering
 include '../public/header.php';
 require_once("../source/useful_functions.php");
 require_once("../source/db_user.php");
+require_once("../source/reservationsClass.php");
+require_once("../source/db_reservation.php");
 
 if (isset($_COOKIE['CurrUser'])) {
     $user = new user(getUserById($_COOKIE['CurrUser']));
@@ -14,6 +16,8 @@ if (isset($_COOKIE['CurrUser'])) {
             if ($_GET['type'] == 'user')
             {
                 deleteUser($_GET['id']);
+                $reservation = new reservationsClass(getReservationByUserID($_GET['id']));
+                deleteReservation($reservation->getId());
             }
         }
     
