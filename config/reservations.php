@@ -19,7 +19,6 @@ if (isset($_COOKIE['CurrUser'])) {
 ?>
 
         <link rel="stylesheet" href="../../Css/admin.css">
-        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"> -->
         <link href="//cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
         <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Open+Sans:wght@500;600;800&family=Rubik:wght@500&display=swap" rel="stylesheet">
@@ -57,7 +56,6 @@ if (isset($_COOKIE['CurrUser'])) {
                                     <td class="border border-blackKleur/30"><?php echo $reservation['children'] ?></td>
                                     <td class="border border-blackKleur/30"><?php echo formateDate($reservation['startTime']) ?></td>
                                     <td class="border border-blackKleur/30"><?php echo formateDate($reservation['endTime']) ?></td>
-
 
                                     <td class="border border-blackKleur/30">
                                         <button class="functionBtn btnEdit" title="Aanpassen" id="<?php echo $reservation['id'] ?>"><i class="bi bi-pencil-square"></i></button>
@@ -111,10 +109,6 @@ if (isset($_COOKIE['CurrUser'])) {
                     ]
                 });
 
-
-                // $('#btnAddLane').on('click', function() {
-                //     window.location.href = `addFood.php`;
-                // })
                 $('#reservationTable tbody').on('click', '.btnEdit', function() {
                     var id = $(this).attr('id');
                     window.location.href = `editReservations.php?id=${id}`;
