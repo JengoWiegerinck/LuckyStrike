@@ -73,6 +73,10 @@ if (isset($_COOKIE['CurrUser'])) {
                     { ?>
                     <a class="btnEdit" id="<?php echo $reservation['id'] ?>"><i class='fas fa-edit'></i></a>
                         <?php
+                    }else if($reservation['endTime'] > time()) {
+                    ?>
+                    <a class="btnEdit" href="invoice.php?id=<?php echo $reservation['id'] ?>">Bekijk bon</a>
+                    <?php
                     }else{ ?>
                     <p>bellen voor verandering</p>
                     <?php
