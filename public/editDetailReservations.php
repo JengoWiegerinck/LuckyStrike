@@ -8,7 +8,6 @@ require_once("../source/laneClass.php");
 require_once("../source/db_reservation.php");
 require_once("../source/reservationsClass.php");
 
-
 if (isset($_COOKIE['CurrUser'])) {
     $user = new user(getUserById($_COOKIE['CurrUser']));
         if (isset($_GET['id']))

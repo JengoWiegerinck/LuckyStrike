@@ -7,17 +7,14 @@ require_once("../source/db_horeca.php");
 
 if (isset($_COOKIE['CurrUser'])) {
     $user = new user(getUserById($_COOKIE['CurrUser']));
-    if (checkAdmin($user->getKlasse()))
-    {
+    if (checkAdmin($user->getKlasse())) {
 
-        if (isset($_GET['id']) && isset($_GET['type']))
-        {
-            if ($_GET['type'] == 'food')
-            {
+        if (isset($_GET['id']) && isset($_GET['type'])) {
+            if ($_GET['type'] == 'food') {
                 deleteHoreca($_GET['id']);
             }
         }
-    
+
 ?>
 
 <link rel="stylesheet" href="../../Css/admin.css">
@@ -56,20 +53,19 @@ if (isset($_COOKIE['CurrUser'])) {
         </div>
         <div class="flex justify-between">
 
-        <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur hover:text-whiteKleur hover:border-redKleur" type="button" value="Toevoegen"  onclick="window.location.href='horeca_toevoegen.php';"/>
+                                    <td class="border border-blackKleur/30">
+                                        <button class="functionBtn btnDelete" title="Verwijderen" id="<?php echo $food['id'] ?>"><i class="bi bi-trash"></i></button>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
 
-        <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="Terug"  onclick="window.location.href='admin.php';"/>
-        </div>
+                    </table>
+                </div>
+                <div class="flex justify-between">
 
-    </div>
-</body>
-<script src="../../Js/jquery.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
-<script src="//cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready(() => {
-        //gebruikte deze video (destijds)
-        //https://youtu.be/BIurvEtcev4
+                    <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur hover:text-whiteKleur hover:border-redKleur" type="button" value="Toevoegen" onclick="window.location.href='horeca_toevoegen.php';" />
+
 
         $('#foodTable').DataTable({
             "columns": [
@@ -94,10 +90,11 @@ if (isset($_COOKIE['CurrUser'])) {
         })
     })
 </script>
+
 <?php
-}else{
-    header('location: ../public/index.php');
-}
+    } else {
+        header('location: ../public/index.php');
+    }
 }
 include '../public/footer.php';
 ob_end_flush(); // Flush the output buffer

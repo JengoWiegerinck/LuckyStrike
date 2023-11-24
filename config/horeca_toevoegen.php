@@ -23,23 +23,26 @@ if (isset($_COOKIE['CurrUser'])) {
 
             if ($insertId > 0) {
 
+
                 echo '<div class="flex items-center justify-center h-screen">';
                 echo '<p class="text-green-500 text-4xl font-bold">Nieuw Item succesvol toegevoegt!</p>';
                 echo '</div>';
 
                 // add script to redirect to homepage after 3 seconds
                 echo "<script>setTimeout(function(){ window.location.href = 'horeca.php'; }, 3000);</script>";
-                
                 exit();
             }
         }
 ?>
-<head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-</head>
+
+        <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        </head>
+
         <body>
             <div class="flex justify-center w-[100vw] items-center">
                 <div class="bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
+
                 <h1 class="text-[40px] font-bold text-center pt-6">Toevoegen</h1>
     
                 <div class="grid justify-items-center">
@@ -77,20 +80,18 @@ if (isset($_COOKIE['CurrUser'])) {
                     </form>
                     
                     </div>   
+
                 </div>
 
             </div>
 
             <script>
-                $(document).ready(function() 
-                {
-                    $('#price').on('input', function() 
-                    {
+                $(document).ready(function() {
+                    $('#price').on('input', function() {
                         var inputValue = $(this).val();
                         var pattern = /^[0-9]+(\.[0-9]{0,2})?$/;
-                        
-                        if (!pattern.test(inputValue)) 
-                        {
+
+                        if (!pattern.test(inputValue)) {
                             $(this).val('');
                         }
                     });
