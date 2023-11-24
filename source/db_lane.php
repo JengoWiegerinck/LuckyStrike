@@ -1,9 +1,8 @@
 <?php
+require_once("db_functions.php");
+require_once("laneClass.php");
 
-require_once ("db_functions.php");
-require_once ("laneClass.php");
-
-function getAllLane() 
+function getAllLane()
 {
     return db_getData("SELECT * FROM lane");
 }
@@ -12,7 +11,7 @@ function getLaneById($laneId)
 {
     $query = "SELECT *
     FROM lane
-    WHERE id = '$laneId'";   
+    WHERE id = '$laneId'";
     $lane = db_getData($query);
     if ($lane->num_rows > 0) {
         return $lane;
@@ -20,11 +19,12 @@ function getLaneById($laneId)
         return "Geen activiteit gevonden";
     }
 }
+
 function getLaneByName($laneName)
 {
     $query = "SELECT *
     FROM lane
-    WHERE username = '$laneName'";   
+    WHERE username = '$laneName'";
     $lane = db_getData($query);
     if ($lane->num_rows > 0) {
         return $lane;
@@ -32,6 +32,7 @@ function getLaneByName($laneName)
         return "Geen baan gevonden";
     }
 }
+
 function insertLane($name, $gates)
 {
     $result = db_insertData("INSERT INTO food (username, gates) VALUES ('$name', '$gates')");
@@ -50,4 +51,10 @@ function updateLane($name, $gates, $id)
     return $result;
 }
 
-?>
+function getNumberOfLanes()
+{
+    $query = "SELECT COUNT(*) AS total FROM lane";
+    $result = db_getData($query);
+    $data = mysqli_fetch_assoc($result);
+    return $data['total'];
+}

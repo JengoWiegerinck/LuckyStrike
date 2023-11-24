@@ -1,5 +1,6 @@
 <?php
-class user {
+class user
+{
     private $id;
     private $username;
     private $email;
@@ -9,8 +10,7 @@ class user {
     function __construct($sqlResult = null)
     {
         try {
-            if ($sqlResult)
-            {
+            if ($sqlResult) {
                 $userArr = $sqlResult->fetch_row();
                 $this->id = $userArr[0];
                 $this->email = $userArr[1];
@@ -20,14 +20,12 @@ class user {
             } else {
                 return $this;
             }
-            
         } catch (\Throwable $th) {
             //throw $th;
-            echo "Error: ".$th;
+            echo "Error: " . $th;
         }
-        
     }
-    
+
     function setUser($id, $username, $email, $password, $admin)
     {
         try {
@@ -39,14 +37,13 @@ class user {
             return $this;
         } catch (\Throwable $th) {
             //throw $th;
-            echo "Error: ".$th;
+            echo "Error: " . $th;
         }
     }
-    
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -54,14 +51,15 @@ class user {
 
     /**
      * Get the value of username
-     */ 
+     */
     public function getUsername()
     {
         return $this->username;
     }
-     /**
+
+    /**
      * Get the value of email
-     */ 
+     */
     public function getEmail()
     {
         return $this->email;
@@ -69,7 +67,7 @@ class user {
 
     /**
      * Get the value of password
-     */ 
+     */
     public function getPassword()
     {
         return $this->password;
@@ -77,7 +75,7 @@ class user {
 
     /**
      * Get the value of admin
-     */ 
+     */
     public function getKlasse()
     {
         return $this->klasse;

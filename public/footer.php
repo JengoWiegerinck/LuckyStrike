@@ -1,18 +1,15 @@
+<!-- Author: Luuk -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Include Font Awesome CSS (Add this in your head section) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <title>Lucky Strike</title>
 </head>
 
 <body class="flex flex-col min-h-screen">
-
-    <!-- Your Page Content Goes Here -->
-
     <!-- Contact and Address Information Section -->
     <div class="flex bg-[#1d1d1b] w-full px-20">
         <div class="container mx-auto text-whiteKleur py-8 flex flex-col md:flex-row relative">
@@ -30,8 +27,8 @@
             </div>
             <div class="md:w-1/2 mt-4 md:mt-0 relative">
                 <h3 class="text-xl font-semibold mb-4">Openingstijden</h3>
-                <p>Maandag - Vrijdag: 14:00 - 22:00</p>
-                <p>Zaterdag - Zondag: 14:00 - 00:00</p>
+                <p>Maandag - Donderdag: 14:00 - 22:00</p>
+                <p>Vrijdag - Zondag: 14:00 - 00:00</p>
 
                 <!-- Logo -->
                 <div class="absolute top-0 right-0 mt-4 hidden md:block">
