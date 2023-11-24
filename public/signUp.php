@@ -1,3 +1,4 @@
+<!-- Author: Luuk -->
 <?php
 ob_start(); // Start output buffering
 require_once "header.php";
@@ -8,20 +9,17 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-
     if (checkEmail($email) == "No user found!") {
         $insertedId = insertCustomer($username, $email, $password);
     } else {
         echo '<script>alert("Er is al een account voor dit email")</script>';
-        // go back to register page
         echo '<script>';
         echo 'window.location.href = "./signUp.php";';
         echo '</script>';
     }
 
-
     if ($insertedId > 0) {
-        setcookie("CurrUser", $insertedId, time() + 3600, "/", "");
+        setcookie("CurrUser", $insertedId, time() + (3600 * 8), "/", "");
         header('location: ./index.php');
         exit();
     }
@@ -29,13 +27,14 @@ if (isset($_POST['submit'])) {
 
 ?>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <title>Registreren</title>
 </head>
 
 <body>
-
     <div class="flex flex-col md:flex-row items-center justify-between min-w-[100vw] px-[10%] py-20">
         <div class="w-full md:w-1/2">
             <h1 class="text-2xl md:text-4xl font-bold text-blackKleur">Welkom bij Lucky Strike, <br>maak hier een account aan.</h1>
@@ -58,7 +57,6 @@ if (isset($_POST['submit'])) {
                 <input type="submit" value="Login" name="submit" class="px-6 py-4 bg-redKleur text-whiteKleur font-semibold hover:cursor-pointer" />
             </form>
         </div>
-
         <img src="../assets/img/luckystrike.png" alt="image" class="rounded-md w-0 md:w-[40%] mt-8 md:mt-0 md:ml-8">
     </div>
 
@@ -67,5 +65,4 @@ if (isset($_POST['submit'])) {
 <?php
 ob_end_flush(); // Flush the output buffer
 require_once "footer.php";
-
 ?>

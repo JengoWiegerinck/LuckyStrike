@@ -1,7 +1,5 @@
 <?php
- setcookie('CurrUser', '', time() - 3600, '/');
- unset($_COOKIE['CurrUser']);
+setcookie('CurrUser', '', time() - 3600, '/');
+unset($_COOKIE['CurrUser']);
 
-
- header("Location: ../public/index.php");
-?>
+header("Location: ../public/index.php");
