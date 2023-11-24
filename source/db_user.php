@@ -43,9 +43,9 @@ function insertEmployee($username, $email, $password)
     $result = db_insertData("INSERT INTO user (username, email, password, role) VALUES ('$username', '$email', '$password', 1)");
     return $result;
 }
-
 function deleteUser($id)
 {
+    
     $result = db_doQuery("DELETE FROM `user` WHERE id = '$id'");
     return $result;
 }
