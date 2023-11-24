@@ -1,14 +1,13 @@
 <?php
+require_once("db_functions.php");
+require_once("user.php");
 
-require_once ("db_functions.php");
-require_once ("user.php");
-
-function getAllReservation() 
+function getAllReservation()
 {
     return db_getData("SELECT * FROM reservation");
 }
 
-function getAllReservationAsClass() 
+function getAllReservationAsClass()
 {
     //should give back an array with all activities as classes  edit: doesn't work
     $reservationSql = getAllReservation();
@@ -17,7 +16,7 @@ function getAllReservationAsClass()
         $emtyReservations = new reservationsClass();
 
         $addReservation = $emtyReservations->setReservation(
-            $reservation['id'], 
+            $reservation['id'],
             $reservation['userId'],
             $reservation['laneId'],
             $reservation['priceLane'],
@@ -26,7 +25,8 @@ function getAllReservationAsClass()
             $reservation['children'],
             $reservation['startTime'],
             $reservation['endTime'],
-            $reservation['extraLane']);
+            $reservation['extraLane']
+        );
         array_push($reservationArr, $addReservation);
     }
     return $reservationArr;
@@ -35,12 +35,12 @@ function getAllReservationAsClass()
 function laneDateCheck($laneId, $startTime)
 {
     $conn = db_connect();
-    
+
     // Use prepared statement to prevent SQL injection
     $stmt = $conn->prepare("SELECT * FROM reservation 
                             WHERE laneId = ? 
                                AND (? >= startTime AND ? < endTime)");
-    
+
     // Bind parameters
     $stmt->bind_param("iss", $laneId, $startTime, $startTime);
 
@@ -65,23 +65,22 @@ function laneDateCheck($laneId, $startTime)
 
 function timeDay($lane, $datumWithoutTime, $beginTijd)
 {
-    $date = $datumWithoutTime . " " .$beginTijd;
+    $date = $datumWithoutTime . " " . $beginTijd;
     $dateEnd = $datumWithoutTime . " 23:00";
     $result = db_getData("SELECT * FROM reservation 
     WHERE laneId = '$lane' AND
        startTime >= '$date' AND
        startTime <= '$dateEnd' ORDER BY startTime LIMIT 1");
 
-          if($result->num_rows > 0)
-          {
-            return $result;
-          }
+    if ($result->num_rows > 0) {
+        return $result;
+    }
     return false;
 }
 
 function timeDayUpdate($lane, $datumWithoutTime, $beginTijd, $userId)
 {
-    $date = $datumWithoutTime . " " .$beginTijd;
+    $date = $datumWithoutTime . " " . $beginTijd;
     $dateEnd = $datumWithoutTime . " 23:00";
     $result = db_getData("SELECT * FROM reservation 
     WHERE laneId = '$lane' AND
@@ -90,10 +89,9 @@ function timeDayUpdate($lane, $datumWithoutTime, $beginTijd, $userId)
        userId != '$userId'
         ORDER BY startTime LIMIT 1");
 
-          if($result->num_rows > 0)
-          {
-            return $result;
-          }
+    if ($result->num_rows > 0) {
+        return $result;
+    }
     return false;
 }
 
@@ -111,22 +109,20 @@ function getAllReservationFromUser($id)
 
 function insertReservation($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime)
 {
-
-        $result = db_insertData("INSERT INTO reservation (userId, laneId, price, startTime, endTime, adult, children, extraPrice) VALUES ('$userId', '$laneId', '$priceLane', '$startTime', '$endTime', '$adult', '$children', '$priceFood')");
-        print_r("INSERT INTO reservation (userId, laneId, price, startTime, endTime, adult, children, extraPrice) VALUES ('$userId', '$laneId', '$priceLane', '$startTime', '$endTime', '$adult', '$children', '$priceFood')");
-        return $result;
+    $result = db_insertData("INSERT INTO reservation (userId, laneId, price, startTime, endTime, adult, children, extraPrice) VALUES ('$userId', '$laneId', '$priceLane', '$startTime', '$endTime', '$adult', '$children', '$priceFood')");
+    print_r("INSERT INTO reservation (userId, laneId, price, startTime, endTime, adult, children, extraPrice) VALUES ('$userId', '$laneId', '$priceLane', '$startTime', '$endTime', '$adult', '$children', '$priceFood')");
+    return $result;
 }
 
 
 
 function updateReservation($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime, $id, $extraLane)
 {
-    if(checkAvailability($startTime, $laneId, $endTime))
-    {
-        $result = db_doQuery("UPDATE `reservation` SET `userId`='$userId',`laneId`='$laneId', `extraBaan`='$extraLane', `price`='$priceLane',`extraPrice`='$priceFood',`children`='$children',`adult`='$adult', `startTime`='$startTime',`endTime`='$endTime' WHERE id = '$id'");
+    if (checkAvailability($startTime, $laneId, $endTime)) {
+        $result = db_doQuery("UPDATE `reservation` SET `userId`='$userId',`laneId`='$laneId', `extraLane`='$extraLane', `price`='$priceLane',`extraPrice`='$priceFood',`children`='$children',`adult`='$adult', `startTime`='$startTime',`endTime`='$endTime' WHERE id = '$id'");
         print_r("UPDATE `reservation` SET `userId`='$userId',`laneId`='$laneId', `extraLane`='$extraLane', `price`='$priceLane',`extraPrice`='$priceFood',`children`='$children',`adult`='$adult', `startTime`='$startTime',`endTime`='$endTime' WHERE id = '$id'");
         return $result;
-    }else{
+    } else {
         return false;
     }
 }
@@ -148,23 +144,20 @@ function checkAvailability($start, $lane, $end)
 {
     $result = db_getData("SELECT * FROM reservation WHERE laneId = '$lane' AND '$end' BETWEEN startTime AND endTime");
     print_r("SELECT * FROM reservation WHERE laneId = '$lane' AND '$end' BETWEEN startTime AND endTime");
-    if ($result->num_rows > 0){
+    if ($result->num_rows > 0) {
         return false;
     }
 
     $result = db_getData("SELECT * FROM reservation WHERE laneId = '7' AND startTime = ''$start");
     print_r("SELECT * FROM reservation WHERE laneId = '$lane' AND '$end' BETWEEN startTime AND endTime");
-    if ($result->num_rows > 0){
+    if ($result->num_rows > 0) {
         return false;
     }
 
     $result = db_getData("SELECT * FROM reservation WHERE laneId = '$lane' AND '$start' BETWEEN startTime AND endTime");
     print_r("SELECT * FROM reservation WHERE laneId = '$lane' AND '$start' BETWEEN startTime AND endTime");
-    if ($result->num_rows > 0){
+    if ($result->num_rows > 0) {
         return false;
     }
     return true;
 }
-
-
-?>
