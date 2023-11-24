@@ -284,58 +284,59 @@ include 'footer.php';
   }
 
   /* Styling for the datepicker */
-.ui-datepicker {
-  background-color: #fff; /* White background for the datepicker */
-}
+  .ui-datepicker {
+    background-color: #fff;
+    /* White background for the datepicker */
+  }
 
-.ui-datepicker-header {
-  background-color: #333;
-  color: #fdfde0;
-}
+  .ui-datepicker-header {
+    background-color: #333;
+    color: #fdfde0;
+  }
 
-.ui-widget-content {
-  background: #fff;
-}
+  .ui-widget-content {
+    background: #fff;
+  }
 
-.ui-datepicker-title {
-  margin: 0;
-  color: #fff;
-}
+  .ui-datepicker-title {
+    margin: 0;
+    color: #fff;
+  }
 
-.ui-datepicker-prev,
-.ui-datepicker-next {
-  color: #fff;
-}
+  .ui-datepicker-prev,
+  .ui-datepicker-next {
+    color: #fff;
+  }
 
-.ui-datepicker-calendar {
-  border: 1px solid #fff;
-}
+  .ui-datepicker-calendar {
+    border: 1px solid #fff;
+  }
 
-.ui-state-default {
-  background-color: #d2ae39; /* Background color for the date cells */
-  border: 1px solid #fff;
-  color: #333; /* Text color for normal state */
-}
+  .ui-state-default {
+    background-color: #d2ae39;
+    /* Background color for the date cells */
+    border: 1px solid #fff;
+    color: #333;
+    /* Text color for normal state */
+  }
 
-.ui-state-default:hover {
-  background-color: #e0e0e0;
-  color: #333; /* Text color on hover */
-}
+  .ui-state-default:hover {
+    background-color: #e0e0e0;
+    color: #333;
+    /* Text color on hover */
+  }
 
-.ui-state-active,
-.ui-state-active:hover {
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #333;
-}
+  .ui-state-active,
+  .ui-state-active:hover {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #333;
+  }
 
-/* make the background of the th white */
-.ui-datepicker th {
-  background-color: #fff;
-}
-
-
-
+  /* make the background of the th white */
+  .ui-datepicker th {
+    background-color: #fff;
+  }
 </style>
 </body>
 
