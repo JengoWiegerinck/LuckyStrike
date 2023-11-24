@@ -1,5 +1,6 @@
 <?php
-class laneClass {
+class laneClass
+{
     private $id;
     private $username;
     private $gates;
@@ -7,8 +8,7 @@ class laneClass {
     function __construct($sqlResult = null)
     {
         try {
-            if ($sqlResult)
-            {
+            if ($sqlResult) {
                 $activityArr = $sqlResult->fetch_row();
                 $this->id = $activityArr[0];
                 $this->username = $activityArr[2];
@@ -16,14 +16,13 @@ class laneClass {
             } else {
                 return $this;
             }
-            
         } catch (\Throwable $th) {
             //throw $th;
-            echo "Error: ".$th;
+            echo "Error: " . $th;
         }
     }
 
-    function setActivity($id, $username, $gates) 
+    function setActivity($id, $username, $gates)
     {
         try {
             $this->id = $id;
@@ -32,16 +31,14 @@ class laneClass {
             return $this;
         } catch (\Throwable $th) {
             //throw $th;
-            echo "Error: ".$th;
+            echo "Error: " . $th;
         }
     }
-
 
     public function getId()
     {
         return $this->id;
     }
-
 
     public function getUsername()
     {
@@ -55,12 +52,10 @@ class laneClass {
 
     public function fromBoolToInt($boolToInt)
     {
-        if($boolToInt)
-        {
+        if ($boolToInt) {
             return "1";
-        }else{
+        } else {
             return "0";
         }
     }
 }
-?>

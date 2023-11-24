@@ -4,7 +4,7 @@ include '../public/header.php';
 require_once("../source/db_user.php");
 require_once("../source/useful_functions.php");
 
-    //check if account is admin
+// Check if account is admin
 if (isset($_COOKIE['CurrUser'])) {
     $user = new user(getUserById($_COOKIE['CurrUser']));
     if (!checkCustomer($user->getKlasse()))

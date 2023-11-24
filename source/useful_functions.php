@@ -1,5 +1,4 @@
 <?php
-
 function checkAdmin($admin)
 {
     $adminBool = false;
@@ -9,16 +8,6 @@ function checkAdmin($admin)
     return $adminBool;
 }
 
-//how to use it
-/*
-if (isset($_COOKIE['CurrUser'])) {
-    $user = new user(getUserById($_COOKIE['CurrUser']));
-    if (checkAdmin($user->getKlasse()))
-    {
-
-    }
-}
-*/
 function checkEmployee($employee)
 {
     $employeeBool = false;
@@ -50,18 +39,22 @@ function formateDate($date)
 {
     return date("d-m-Y H:i", strtotime($date));
 }
+
 function formateDatumNl($date)
 {
     return date("d-m-Y", strtotime($date));
 }
+
 function formateDateOutDatabase($date)
 {
     return date("Y-m-d H:i", strtotime($date));
 }
+
 function formateOnlyHours($date)
 {
     return date("H", strtotime($date));
 }
+
 function formateBackToHoureMinute($hours)
 {
     return $hours . ":00";
@@ -76,6 +69,7 @@ function formateTime($date)
 {
     return date("H:i", strtotime($date));
 }
+
 function formateDateTime($date, $time)
 {
     $newDate = date("Y-m-d", strtotime($date));
@@ -83,6 +77,7 @@ function formateDateTime($date, $time)
     $dateTime = $newDate . ' ' . $newTime;
     return $dateTime;
 }
+
 function isWeekend($date)
 {
     $date = strtotime($date);
@@ -138,6 +133,7 @@ function isTimeInRange($startTime, $endTime)
 
     return ['isInRange' => $isInRange, 'duration' => $duration];
 }
+
 function getHourDifference($startTime, $endTime)
 {
     $startTime = formateTime($startTime);
@@ -178,22 +174,18 @@ function kosten($startTime, $endTime)
 
 function laneID1($selectedLanes)
 {
- 
- $laneId = (int)$selectedLanes[1];
+    $laneId = (int)$selectedLanes[1];
 
- $laneId = $laneId + 1;
-return $laneId;
-
+    $laneId = $laneId + 1;
+    return $laneId;
 }
 
 function laneID2($selectedLanes)
 {
- 
- $laneId = (int)$selectedLanes[1];
 
- $laneId = $laneId + 1;
+    $laneId = (int)$selectedLanes[1];
+    $laneId = $laneId + 1;
+    $laneId2 = isset($selectedLanes[3]) ? $selectedLanes[3] + 1 : null;
 
- $laneId2 = isset($selectedLanes[3]) ? $selectedLanes[3] + 1 : null;
-
- return $laneId2;
+    return $laneId2;
 }

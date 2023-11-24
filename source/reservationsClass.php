@@ -1,5 +1,6 @@
 <?php
-class reservationsClass {
+class reservationsClass
+{
     private $id;
     private $userId;
     private $laneName;
@@ -14,8 +15,7 @@ class reservationsClass {
     function __construct($sqlResult = null)
     {
         try {
-            if ($sqlResult)
-            {
+            if ($sqlResult) {
                 $activityArr = $sqlResult->fetch_row();
                 $this->id = $activityArr[0];
                 $this->userId = $activityArr[1];
@@ -30,14 +30,13 @@ class reservationsClass {
             } else {
                 return $this;
             }
-            
         } catch (\Throwable $th) {
             //throw $th;
-            echo "Error: ".$th;
+            echo "Error: " . $th;
         }
     }
 
-    function setReservation($id, $userId, $laneName, $priceLane, $priceFood, $adult, $children, $startTime, $endTime, $extraLane) 
+    function setReservation($id, $userId, $laneName, $priceLane, $priceFood, $adult, $children, $startTime, $endTime, $extraLane)
     {
         try {
             $this->id = $id;
@@ -52,8 +51,7 @@ class reservationsClass {
             $this->extraLane = $extraLane;
             return $this;
         } catch (\Throwable $th) {
-            //throw $th;
-            echo "Error: ".$th;
+            echo "Error: " . $th;
         }
     }
 
@@ -76,7 +74,7 @@ class reservationsClass {
     {
         return $this->priceLane;
     }
- 
+
     public function getPriceFood()
     {
         return $this->priceFood;
@@ -95,7 +93,7 @@ class reservationsClass {
     {
         return $this->startTime;
     }
-    
+
     public function getEndTime()
     {
         return $this->endTime;
@@ -104,6 +102,4 @@ class reservationsClass {
     {
         return $this->endTime;
     }
-    
 }
-?>
