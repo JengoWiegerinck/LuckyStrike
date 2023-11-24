@@ -1,9 +1,8 @@
 <?php
+require_once("db_functions.php");
+require_once("user.php");
 
-require_once ("db_functions.php");
-require_once ("user.php");
-
-function getAllHoreca() 
+function getAllHoreca()
 {
     return db_getData("SELECT * FROM food");
 }
@@ -19,4 +18,3 @@ function deleteHoreca($id)
     $result = db_doQuery("DELETE FROM `food` WHERE id = '$id'");
     return $result;
 }
-?>
