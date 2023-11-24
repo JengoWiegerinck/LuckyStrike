@@ -44,17 +44,4 @@ function db_doQuery($query)
     return false;
 }
 
-// function db_getUser($userName, $password) {
-//     $user = db_getData("SELECT * FROM admin WHERE usernaam = '$userName' AND password = '$password'");
-//     //PDO: rowCount MYSQLI: num_rows
-//     if ($user->rowCount() > 0 )
-//     {
-//         // User found, return user data
-//         return $user;
-//     }
-//     else
-//     {
-//         return null;
-//     }
-// }
 ?>

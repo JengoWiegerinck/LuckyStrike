@@ -32,6 +32,7 @@ if (isset($_COOKIE['CurrUser'])) {
             <thead>
                 <tr>
                     <th>Naam</th>
+                    <th>Categorie</th>
                     <th>Prijs</th>
                     <th>Functie</th>
                 </tr>
@@ -41,10 +42,10 @@ if (isset($_COOKIE['CurrUser'])) {
                 while ($food = $foods->fetch_assoc()) {?>
                 <tr class="odd:bg-blackKleur/20">
                     <td class="border border-blackKleur/30"><?php echo $food['name']?></td>
+                    <td class="border border-blackKleur/30"><?php echo $food['category']?></td>
                     <td class="border border-blackKleur/30"><?php echo "€" . number_format((float)$food['price'], 2, '.', '')?></td>
 
                     <td class="border border-blackKleur/30">
-                        <!-- <button class="functionBtn btnEdit" title="Aanpassen" id="<?php echo $food['id'] ?>"><i class="bi bi-pencil-square"></i></button> -->
                         <button class="functionBtn btnDelete" title="Verwijderen" id="<?php echo $food['id'] ?>"><i class="bi bi-trash"></i></button>
                     </td>
                 </tr>
@@ -73,6 +74,7 @@ if (isset($_COOKIE['CurrUser'])) {
         $('#foodTable').DataTable({
             "columns": [
                 {"data": "name"},
+                {"data": "category"},
                 {"data": "price"},
                 {"data": "function"}
             ]
@@ -82,10 +84,7 @@ if (isset($_COOKIE['CurrUser'])) {
         $('#btnAddFood').on('click', function() {
             window.location.href = `addFood.php`;
         })
-        // $('#foodTable tbody').on('click', '.btnEdit', function() {
-        //     var id = $(this).attr('id');
-        //     window.location.href = `editFood.php?id=${id}`;
-        // })
+
         $('#foodTable tbody').on('click', '.btnDelete', function() {
             if (confirm("Weet je zeker dat je dit wil verwijderen?"))
             {
