@@ -8,57 +8,24 @@ function getAllReservation()
     return db_getData("SELECT * FROM reservation");
 }
 
-function getAllReservationAsClass() 
+function getReservationByUserID($userId)
 {
-    //should give back an array with all activities as classes  edit: doesn't work
-    $reservationSql = getAllReservation();
-    $reservationArr = [];
-    while ($reservation = $reservationSql->fetch_assoc()) {
-        $emtyReservations = new reservationsClass();
-
-        $addReservation = $emtyReservations->setReservation(
-            $reservation['id'], 
-            $reservation['userId'],
-            $reservation['laneId'],
-            $reservation['priceLane'],
-            $reservation['priceFood'],
-            $reservation['adult'],
-            $reservation['children'],
-            $reservation['startTime'],
-            $reservation['endTime'],
-            $reservation['extraLane']);
-        array_push($reservationArr, $addReservation);
+    $result = db_getData("SELECT * FROM reservation WHERE userId = '$userId'");
+    if($result->num_rows > 0){
+        return $result;
     }
-    return $reservationArr;
+    return true;
 }
 
 function laneDateCheck($laneId, $startTime)
 {
-    $conn = db_connect();
-    
-    // Use prepared statement to prevent SQL injection
-    $stmt = $conn->prepare("SELECT * FROM reservation 
-                            WHERE laneId = ? 
-                               AND (? >= startTime AND ? < endTime)");
-    
-    // Bind parameters
-    $stmt->bind_param("iss", $laneId, $startTime, $startTime);
-
     // Execute the query
-    $stmt->execute();
-
-    // Get the result
-    $result = $stmt->get_result();
+    $result = db_getData("SELECT * FROM reservation WHERE laneId = '$laneId'  AND ('$startTime' >= startTime AND '$startTime' < endTime)");
 
     // Check if there are rows in the result
     if ($result->num_rows > 0) {
-        $stmt->close();
-        $conn->close();
         return true;
     }
-
-    $stmt->close();
-    $conn->close();
     return false;
 }
 
@@ -105,7 +72,7 @@ function getReservationById($id)
 
 function getAllReservationFromUser($id)
 {
-    $result = db_getData("SELECT * FROM reservation WHERE userId = '$id'");
+    $result = db_getData("SELECT * FROM reservation WHERE userId = '$id' ORDER BY startTime DESC");
     return $result;
 }
 
