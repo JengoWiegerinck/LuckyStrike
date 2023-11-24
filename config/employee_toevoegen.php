@@ -14,7 +14,13 @@ if (isset($_COOKIE['CurrUser'])) {
             $insertId = insertEmployee($email, $name, $password);
 
             if ($insertId > 0) {
-                header('location: employee.php');
+
+                echo '<div class="flex items-center justify-center h-screen">';
+                echo '<p class="text-green-500 text-4xl font-bold">Nieuw account succesvol toegevoegt!</p>';
+                echo '</div>';
+
+                // add script to redirect to homepage after 3 seconds
+                echo "<script>setTimeout(function(){ window.location.href = 'employee.php'; }, 3000);</script>";
                 exit();
             }
         }

@@ -7,9 +7,9 @@ function getAllHoreca()
     return db_getData("SELECT * FROM food");
 }
 
-function insertHoreca($name, $price)
+function insertHoreca($name, $price, $image, $category)
 {
-    $result = db_insertData("INSERT INTO food (name, price) VALUES ('$name', '$price')");
+    $result = db_insertData("INSERT INTO food (name, price, image, category) VALUES ('$name', '$price', '$image', '$category')");
     return $result;
 }
 

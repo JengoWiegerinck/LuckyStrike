@@ -41,3 +41,6 @@ function db_doQuery($query)
     $mysqli->close();
     return false;
 }
+
+?>
+
