@@ -39,8 +39,10 @@ if (checkEmployee($user->getKlasse()))
 {
     ?>
         <div class="flex items-center justify-center min-h-[100vh]">
-            <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border           border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur    hover:border-redKleur" type="button" value="reserveringen" onclick="window.location.href='horeca.php';"/>
-            </div>
+        <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur hover:text-whiteKleur hover:border-redKleur mr-4" type="button" value="banen reserveren" onclick="window.location.href='laneReservation.php';" />
+        <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur hover:text-whiteKleur hover:border-redKleur" type="button" value="reserveringen" onclick="window.location.href='reservations.php';" />
+</div>
+
         <?php
 }
 }
