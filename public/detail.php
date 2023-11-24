@@ -19,6 +19,10 @@ if (isset($_COOKIE['CurrUser'])) {
             // echo '<script>alert("Wachtwoord fout")</script>';
         }
     }
+    if (isset($_GET['type']) && $_GET['type'] == 'reservation')
+            {
+                deleteReservation($_GET['id']);
+            }
 ?>
 
 <head>
@@ -72,6 +76,7 @@ if (isset($_COOKIE['CurrUser'])) {
                     if(check24Hours($reservation['startTime']))
                     { ?>
                     <a class="btnEdit" id="<?php echo $reservation['id'] ?>"><i class='fas fa-edit'></i></a>
+                    <a class="btnDelete" id="<?php echo $reservation['id'] ?>"><i class='far fa-trash-alt'></i> </a>
                         <?php
                     }else{ ?>
                     <p>bellen voor verandering</p>
@@ -93,6 +98,14 @@ if (isset($_COOKIE['CurrUser'])) {
         console.log(id);
         window.location.href = `editDetailReservations.php?id=${id}`;
         });
+
+        $(document).on('click', '.btnDelete', function() {
+            if (confirm("Weet je zeker dat je dit wil verwijderen? Dit kan niet ongedaan worden gemaakt."))
+            {
+                var id = $(this).attr('id');
+                window.location.href = `detail.php?id=${id}&type=reservation`;
+            }
+        })
     </script>
 </body>
 
