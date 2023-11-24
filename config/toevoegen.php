@@ -30,12 +30,14 @@ if (isset($_COOKIE['CurrUser'])) {
         $customers = getAllCustomer();
             while ($customer = $customers->fetch_assoc()) 
             {
-                $customerEmail = $customer['email'];
+                $customerEmail[] = $customer['email'];
             }
+
+            // $customers->close(); // Close the result set
         if(isset($_POST['prijs']))
         {
             $selectedValue = $_POST['endTime'];
-            $username = $_POST['username'];
+            $email = isset($_POST['email']) ? $_POST['email'] : '';
             $volwassen = $_POST['volwassen'];
             $kinderen = $_POST['kinderen'];
 
@@ -46,7 +48,7 @@ if (isset($_COOKIE['CurrUser'])) {
             $dateEnd = formateDatum($tijd);
             $endTime = $_POST['endTime'];
             $newEndTime = formateDateTime($dateEnd, $endTime);
-            $email = $_POST['username'];
+            $email = isset($_POST['email']) ? $_POST['email'] : '';
             $volwassen = $_POST['volwassen'];
             $kinderen = $_POST['kinderen'];
             $prijsTotaal = kosten($tijd, $endTime);
@@ -57,7 +59,12 @@ if (isset($_COOKIE['CurrUser'])) {
             $result = insertReservation($user->getId(), $lane->getId(), $prijsTotaal, 0, $kinderen, $volwassen, $tijd, $newEndTime);
 
             if ($result > 0) {
-                header('location: laneReservation.php');
+                echo '<div class="flex items-center justify-center h-screen">';
+                echo '<p class="text-green-500 text-4xl font-bold">Reserveren succesvol toegevoegt!</p>';
+                echo '</div>';
+
+                // add script to redirect to homepage after 3 seconds
+                echo "<script>setTimeout(function(){ window.location.href = 'laneReservation.php'; }, 3000);</script>";
                 exit();
             }
 
@@ -67,7 +74,14 @@ if (isset($_COOKIE['CurrUser'])) {
 
 <head>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+</script>
 </head>
         <body>
             <div class="flex justify-center w-[100vw] items-center">
@@ -78,7 +92,16 @@ if (isset($_COOKIE['CurrUser'])) {
                     <form method="POST" action="">
                         <div class="w-full my-4">
                             <p class="font-bold">Klant email:</p>
-                            <input type="text" name="username" <?php if(isset($_POST['prijs'])){$username = $_POST['username']; echo 'value="'.$username.'"';} ?> class="py-2 px-4 rounded-sm border" placeholder="klant@email.com" require />
+                            <select class="js-example-basic-single w-full py-2 px-4 rounded-sm border bg-white focus:outline-none focus:border-gray-500" name="email">
+                                <?php foreach($customerEmail as $email2) {
+                                    if($email == $email2)
+                                    {
+                                        echo '<option selected="selected">'.$email2.'</option>'; 
+                                    }else{
+                                        echo '<option>'.$email2.'</option>'; 
+                                    }
+                                } ?>
+                            </select>
                         </div>
                        
                         <div class="w-full my-4">
