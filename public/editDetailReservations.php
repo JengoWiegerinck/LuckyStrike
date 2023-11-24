@@ -65,7 +65,13 @@ if (isset($_COOKIE['CurrUser'])) {
                $price = kosten($dateStart, formateTime($stoptijdLong));
                 $update = updateReservationCustomer($user->getId(), laneID1($selectedLanes), $price, '0', $childs, $adult, $dateStart, $stoptijdLong, $reservation->getId(), laneID2($selectedLanes));
                 if ($update) {
-                  header('Location: detail.php');
+                  echo '<div class="flex items-center justify-center h-screen">';
+                echo '<p class="text-green-500 text-4xl font-bold">Reserveren succesvol geupdate!</p>';
+                echo '</div>';
+
+                // add script to redirect to homepage after 3 seconds
+                echo "<script>setTimeout(function(){ window.location.href = 'detail.php'; }, 3000);</script>";
+                exit();
                 }else{
                   echo 'niet gelukt';
                 }
