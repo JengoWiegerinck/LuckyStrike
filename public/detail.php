@@ -1,22 +1,19 @@
-<?php 
-include 'header.php';
+<?php
+include_once 'header.php';
 require_once "../source/user.php";
-require_once "../source/db_user.php"; 
+require_once "../source/db_user.php";
 require_once "../source/db_reservation.php";
-require_once("../source/useful_functions.php");
+require_once "../source/useful_functions.php";
+
 if (isset($_COOKIE['CurrUser'])) {
     $user = new user(getUserById($_COOKIE['CurrUser']));
 
     if (isset($_POST['updaten'])) {
         $currentlyP = $_POST['password'];
         $newP = $_POST['newPassword'];
-        
-        if($currentlyP == $user->getPassword())
-        {
+
+        if ($currentlyP == $user->getPassword()) {
             updatePassword($newP, $user->getId());
-            // echo '<script>alert("Wachtwoord vernieuwd")</script>';
-        }else{
-            // echo '<script>alert("Wachtwoord fout")</script>';
         }
     }
     if (isset($_GET['type']) && $_GET['type'] == 'reservation')
@@ -25,14 +22,15 @@ if (isset($_COOKIE['CurrUser'])) {
             }
 ?>
 
-<head>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-</head>
-<body>
-    <div class="grid grid-cols-1 md:grid-cols-2">
-        <div class="my-8 bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
-            <h2 class="text-4xl font-semibold text-gray-800 ">Persoonlijke gegevens</h2>
-            <form method="POST" action="">
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    </head>
+
+    <body>
+        <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="my-8 bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
+                <h2 class="text-4xl font-semibold text-gray-800 ">Persoonlijke gegevens</h2>
+                <form method="POST" action="">
                     <div class="w-full my-4">
                         <p class="font-bold">Email</p>
                         <input type="email" name="email" class="py-2 px-4 rounded-sm border" value="<?php echo $user->getEmail(); ?>" readonly />
@@ -50,6 +48,7 @@ if (isset($_COOKIE['CurrUser'])) {
                         <input type="password" name="newPassword" class="py-2 px-4 rounded-sm border" placeholder="Wachtwoord" required />
                     </div>
                     <input name="updaten" type="submit" value="updaten" class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur hover:text-whiteKleur hover:border-redKleur" />
+
             </form>        
         </div>
         <div class="my-8 bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
@@ -78,23 +77,13 @@ if (isset($_COOKIE['CurrUser'])) {
                     <a class="btnEdit" id="<?php echo $reservation['id'] ?>"><i class='fas fa-edit'></i></a>
                     <a class="btnDelete" id="<?php echo $reservation['id'] ?>"><i class='far fa-trash-alt'></i> </a>
                         <?php
-                    }else if($reservation['endTime'] > time()) {
-                    ?>
-                    <a class="btnEdit" href="invoice.php?id=<?php echo $reservation['id'] ?>">Bekijk bon</a>
-                    <?php
-                    }else{ ?>
-                    <p>bellen voor verandering</p>
-                    <?php
-                    }
-                    ?>
-                </td>
-                </tr>
-                <?php
-                }
-                ?>
-              </tbody>
-            </table>
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </div>
     <script>
        $(document).on('click', '.btnEdit', function() {
@@ -113,7 +102,8 @@ if (isset($_COOKIE['CurrUser'])) {
     </script>
 </body>
 
-<?php 
+
+<?php
 }
 include 'footer.php';
- ?>
+?>

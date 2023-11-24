@@ -1,8 +1,8 @@
+<!-- Author: Luuk -->
 <!-- Standaard meta tags -->
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,10 +47,10 @@
         theme: {
             extend: {
                 colors: {
-                    whiteKleur: '#fdfde0', // Wit
-                    redKleur: '#dc2222', // Rood
-                    yellowKleur: '#d2ae39', // Geel
-                    blackKleur: '#1b1b19', // Zwart
+                    whiteKleur:     '#fdfde0', // Wit
+                    redKleur:       '#dc2222', // Rood
+                    yellowKleur:    '#d2ae39', // Geel
+                    blackKleur:     '#1b1b19', // Zwart
                 }
 
             }
