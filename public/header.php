@@ -6,8 +6,6 @@ require_once "../source/useful_functions.php";
 $pageTitle = 'Lucky Strike';
 ?>
 
-<body class="bg-whiteKleur">
-
     <div class="h-1/5 w-full relative">
         <img class="w-full h-full object-cover" src="../assets/img/bowling+alleys+in+okc.jpg" alt="">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-blackKleur"></div>

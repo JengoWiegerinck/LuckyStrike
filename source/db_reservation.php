@@ -127,6 +127,13 @@ function updateReservation($userId, $laneId, $priceLane, $priceFood, $children, 
     }
 }
 
+function updateReservationCustomer($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime, $id, $extraLane)
+{
+
+        $result = db_doQuery("UPDATE `reservation` SET `userId`='$userId',`laneId`='$laneId', `extraBaan`='$extraLane', `price`='$priceLane',`extraPrice`='$priceFood',`children`='$children',`adult`='$adult', `startTime`='$startTime',`endTime`='$endTime' WHERE id = '$id'");
+        return $result;
+}
+
 function deleteReservation($id)
 {
     $result = db_doQuery("DELETE FROM `reservation` WHERE id = '$id'");
