@@ -51,7 +51,7 @@ if (isset($_COOKIE['CurrUser'])) {
 
             </form>        
         </div>
-        <div class="my-8 bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
+        <div class="my-8 bg-slate-50 m-24 w-fit px-20 border-solid overflow-y-scroll h-[28rem] border-2 border-blackKleur rounded-lg">
             <h2 class="text-4xl font-semibold text-gray-800">Reserveringen</h2>
             <table class="table-fixed w-full border-collapse">
               <thead>
