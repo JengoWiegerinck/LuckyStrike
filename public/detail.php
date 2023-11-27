@@ -76,6 +76,14 @@ if (isset($_COOKIE['CurrUser'])) {
                     { ?>
                     <a class="btnEdit" id="<?php echo $reservation['id'] ?>"><i class='fas fa-edit'></i></a>
                     <a class="btnDelete" id="<?php echo $reservation['id'] ?>"><i class='far fa-trash-alt'></i> </a>
+<?php
+                    }else{ ?>
+                    <p>bellen voor verandering</p>
+                    <?php
+                    }
+                    ?>
+                </td>
+                </tr>
                         <?php
                         }
                         ?>
@@ -105,5 +113,6 @@ if (isset($_COOKIE['CurrUser'])) {
 
 <?php
 }
+
 include 'footer.php';
 ?>

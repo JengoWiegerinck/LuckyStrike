@@ -84,13 +84,9 @@ function insertReservation($userId, $laneId, $priceLane, $priceFood, $children, 
 
 function updateReservation($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime, $id, $extraLane)
 {
-    if (checkAvailability($startTime, $laneId, $endTime)) {
-        $result = db_doQuery("UPDATE `reservation` SET `userId`='$userId',`laneId`='$laneId', `extraLane`='$extraLane', `price`='$priceLane',`extraPrice`='$priceFood',`children`='$children',`adult`='$adult', `startTime`='$startTime',`endTime`='$endTime' WHERE id = '$id'");
-        print_r("UPDATE `reservation` SET `userId`='$userId',`laneId`='$laneId', `extraLane`='$extraLane', `price`='$priceLane',`extraPrice`='$priceFood',`children`='$children',`adult`='$adult', `startTime`='$startTime',`endTime`='$endTime' WHERE id = '$id'");
+   
+        $result = db_doQuery("UPDATE `reservation` SET `userId`='$userId',`laneId`='$laneId', `extraBaan`='$extraLane', `price`='$priceLane',`extraPrice`='$priceFood',`children`='$children',`adult`='$adult', `startTime`='$startTime',`endTime`='$endTime' WHERE id = '$id'");
         return $result;
-    } else {
-        return false;
-    }
 }
 
 function updateReservationCustomer($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime, $id, $extraLane)
@@ -106,24 +102,4 @@ function deleteReservation($id)
     return $result;
 }
 
-function checkAvailability($start, $lane, $end)
-{
-    $result = db_getData("SELECT * FROM reservation WHERE laneId = '$lane' AND '$end' BETWEEN startTime AND endTime");
-    print_r("SELECT * FROM reservation WHERE laneId = '$lane' AND '$end' BETWEEN startTime AND endTime");
-    if ($result->num_rows > 0) {
-        return false;
-    }
 
-    $result = db_getData("SELECT * FROM reservation WHERE laneId = '7' AND startTime = ''$start");
-    print_r("SELECT * FROM reservation WHERE laneId = '$lane' AND '$end' BETWEEN startTime AND endTime");
-    if ($result->num_rows > 0) {
-        return false;
-    }
-
-    $result = db_getData("SELECT * FROM reservation WHERE laneId = '$lane' AND '$start' BETWEEN startTime AND endTime");
-    print_r("SELECT * FROM reservation WHERE laneId = '$lane' AND '$start' BETWEEN startTime AND endTime");
-    if ($result->num_rows > 0) {
-        return false;
-    }
-    return true;
-}
