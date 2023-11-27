@@ -85,7 +85,7 @@ if (isset($_COOKIE['CurrUser'])) {
                 </td>
                 </tr>
                         <?php
-                        }
+                        }}
                         ?>
                     </tbody>
                 </table>
@@ -114,5 +114,8 @@ if (isset($_COOKIE['CurrUser'])) {
 <?php
 }
 
-include 'footer.php';
+
+include_once 'footer.php';
+
+
 ?>
