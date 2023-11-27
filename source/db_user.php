@@ -43,9 +43,9 @@ function insertEmployee($username, $email, $password)
     $result = db_insertData("INSERT INTO user (username, email, password, role) VALUES ('$username', '$email', '$password', 1)");
     return $result;
 }
+
 function deleteUser($id)
 {
-    
     $result = db_doQuery("DELETE FROM `user` WHERE id = '$id'");
     return $result;
 }
@@ -53,16 +53,10 @@ function deleteUser($id)
 function checkEmail($email)
 {
     $user = db_getData("SELECT * FROM user WHERE email = '$email'");
-
-    $resultArray = array();
-    if  ($user) {
-            while ($row = $user->fetch_assoc()) {
-                $resultArray[] = $row;
-            }
-            
-            return $resultArray;
-        }
-    return "Geen gebruiker gevonden!";
+    if ($user->num_rows > 0) {
+        return $user;
+    }
+    return print_r($user->num_rows);
 }
 
 function updatePassword($password, $id)

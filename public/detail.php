@@ -77,7 +77,7 @@ if (isset($_COOKIE['CurrUser'])) {
                     <a class="btnEdit" id="<?php echo $reservation['id'] ?>"><i class='fas fa-edit'></i></a>
                     <a class="btnDelete" id="<?php echo $reservation['id'] ?>"><i class='far fa-trash-alt'></i> </a>
                         <?php
-                        }
+                        }}
                         ?>
                     </tbody>
                 </table>
@@ -105,5 +105,7 @@ if (isset($_COOKIE['CurrUser'])) {
 
 <?php
 }
-include 'footer.php';
+
+include_once 'footer.php';
+
 ?>
