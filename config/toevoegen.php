@@ -21,68 +21,49 @@ if (isset($_COOKIE['CurrUser'])) {
             if (!timeDay($lane->getId(), formateDatum($tijd), formateTime($tijd))) {
             }
 
-        $reservationCheck = new reservationsClass(timeDay($lane->getId(), formateDatum($tijd), formateTime($tijd)));
-        $prijsTotaal;
-        $customerEmail = array();
-        $customers = getAllCustomer();
-            while ($customer = $customers->fetch_assoc()) 
+            $reservationCheck = new reservationsClass(timeDay($lane->getId(), formateDatum($tijd), formateTime($tijd)));
+            $prijsTotaal;
+            $customerEmail = array();
+            $customers = getAllCustomer();
+                while ($customer = $customers->fetch_assoc()) 
+                {
+                    $customerEmail[] = $customer['email'];
+            }
+
+            if(isset($_POST['prijs']))
             {
-                $customerEmail[] = $customer['email'];
+                $selectedValue = $_POST['endTime'];
+                $email = isset($_POST['email']) ? $_POST['email'] : '';
+                $volwassen = $_POST['volwassen'];
+                $kinderen = $_POST['kinderen'];
+    
+                $prijsTotaal = kosten($tijd, $selectedValue);     
             }
-
-            // $customers->close(); // Close the result set
-        if(isset($_POST['prijs']))
-        {
-            $selectedValue = $_POST['endTime'];
-            $email = isset($_POST['email']) ? $_POST['email'] : '';
-            $volwassen = $_POST['volwassen'];
-            $kinderen = $_POST['kinderen'];
-
-            $prijsTotaal = kosten($tijd, $selectedValue);     
-        }
-        if(isset($_POST['reserveren']))
-        {
-            $dateEnd = formateDatum($tijd);
-            $endTime = $_POST['endTime'];
-            $newEndTime = formateDateTime($dateEnd, $endTime);
-            $email = isset($_POST['email']) ? $_POST['email'] : '';
-            $volwassen = $_POST['volwassen'];
-            $kinderen = $_POST['kinderen'];
-            $prijsTotaal = kosten($tijd, $endTime);
-            $baan = $_POST['laneName'];
-            $user = new user(checkEmail($email));
-            $lane = new laneClass(getLaneByName($baan));
-
-            $result = insertReservation($user->getId(), $lane->getId(), $prijsTotaal, 0, $kinderen, $volwassen, $tijd, $newEndTime);
-
-            if ($result > 0) {
-                echo '<div class="flex items-center justify-center h-screen">';
-                echo '<p class="text-green-500 text-4xl font-bold">Reserveren succesvol toegevoegt!</p>';
-                echo '</div>';
-
-                // add script to redirect to homepage after 3 seconds
-                echo "<script>setTimeout(function(){ window.location.href = 'laneReservation.php'; }, 3000);</script>";
-                exit();
-            }
-            if (isset($_POST['reserveren'])) {
+            if(isset($_POST['reserveren']))
+            {
                 $dateEnd = formateDatum($tijd);
                 $endTime = $_POST['endTime'];
                 $newEndTime = formateDateTime($dateEnd, $endTime);
-                $email = $_POST['username'];
+                $email = isset($_POST['email']) ? $_POST['email'] : '';
                 $volwassen = $_POST['volwassen'];
                 $kinderen = $_POST['kinderen'];
                 $prijsTotaal = kosten($tijd, $endTime);
                 $baan = $_POST['laneName'];
                 $user = new user(checkEmail($email));
                 $lane = new laneClass(getLaneByName($baan));
-
+    
                 $result = insertReservation($user->getId(), $lane->getId(), $prijsTotaal, 0, $kinderen, $volwassen, $tijd, $newEndTime);
-
+    
                 if ($result > 0) {
-                    header('location: laneReservation.php');
+                    echo '<div class="flex items-center justify-center h-screen">';
+                    echo '<p class="text-green-500 text-4xl font-bold">Reserveren succesvol toegevoegt!</p>';
+                    echo '</div>';
+    
+                    // add script to redirect to homepage after 3 seconds
+                    echo "<script>setTimeout(function(){ window.location.href = 'laneReservation.php'; }, 3000);</script>";
                     exit();
-                }
             }
+        }
 ?>
 
 
@@ -97,36 +78,7 @@ $(document).ready(function() {
 });
 </script>
 </head>
-        <body>
-            <div class="flex justify-center w-[100vw] items-center">
-                <div class="bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
-                <h1 class="text-[40px] font-bold text-center pt-6">Toevoegen</h1>
-    
-                <div class="grid justify-items-center">
-                    <form method="POST" action="">
-                        <div class="w-full my-4">
-                            <p class="font-bold">Klant email:</p>
-                            <select class="js-example-basic-single w-full py-2 px-4 rounded-sm border bg-white focus:outline-none focus:border-gray-500" name="email">
-                                <?php foreach($customerEmail as $email2) {
-                                    if($email == $email2)
-                                    {
-                                        echo '<option selected="selected">'.$email2.'</option>'; 
-                                    }else{
-                                        echo '<option>'.$email2.'</option>'; 
-                                    }
-                                } ?>
-                            </select>
-                        </div>
-                       
-                        <div class="w-full my-4">
-                            <p class="font-bold">Baan:</p>
-                            <input type="text" name="laneName" class="py-2 px-4 rounded-sm border" value="<?php echo $lane->getUsername(); ?>" readonly />
-                        </div>
-                        <div class="w-full my-4">
-                            <p class="font-bold">Starttijd:</p>
-                            <input type="datetime-local" name="startTime" class="py-2 px-4 rounded-sm border" value="<?php echo $tijd;?>" readonly />
-                        </div>
-
+        
             <body>
                 <div class="flex justify-center w-[100vw] items-center">
                     <div class="bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">

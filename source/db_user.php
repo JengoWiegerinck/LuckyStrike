@@ -53,10 +53,16 @@ function deleteUser($id)
 function checkEmail($email)
 {
     $user = db_getData("SELECT * FROM user WHERE email = '$email'");
-    if ($user->num_rows > 0) {
-        return $user;
-    }
-    return "No user found!";
+
+    $resultArray = array();
+    if  ($user) {
+            while ($row = $user->fetch_assoc()) {
+                $resultArray[] = $row;
+            }
+            
+            return $resultArray;
+        }
+    return "Geen gebruiker gevonden!";
 }
 
 function updatePassword($password, $id)
