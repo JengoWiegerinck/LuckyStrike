@@ -7,7 +7,6 @@ require_once "../source/useful_functions.php";
 
 if (isset($_COOKIE['CurrUser'])) {
     $user = new user(getUserById($_COOKIE['CurrUser']));
-
     if (isset($_POST['updaten'])) {
         $currentlyP = $_POST['password'];
         $newP = $_POST['newPassword'];
