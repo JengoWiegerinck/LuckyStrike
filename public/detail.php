@@ -112,8 +112,6 @@ if (isset($_COOKIE['CurrUser'])) {
 
 
 <?php
-}
-
 
 include_once 'footer.php';
 
