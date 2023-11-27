@@ -7,8 +7,8 @@ require_once("../source/db_horeca.php");
 
 if (isset($_COOKIE['CurrUser'])) {
     $user = new user(getUserById($_COOKIE['CurrUser']));
-    if (checkAdmin($user->getKlasse())) 
-    {
+
+    if (checkAdmin($user->getKlasse())) {
 
         if (isset($_GET['id']) && isset($_GET['type'])) {
             if ($_GET['type'] == 'food') {
