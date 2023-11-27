@@ -57,7 +57,9 @@ if (isset($_COOKIE['CurrUser'])) {
                                     <p><strong>Datum:</strong> <?php echo formatedatumNl($date); ?></p>
                                     <p><strong>Starttijd:</strong> <?php echo $startTime . (isset($urenBowlen) ? " (2 uur lang)" : ""); ?></p>
                                     <p><strong>Volwassenen:</strong> <?php echo $volwassen; ?></p>
-                                    <p><strong>Kinderen:</strong> <?php echo $kinderen; ?></p>
+                                    <?php if ($kinderen > 0) { ?>
+                                        <p><strong>Kinderen:</strong> <?php echo $kinderen; ?></p>
+                                    <?php } ?>
 
                                     <br>
                                     <hr><br>
@@ -177,7 +179,7 @@ if (isset($_COOKIE['CurrUser'])) {
                         }
 
                         lanes.push(laneIndex);
-                        $(".lane-cell:nth-child(" + (laneIndex + 2) + ")").css("background-color", "#f0f0f0");
+                        $(".lane-cell:nth-child(" + (laneIndex + 2) + ")").css("background-color", "#909090");
                     });
 
                     // Update the hidden input field with selected lanes and other form data

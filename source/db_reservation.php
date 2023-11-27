@@ -7,58 +7,24 @@ function getAllReservation()
     return db_getData("SELECT * FROM reservation");
 }
 
-function getAllReservationAsClass()
+function getReservationByUserID($userId)
 {
-    //should give back an array with all activities as classes  edit: doesn't work
-    $reservationSql = getAllReservation();
-    $reservationArr = [];
-    while ($reservation = $reservationSql->fetch_assoc()) {
-        $emtyReservations = new reservationsClass();
-
-        $addReservation = $emtyReservations->setReservation(
-            $reservation['id'],
-            $reservation['userId'],
-            $reservation['laneId'],
-            $reservation['priceLane'],
-            $reservation['priceFood'],
-            $reservation['adult'],
-            $reservation['children'],
-            $reservation['startTime'],
-            $reservation['endTime'],
-            $reservation['extraLane']
-        );
-        array_push($reservationArr, $addReservation);
+    $result = db_getData("SELECT * FROM reservation WHERE userId = '$userId'");
+    if($result->num_rows > 0){
+        return $result;
     }
-    return $reservationArr;
+    return true;
 }
 
 function laneDateCheck($laneId, $startTime)
 {
-    $conn = db_connect();
-
-    // Use prepared statement to prevent SQL injection
-    $stmt = $conn->prepare("SELECT * FROM reservation 
-                            WHERE laneId = ? 
-                               AND (? >= startTime AND ? < endTime)");
-
-    // Bind parameters
-    $stmt->bind_param("iss", $laneId, $startTime, $startTime);
-
     // Execute the query
-    $stmt->execute();
-
-    // Get the result
-    $result = $stmt->get_result();
+    $result = db_getData("SELECT * FROM reservation WHERE laneId = '$laneId'  AND ('$startTime' >= startTime AND '$startTime' < endTime)");
 
     // Check if there are rows in the result
     if ($result->num_rows > 0) {
-        $stmt->close();
-        $conn->close();
         return true;
     }
-
-    $stmt->close();
-    $conn->close();
     return false;
 }
 
@@ -103,7 +69,7 @@ function getReservationById($id)
 
 function getAllReservationFromUser($id)
 {
-    $result = db_getData("SELECT * FROM reservation WHERE userId = '$id'");
+    $result = db_getData("SELECT * FROM reservation WHERE userId = '$id' ORDER BY startTime DESC");
     return $result;
 }
 
@@ -118,13 +84,9 @@ function insertReservation($userId, $laneId, $priceLane, $priceFood, $children, 
 
 function updateReservation($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime, $id, $extraLane)
 {
-    if (checkAvailability($startTime, $laneId, $endTime)) {
-        $result = db_doQuery("UPDATE `reservation` SET `userId`='$userId',`laneId`='$laneId', `extraLane`='$extraLane', `price`='$priceLane',`extraPrice`='$priceFood',`children`='$children',`adult`='$adult', `startTime`='$startTime',`endTime`='$endTime' WHERE id = '$id'");
-        print_r("UPDATE `reservation` SET `userId`='$userId',`laneId`='$laneId', `extraLane`='$extraLane', `price`='$priceLane',`extraPrice`='$priceFood',`children`='$children',`adult`='$adult', `startTime`='$startTime',`endTime`='$endTime' WHERE id = '$id'");
+   
+        $result = db_doQuery("UPDATE `reservation` SET `userId`='$userId',`laneId`='$laneId', `extraBaan`='$extraLane', `price`='$priceLane',`extraPrice`='$priceFood',`children`='$children',`adult`='$adult', `startTime`='$startTime',`endTime`='$endTime' WHERE id = '$id'");
         return $result;
-    } else {
-        return false;
-    }
 }
 
 function updateReservationCustomer($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime, $id, $extraLane)
@@ -140,24 +102,4 @@ function deleteReservation($id)
     return $result;
 }
 
-function checkAvailability($start, $lane, $end)
-{
-    $result = db_getData("SELECT * FROM reservation WHERE laneId = '$lane' AND '$end' BETWEEN startTime AND endTime");
-    print_r("SELECT * FROM reservation WHERE laneId = '$lane' AND '$end' BETWEEN startTime AND endTime");
-    if ($result->num_rows > 0) {
-        return false;
-    }
 
-    $result = db_getData("SELECT * FROM reservation WHERE laneId = '7' AND startTime = ''$start");
-    print_r("SELECT * FROM reservation WHERE laneId = '$lane' AND '$end' BETWEEN startTime AND endTime");
-    if ($result->num_rows > 0) {
-        return false;
-    }
-
-    $result = db_getData("SELECT * FROM reservation WHERE laneId = '$lane' AND '$start' BETWEEN startTime AND endTime");
-    print_r("SELECT * FROM reservation WHERE laneId = '$lane' AND '$start' BETWEEN startTime AND endTime");
-    if ($result->num_rows > 0) {
-        return false;
-    }
-    return true;
-}
