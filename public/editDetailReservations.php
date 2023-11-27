@@ -37,23 +37,32 @@ if (isset($_COOKIE['CurrUser'])) {
               if (isset($_POST["update"])) {
                 $selectedLanes = $_POST["selectedLanes"];
                 $urenBowlen = isset($_POST["urenBowlen"]) ? $_POST["urenBowlen"] : '';
-                $price = kosten($date, $time);
-
+                $dateStart = $_POST['dateStart'];
                 $urenBowlenCheck = 1;
-               if ($urenBowlen == "on") {
-                   $urenBowlenCheck = 2;
-               }
-             
-               // Calculate end time
-               $stoptijd = strtotime("+" . $urenBowlenCheck . " hours", strtotime($date));
-               // Format the stop time
-               $stoptijdLong = date('Y-m-d H:i', $stoptijd);
-
-                $update = updateReservation($user->getId(), laneID1($selectedLanes), $price, '0', $childs, $adult, $date, $stoptijdLong, $reservation->getId(), laneID2($selectedLanes));
+                if ($urenBowlen == "on") {
+                    $urenBowlenCheck = 2;
+                }
+                $hour = formateOnlyHours($dateStart);
+                $hour = $hour + $urenBowlenCheck;
+                $hour = formateBackToHoureMinute($hour);
+                $endTime = formateDateTime($dateStart, $hour); 
+ 
+                $price = kosten($dateStart, $hour);
+                if(!empty(laneID2($selectedLanes)))
+                {
+                  $price = $price * 2;
+                }
+                
+                
+                $update = updateReservation($user->getId(), laneID1($selectedLanes), $price, '0', $childs, $adult, $dateStart, $endTime, $reservation->getId(), laneID2($selectedLanes));
                 if ($update) {
-                  header('Location: detail.php');
+                  echo '<div class="flex items-center justify-center h-screen">';
+                  echo '<p class="text-green-500 text-4xl font-bold">Reservering is geupdated!</p>';
+                  echo '</div>';
+                  echo "<script>setTimeout(function(){ window.location.href = 'detail.php'; }, 3000);</script>";
+                  exit();
                 }else{
-                  echo 'niet gelukt';
+                  echo '<script>alert("Er is wat mis gegaan. Probeer het misschien wat later nog een keer.")</script>';
                 }
 
                 
@@ -71,9 +80,7 @@ if (isset($_COOKIE['CurrUser'])) {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
       $(document).ready(function() {
-        // Other existing code...
-
-        // Event handler for adult input change
+                // Event handler for adult input change
         $('#volwassen').on('change', function() {
           updateTotalParticipants();
         });
@@ -178,89 +185,95 @@ if (isset($_COOKIE['CurrUser'])) {
 <div class="flex">
     <div class="flex items-center justify-center px-8 m-8 w-full max-w-screen-lg bg-white p-4 rounded-md shadow-md">
     <form method="POST" action="">
-                                        <label for="lane">Selecteer maximaal twee banen:</label>
-                                        <table class="w-full border-collapse">
+        <label for="lane">Selecteer maximaal twee banen:</label>
+        <table class="w-full border-collapse">
 
-                                            <tr class="border-b-2 border-gray-300">
-                                                <th class="text-center font-semibold text-gray-700 p-2 cursor-pointer"><?php echo formatedatumNl($date); ?></th>
-                                                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane1">Baan 1</th>
-                                                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane2">Baan 2</th>
-                                                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane3">Baan 3</th>
-                                                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane4">Baan 4</th>
-                                                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane5">Baan 5</th>
-                                                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane6">Baan 6</th>
-                                                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane7">Baan 7</th>
-                                                <th class="text-center font-semibold text-gray-700 border-l-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane8">Baan 8</th>
-                                            </tr>
+            <tr class="border-b-2 border-gray-300">
+                <th class="text-center font-semibold text-gray-700 p-2 cursor-pointer"><?php echo formatedatumNl($date); ?></th>
+                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane1">Baan 1</th>
+                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane2">Baan 2</th>
+                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane3">Baan 3</th>
+                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane4">Baan 4</th>
+                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane5">Baan 5</th>
+                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane6">Baan 6</th>
+                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane7">Baan 7</th>
+                <th class="text-center font-semibold text-gray-700 border-l-2 border-gray-300 p-2 lane-header cursor-pointer" id="lane8">Baan 8</th>
+            </tr>
 
-                                            <!-- Existing code for the timeslots row -->
-                                            <tr class="border-b-2 border-gray-300">
-                                                <td class="border-r-2 border-gray-300 p-2"><?php echo date('H:i', strtotime($date)); ?></td>
-                                                <?php
-                                                $selectedStartTime = $date;
+            <!-- Existing code for the timeslots row -->
+            <tr class="border-b-2 border-gray-300">
+                <td class="border-r-2 border-gray-300 p-2"><?php echo date('H:i', strtotime($date)); ?></td>
+                <?php
+                $selectedStartTime = $date;
 
-                                                for ($i = 1; $i <= 8; $i++) {
-                                                ?>
-                                                    <td class="border-r-2 border-gray-300 p-2 lane-cell">
-                                                        <?php
-                                                        $date = formateDateTime($date, $selectedStartTime);
-                                                        $bool = laneDateCheck($i, $date);
-                                                        ?>
-                                                        <a href="javascript:void(0)" class="lane-link cursor-default" data-lane="<?php echo $i; ?>">
-                                                            <?php
-                                                            echo $bool ? "bezet" : "vrij";
-                                                            ?>
-                                                            <?php if ($bool) { ?>
-                                                                <script>
-                                                                    // make the lane$i unclickable
-                                                                    $("#lane<?php echo $i; ?>").removeClass("lane-header");
+                for ($i = 1; $i <= 8; $i++) {
+                ?>
+                    <td class="border-r-2 border-gray-300 p-2 lane-cell">
+                        <?php
+                        $date = formateDateTime($date, $selectedStartTime);
+                        $bool = laneDateCheck($i, $date);
+                        ?>
+                        <a href="javascript:void(0)" class="lane-link cursor-default" data-lane="<?php echo $i; ?>">
+                            <?php
+                            echo $bool ? "bezet" : "vrij";
+                            ?>
+                            <?php if ($bool) { ?>
+                                <script>
+                                    // make the lane$i unclickable
+                                    $("#lane<?php echo $i; ?>").removeClass("lane-header");
 
-                                                                    // add a visual indicator that the lane is unavailable by changing the opacity
-                                                                    $(".lane-cell:nth-child(<?php echo $i + 1; ?>)").css("opacity", "0.5");
-                                                                </script>
-                                                            <?php } ?>
-                                                        </a>
-                                                    </td>
-                                                <?php } ?>
-                                            </tr>
+                                    // add a visual indicator that the lane is unavailable by changing the opacity
+                                    $(".lane-cell:nth-child(<?php echo $i + 1; ?>)").css("opacity", "0.5");
+                                </script>
+                            <?php } ?>
+                        </a>
+                    </td>
+                <?php } ?>
+            </tr>
 
-                                            <!-- Extra row to check the hour after the start time -->
-                                            <?php if (isset($urenBowlen)) { ?>
-                                                <tr class="border-b-2 border-gray-300">
-                                                    <td class="border-r-2 border-gray-300 p-2"><?php echo date('H:i', strtotime($date . '+1 hour')); ?></td>
-                                                    <?php
-                                                    $selectedStartTime = date('H:i', strtotime($date . '+1 hour'));
+            <!-- Extra row to check the hour after the start time -->
+            <?php if (isset($urenBowlen)) { ?>
+                <tr class="border-b-2 border-gray-300">
+                    <td class="border-r-2 border-gray-300 p-2"><?php echo date('H:i', strtotime($date . '+1 hour')); ?></td>
+                    <?php
+                    $selectedStartTime = date('H:i', strtotime($date . '+1 hour'));
 
-                                                    for ($i = 1; $i <= getNumberOfLanes(); $i++) {
-                                                    ?>
-                                                        <td class="border-r-2 border-gray-300 p-2 lane-cell">
-                                                            <?php
-                                                            $date = formateDateTime($date, $selectedStartTime);
-                                                            $bool = laneDateCheck($i, $date);
-                                                            ?>
-                                                            <a href="javascript:void(0)" class="lane-link cursor-default" data-lane="<?php echo $i; ?>">
-                                                                <?php
-                                                                echo $bool ? "bezet" : "vrij";
+                    for ($i = 1; $i <= getNumberOfLanes(); $i++) {
+                    ?>
+                        <td class="border-r-2 border-gray-300 p-2 lane-cell">
+                            <?php
+                            $date = formateDateTime($date, $selectedStartTime);
+                            $bool = laneDateCheck($i, $date);
+                            ?>
+                            <a href="javascript:void(0)" class="lane-link cursor-default" data-lane="<?php echo $i; ?>">
+                                <?php
+                                echo $bool ? "bezet" : "vrij";
 
-                                                                ?>
-                                                                <?php if ($bool) { ?>
-                                                                    <script>
-                                                                        // make the lane$i unclickable
-                                                                        $("#lane<?php echo $i; ?>").removeClass("lane-header");
+                                ?>
+                                <?php if ($bool) { ?>
+                                    <script>
+                                        // make the lane$i unclickable
+                                        $("#lane<?php echo $i; ?>").removeClass("lane-header");
 
-                                                                        // add a visual indicator that the lane is unavailable by changing the opacity
-                                                                        $(".lane-cell:nth-child(<?php echo $i + 1; ?>)").css("opacity", "0.5");
-                                                                    </script>
-                                                                <?php } ?>
-                                                            </a>
-                                                        </td>
-                                                    <?php } ?>
-                                                </tr>
-                                            <?php } ?>
+                                        // add a visual indicator that the lane is unavailable by changing the opacity
+                                        $(".lane-cell:nth-child(<?php echo $i + 1; ?>)").css("opacity", "0.5");
+                                    </script>
+                                <?php } ?>
+                            </a>
+                        </td>
+                    <?php } ?>
+                </tr>
+            <?php } ?>
 
-                                        </table>
-                                        <button type="submit" id="update" name="update" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold my-6 py-2 px-4 rounded">Update</button>
-                                    </form>
+        </table>
+     <input type="hidden" name="selectedLanes" id="selectedLanes" value="">  
+     <input type="hidden" name="adult" id="adult" value="<?php echo $adult;?>">     
+     <input type="hidden" name="childs" id="childs" value="<?php echo $childs;?>">     
+     <input type="hidden" name="dateStart" id="dateStart" value="<?php echo $date;?>">   
+     <input type="hidden" name="time" id="time" value="<?php echo $time;?>">  
+
+     <button type="submit" id="confirmationButton" name="update" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold my-6 py-2 px-4 rounded">Update</button>
+    </form>
         
     </div>
     <div class="m-8 bg-white p-4 rounded-md shadow-md inline-block align-baseline">
@@ -305,7 +318,7 @@ if (isset($_COOKIE['CurrUser'])) {
 
         <div class="flex flex-wrap pt-6">
             <!-- terug knop -->
-            <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur hover:text-whiteKleur hover:border-redKleur" type="button" value="Terug" onclick="window.location.href='admin.php';"/>
+            <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur hover:text-whiteKleur hover:border-redKleur" type="button" value="Terug" onclick="window.location.href='detail.php';"/>
             <!-- ga naar datum knop -->
             <input name="datum" type="submit" value="Ga naar datum" class="h-10 px-5 ml-4 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur hover:text-whiteKleur hover:border-redKleur" />
         </div>

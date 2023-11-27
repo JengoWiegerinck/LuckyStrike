@@ -78,21 +78,26 @@ $(document).ready(function() {
 });
 </script>
 </head>
-        
-            <body>
-                <div class="flex justify-center w-[100vw] items-center">
-                    <div class="bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
-                        <h1 class="text-[40px] font-bold text-center pt-6">Toevoegen</h1>
-
-                        <div class="grid justify-items-center">
-                            <form method="POST" action="">
-                                <div class="w-full my-4">
-                                    <p class="font-bold">Klant email:</p>
-                                    <input type="text" name="username" <?php if (isset($_POST['prijs'])) {
-                                                                            $username = $_POST['username'];
-                                                                            echo 'value="' . $username . '"';
-                                                                        } ?> class="py-2 px-4 rounded-sm border" placeholder="klant@email.com" require />
-                                </div>
+        <body>
+            <div class="flex justify-center w-[100vw] items-center">
+                <div class="bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
+                <h1 class="text-[40px] font-bold text-center pt-6">Toevoegen</h1>
+    
+                <div class="grid justify-items-center">
+                    <form method="POST" action="">
+                        <div class="w-full my-4">
+                            <p class="font-bold">Klant email:</p>
+                            <select class="js-example-basic-single w-full py-2 px-4 rounded-sm border bg-white focus:outline-none focus:border-gray-500" name="email">
+                                <?php foreach($customerEmail as $email2) {
+                                    if($email == $email2)
+                                    {
+                                        echo '<option selected="selected">'.$email2.'</option>'; 
+                                    }else{
+                                        echo '<option>'.$email2.'</option>'; 
+                                    }
+                                } ?>
+                            </select>
+                        </div>
 
                                 <div class="w-full my-4">
                                     <p class="font-bold">Baan:</p>
