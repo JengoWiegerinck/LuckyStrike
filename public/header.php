@@ -84,7 +84,11 @@ $pageTitle = 'Lucky Strike';
                     ?>
                     <?php
                     if (isset($_COOKIE['CurrUser'])) {
-                        echo '<a href="../public/detail.php" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profiel</a>';
+                        $user = new user(getUserById($_COOKIE['CurrUser']));
+                        if($user->getVerified() > 0) {
+                            echo '<a href="../public/detail.php" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profiel</a>';
+
+                        }
                     }
                     ?>
                 </ul>
