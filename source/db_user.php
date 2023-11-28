@@ -44,7 +44,7 @@ function insertCustomer($username, $email, $password)
 
 function insertEmployee($username, $email, $password)
 {
-    $result = db_insertData("INSERT INTO user (username, email, password, role) VALUES ('$username', '$email', '$password', 1)");
+    $result = db_insertData("INSERT INTO user (username, email, password, role, verified) VALUES ('$username', '$email', '$password', 1, 1)");
     return $result;
 }
 
