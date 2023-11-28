@@ -18,3 +18,12 @@ function deleteHoreca($id)
     $result = db_doQuery("DELETE FROM `food` WHERE id = '$id'");
     return $result;
 }
+
+function checkHoreca($name)
+{
+    $foodName = db_getData("SELECT * FROM food WHERE name = '$name'");
+    if ($foodName->num_rows > 0) {
+        return $foodName;
+    }
+    return "No food found!";
+}

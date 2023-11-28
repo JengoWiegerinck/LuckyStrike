@@ -18,8 +18,14 @@ if (isset($_COOKIE['CurrUser'])) {
             }else{
                 $categori = 'Eten';
             }
-
+            if(checkHoreca($name) == "No food found!")
+            {
             $insertId = insertHoreca($name, $prijs, $image, $categori);
+            }else{
+                echo '<script>alert("Deze naam bestaat al voor een item op de menu kaart")</script>';
+                echo "<script>window.location.href = 'horeca_toevoegen.php';</script>";
+                exit();
+            }
 
             if ($insertId > 0) {
 
