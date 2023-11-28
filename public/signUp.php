@@ -10,8 +10,11 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+    // Hash the password
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
     if (checkEmail($email) == "No user found!") {
-        $insertedId = insertCustomer($username, $email, $password);
+        $insertedId = insertCustomer($username, $email, $hashedPassword);
     } else {
         echo '<script>alert("Er is al een account voor dit email")</script>';
         echo '<script>';

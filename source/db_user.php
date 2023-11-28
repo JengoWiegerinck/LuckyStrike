@@ -65,7 +65,7 @@ function checkEmail($email)
     if ($user->num_rows > 0) {
         return $user;
     }
-    return "No user found!";
+    return  "No user found!";
 }
 
 function updatePassword($password, $id)

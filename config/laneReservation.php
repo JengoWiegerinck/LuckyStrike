@@ -28,9 +28,9 @@ if (isset($_COOKIE['CurrUser'])) {
             <title>Baan Agenda</title>
         </head>
 
-        <body class="px-8 bg-gray-100 h-screen flex items-center justify-center">
+        <body class="bg-gray-100 h-screen items-center justify-center">
             <div class="flex">
-                <div class="flex px-8 m-8 w-full max-w-screen-lg bg-white p-4 rounded-md shadow-md">
+                <div class="flex py-8 px-8 m-8 w-full max-w-screen-lg bg-white p-4 rounded-md shadow-md">
                     <table class="w-full border-collapse">
 
                         <tr class="border-b-2 border-gray-300">
