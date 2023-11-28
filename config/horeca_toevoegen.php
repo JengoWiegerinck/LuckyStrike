@@ -18,8 +18,14 @@ if (isset($_COOKIE['CurrUser'])) {
             }else{
                 $categori = 'Eten';
             }
-
+            if(checkHoreca($name) == "No food found!")
+            {
             $insertId = insertHoreca($name, $prijs, $image, $categori);
+            }else{
+                echo '<script>alert("Deze naam bestaat al voor een item op de menu kaart")</script>';
+                echo "<script>window.location.href = 'horeca_toevoegen.php';</script>";
+                exit();
+            }
 
             if ($insertId > 0) {
 
@@ -113,6 +119,13 @@ if (isset($_COOKIE['CurrUser'])) {
                         // Update de src van de afbeelding met de ingevoerde waarde met jQuery
                         afbeelding.attr('src', invoerWaarde);
                     }
+                    $('form').submit(function(event) {
+                    // if the url does not show an image
+                    if (afbeelding[0].naturalWidth === 0) {
+                        alert('Dit is geen geldige URL. Probeer het opnieuw.');
+                        event.preventDefault(); // Prevent the form from submitting
+                    }
+                });
                 }
             </script>
         </body>

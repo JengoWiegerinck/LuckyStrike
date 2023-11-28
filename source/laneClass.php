@@ -9,26 +9,13 @@ class laneClass
     {
         try {
             if ($sqlResult) {
-                $activityArr = $sqlResult->fetch_row();
-                $this->id = $activityArr[0];
-                $this->username = $activityArr[2];
-                $this->gates = $activityArr[1];
+                $reservationArr = $sqlResult->fetch_row();
+                $this->id = $reservationArr[0];
+                $this->username = $reservationArr[2];
+                $this->gates = $reservationArr[1];
             } else {
                 return $this;
             }
-        } catch (\Throwable $th) {
-            //throw $th;
-            echo "Error: " . $th;
-        }
-    }
-
-    function setActivity($id, $username, $gates)
-    {
-        try {
-            $this->id = $id;
-            $this->username = $username;
-            $this->gates = $gates;
-            return $this;
         } catch (\Throwable $th) {
             //throw $th;
             echo "Error: " . $th;

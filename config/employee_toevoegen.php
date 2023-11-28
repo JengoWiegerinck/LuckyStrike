@@ -11,6 +11,9 @@ if (isset($_COOKIE['CurrUser'])) {
             $name = $_POST['username'];
             $password = $_POST['password'];
 
+            // password hashing
+            $password = password_hash($password, PASSWORD_DEFAULT);
+
             $insertId = insertEmployee($name, $email, $password);
 
             if ($insertId > 0) {

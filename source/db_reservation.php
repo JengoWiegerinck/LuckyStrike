@@ -73,10 +73,10 @@ function getAllReservationFromUser($id)
     return $result;
 }
 
-function insertReservation($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime)
+function insertReservation($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime, $extraLane)
 {
 
-        $result = db_insertData("INSERT INTO reservation (userId, laneId, price, startTime, endTime, adult, children, extraPrice) VALUES ('$userId', '$laneId', '$priceLane', '$startTime', '$endTime', '$adult', '$children', '$priceFood')");
+        $result = db_insertData("INSERT INTO reservation (userId, laneId, price, startTime, endTime, adult, children, extraPrice, extraBaan) VALUES ('$userId', '$laneId', '$priceLane', '$startTime', '$endTime', '$adult', '$children', '$priceFood', '$extraLane')");
         return $result;
 }
 
@@ -100,6 +100,48 @@ function deleteReservation($id)
 {
     $result = db_doQuery("DELETE FROM `reservation` WHERE id = '$id'");
     return $result;
+}
+
+function getLaneIdOption($reservationId, $startTime, $endTime)
+{
+    $result = db_getData("SELECT laneId
+    FROM reservation
+    WHERE laneId NOT IN (
+        SELECT laneId
+        FROM reservation
+        WHERE (
+            ('$startTime' BETWEEN startTime AND endTime)
+            AND
+            ('$endTime' BETWEEN startTime AND endTime)
+        )
+        AND id != '$reservationId'
+    )
+    GROUP BY laneId;");
+        if ($result->num_rows > 0) {
+            return $result;
+        }
+        return false;
+}
+
+function getExtraLaneId($reservationId, $startTime, $endTime)
+{
+    $result = db_getData("SELECT extraBaan
+    FROM reservation
+    WHERE extraBaan NOT IN (
+        SELECT extraBaan
+        FROM reservation
+        WHERE (
+            ('$startTime' BETWEEN startTime AND endTime)
+            AND
+            ('$endTime' BETWEEN startTime AND endTime)
+        )
+        AND id != '$reservationId'
+    )
+    GROUP BY laneId;");
+    if ($result->num_rows > 0) {
+        return $result;
+    }
+    return false;
 }
 
 
