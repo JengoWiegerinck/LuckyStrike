@@ -3,6 +3,7 @@ ob_start(); // Start output buffering
 include '../public/header.php';
 require_once("../source/db_user.php");
 require_once("../source/useful_functions.php");
+require_once("../source/db_reservation.php");
 
 // Check if account is admin
 if (isset($_COOKIE['CurrUser'])) {
@@ -15,6 +16,17 @@ if (isset($_COOKIE['CurrUser'])) {
 
 if (checkAdmin($user->getKlasse()))
 {
+    // remove all reservations in the database that are a month old
+    $reservations = getAllReservation();
+    while ($reservation = $reservations->fetch_assoc()) {
+        $date = new DateTime($reservation['endTime']);
+        $date->modify('+1 month');
+        $now = new DateTime();
+        if ($date < $now) {
+            deleteReservation($reservation['id']);
+        }
+    }
+
     ?>
         
         <div class="h-[60%] md:h-[50%] grid gap-4 grid-cols-1 py-20 md:grid-cols-2 content-center justify-items-center">
