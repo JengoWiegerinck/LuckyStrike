@@ -119,6 +119,13 @@ if (isset($_COOKIE['CurrUser'])) {
                         // Update de src van de afbeelding met de ingevoerde waarde met jQuery
                         afbeelding.attr('src', invoerWaarde);
                     }
+                    $('form').submit(function(event) {
+                    // if the url does not show an image
+                    if (afbeelding[0].naturalWidth === 0) {
+                        alert('Dit is geen geldige URL. Probeer het opnieuw.');
+                        event.preventDefault(); // Prevent the form from submitting
+                    }
+                });
                 }
             </script>
         </body>

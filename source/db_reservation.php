@@ -73,10 +73,10 @@ function getAllReservationFromUser($id)
     return $result;
 }
 
-function insertReservation($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime)
+function insertReservation($userId, $laneId, $priceLane, $priceFood, $children, $adult, $startTime, $endTime, $extraLane)
 {
 
-        $result = db_insertData("INSERT INTO reservation (userId, laneId, price, startTime, endTime, adult, children, extraPrice) VALUES ('$userId', '$laneId', '$priceLane', '$startTime', '$endTime', '$adult', '$children', '$priceFood')");
+        $result = db_insertData("INSERT INTO reservation (userId, laneId, price, startTime, endTime, adult, children, extraPrice, extraBaan) VALUES ('$userId', '$laneId', '$priceLane', '$startTime', '$endTime', '$adult', '$children', '$priceFood', '$extraLane')");
         return $result;
 }
 

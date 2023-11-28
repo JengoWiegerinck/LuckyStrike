@@ -6,6 +6,7 @@ class user
     private $email;
     private $password;
     private $klasse;
+    private $verified;
 
     function __construct($sqlResult = null)
     {
@@ -17,6 +18,7 @@ class user
                 $this->username = $userArr[2];
                 $this->password = $userArr[3];
                 $this->klasse = $userArr[4];
+                $this->verified = $userArr[5];
             } else {
                 return $this;
             }
@@ -26,7 +28,7 @@ class user
         }
     }
 
-    function setUser($id, $username, $email, $password, $admin)
+    function setUser($id, $username, $email, $password, $admin, $verified)
     {
         try {
             $this->id = $id;
@@ -79,5 +81,10 @@ class user
     public function getKlasse()
     {
         return $this->klasse;
+    }
+
+    public function getVerified()
+    {
+        return $this->verified;
     }
 }

@@ -1,8 +1,8 @@
-<!-- Author: Luuk -->
 <?php
 ob_start(); // Start output buffering
 require_once "header.php";
 require_once "../source/db_user.php";
+require_once "../source/mail_functions.php";
 
 if (isset($_POST['submit'])) {
     $username = $_POST['username'];
@@ -22,8 +22,14 @@ if (isset($_POST['submit'])) {
     }
 
     if ($insertedId > 0) {
-        setcookie("CurrUser", $insertedId, time() + (3600 * 8), "/", "");
-        header('location: ./index.php');
+        // setcookie("CurrUser", $insertedId, time() + (3600 * 8), "/", "");
+        $host = $_SERVER['HTTP_HOST'];
+        $script = dirname($_SERVER['REQUEST_URI']);
+        $verifyUrl = "http://". $host.$script."/verifyMail.php?userId=$insertedId";
+        $message = '<p>Je hebt een account bij ons aangemaakt. Klik op de knop hieronder om je account te activeren.</p><a href="'. $verifyUrl .'" class="button">KLIK</a>';
+        
+        sendEmail($email, $message, "Account registratie");
+        header('location: ./login.php');
         exit();
     }
 }

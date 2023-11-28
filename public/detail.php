@@ -7,7 +7,6 @@ require_once "../source/useful_functions.php";
 
 if (isset($_COOKIE['CurrUser'])) {
     $user = new user(getUserById($_COOKIE['CurrUser']));
-
     if (isset($_POST['updaten'])) {
         $currentlyP = $_POST['password'];
         $newP = $_POST['newPassword'];
@@ -85,7 +84,7 @@ if (isset($_COOKIE['CurrUser'])) {
                 </td>
                 </tr>
                         <?php
-                        }}
+                        }
                         ?>
                     </tbody>
                 </table>
@@ -112,8 +111,6 @@ if (isset($_COOKIE['CurrUser'])) {
 
 
 <?php
-
-include_once 'footer.php';
-
-
+} else header('location: login.php'); 
+include 'footer.php';
 ?>
