@@ -1,5 +1,10 @@
 <!-- Author: Luuk -->
-<?php require_once 'header.php'; ?>
+<?php 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require '../vendor/autoload.php';
+    require_once 'header.php'; 
+?>
 
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -40,7 +45,15 @@
             <div class="md:pb-20">
                 <h2 class="text-4xl font-semibold text-gray-800">Welkom bij Lucky Strike Bowling!</h2>
                 <p class="text-lg text-gray-600 mt-4">Ervaar de opwinding van het omverwerpen van kegels en geniet van een geweldige tijd met vrienden en familie.</p>
-                <a href="reservation.php" class="inline-block mt-8 px-6 py-3 bg-yellowKleur text-whiteKleur font-bold rounded">Maak een reservering</a>
+                <a href="
+                <?php
+                if (isset($_COOKIE['CurrUser'])) {
+                    echo '../public/reservation.php';
+                } else {
+                    echo '../public/login.php';
+                } ?>
+                
+                " class="inline-block mt-8 px-6 py-3 bg-yellowKleur text-whiteKleur font-bold rounded">Maak een reservering</a>
             </div>
         </div>
     </section>

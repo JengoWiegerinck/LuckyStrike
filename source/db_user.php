@@ -4,12 +4,16 @@ require_once("user.php");
 
 function getUser($email, $password)
 {
-    $user = db_getData("SELECT * FROM user WHERE email = '$email' AND password = '$password'");
-    if ($user->num_rows > 0) {
-        return $user;
+    $user = db_getData("SELECT * FROM user WHERE email = '$email'");
+    $userCheck = $user->fetch_assoc();
+    if ($userCheck != null) {
+        $hashedPassword = $userCheck["password"];
+        if (password_verify($password, $hashedPassword)) return db_getData("SELECT * FROM user WHERE email = '$email'");
     }
+
     return "No user found!";
 }
+
 
 function getUserById($id)
 {
