@@ -92,6 +92,6 @@ if (isset($_COOKIE['CurrUser'])) {
     </body>
 
 <?php
-}
+} else header('location: login.php'); 
 include 'footer.php';
 ?>

@@ -72,38 +72,3 @@ require '../vendor/autoload.php';
         },
     });
 </script>
-
-<?php
-// if (isset($_GET['code'])) {
-//     $clientId = '250326811331-2r342ghprokf2p7pkbek5b7tckehvqs5.apps.googleusercontent.com';
-//     $clientSecret = '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';
-//     $redirectUri = 'http://localhost/LuckyStrike/LuckyStrike/public/index.php';
-
-//     $mail = new PHPMailer(true);
-    
-//     // Set the recipient email address
-//     $recipientEmail = 'wocoh67455@bustayes.com';
-//     $mail->addAddress($recipientEmail);
-
-//     // Set email subject and body
-//     $mail->Subject = 'Subject of the email';
-//     $mail->Body = 'This is the body of the email';
-
-//     // Gmail SMTP configuration
-//     $mail->isSMTP();
-//     $mail->Host = 'smtp.gmail.com';
-//     $mail->SMTPAuth = true;
-//     $mail->Username = 'bowlingluckystrikes@gmail.com';
-//     $mail->Password = 'cdvqqdnjnhrdlgpr';
-//     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-//     $mail->Port = 587;
-
-//     try {
-//         $mail->send();
-//         echo 'Message has been sent';
-//     } catch (Exception $e) {
-//         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-//         echo $e;
-//     }
-// // }
-?>

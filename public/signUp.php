@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
     }
 
     if ($insertedId > 0) {
-        setcookie("CurrUser", $insertedId, time() + (3600 * 8), "/", "");
+        // setcookie("CurrUser", $insertedId, time() + (3600 * 8), "/", "");
         $host = $_SERVER['HTTP_HOST'];
         $script = dirname($_SERVER['REQUEST_URI']);
         $verifyUrl = "http://". $host.$script."/verifyMail.php?userId=$insertedId";

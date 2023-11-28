@@ -6,8 +6,17 @@ function getUser($email, $password)
 {
     $user = db_getData("SELECT * FROM user WHERE email = '$email' AND password = '$password'");
     if ($user->num_rows > 0) {
+        // $resultArray = array();
+        // while ($row = $user->fetch_assoc()) {
+        //     $resultArray[] = $row;
+        // }
+        // return $resultArray;
         return $user;
     }
+
+    // if ($user->num_rows > 0) {
+    //     return $user;
+    // }
     return "No user found!";
 }
 
