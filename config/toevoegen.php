@@ -149,16 +149,16 @@ $(document).ready(function() {
                                 <div class="w-full my-4">
                                     <p class="font-bold">Volwassene:</p>
                                     <input type="number" name="volwassen" id="volwassen" <?php if (isset($_POST['prijs'])) {
-                                                                                                $volwassen = $_POST['volwassen'];
-                                                                                                echo 'value="' . $volwassen . '"';
-                                                                                            } ?> placeholder="0" class="py-2 px-4 rounded-sm border" required />
+                                    $volwassen = $_POST['volwassen'];
+                                    echo 'value="' . $volwassen . '"';
+                                } ?> placeholder="0" class="py-2 px-4 rounded-sm border" required />
                                 </div>
                                 <div class="w-full my-4">
                                     <p class="font-bold">Kinderen:</p>
                                     <input type="number" name="kinderen" <?php if (isset($_POST['prijs'])) {
-                                                                                $kinderen = $_POST['kinderen'];
-                                                                                echo 'value="' . $kinderen . '"';
-                                                                            } ?> id="kinderen" placeholder="0" class="py-2 px-4 rounded-sm border" />
+                                    $kinderen = $_POST['kinderen'];
+                                    echo 'value="' . $kinderen . '"';
+                                } ?> id="kinderen" placeholder="0" class="py-2 px-4 rounded-sm border" />
                                 </div>
                                 <div class="w-full my-4">
                                     <?php if (!empty($prijsTotaal)) : ?>

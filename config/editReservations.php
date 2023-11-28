@@ -15,6 +15,44 @@ if (isset($_COOKIE['CurrUser'])) {
             $reservation = new reservationsClass(getReservationById($_GET['id']));
             $user = new user(getUserById($reservation->getUserId()));
             $laneName = new laneClass(getLaneById($reservation->getLaneName()));
+            $extraLane = " ";
+            $lanes = getAllLane();
+            $lanesExtra = getAllLane();
+
+
+            if(!empty($reservation->getExtraLane()))
+            {
+                $extraLane = new laneClass(getLaneById($reservation->getExtraLane()));
+                $extraLane = $extraLane->getUsername();
+            }
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    // $lanes = "";
+                    $geselecteerdeDatum = $_POST['date'];
+                    $geselecteerdeDatum = str_replace(' ', '-', $geselecteerdeDatum);
+                    echo "Geselecteerde datum: " . formateDatumNl($geselecteerdeDatum);
+            
+                    $geselecteerdeStarttijd = $_POST['selectStart'];
+                    echo "Geselecteerde starttijd: " . $geselecteerdeStarttijd;
+ 
+                    $geselecteerdeEindtijd = $_POST['selectEnd'];
+                    echo "Geselecteerde eindtijd: " . $geselecteerdeEindtijd;
+
+                    $startTimeData = formateDateTime($geselecteerdeDatum, $geselecteerdeStarttijd);
+                    $endTimeData = formateDateTime($geselecteerdeDatum, $geselecteerdeEindtijd);
+                    $lanesId = getLaneIdOption($reservation->getId(), $startTimeData, $endTimeData);
+                    foreach ($lanesId as $row) {
+                        $laneId = $row['laneId'];
+                        $lanes = getAllLaneById($laneId);
+                    
+                        // while ($lane = $lanes->fetch_assoc()) {
+                        //     echo $lane['username'];
+                        // } 
+                    }
+                    
+            }
+
+
             if (isset($_POST['updaten'])) {
 
                 $id = $reservation->getId();
@@ -59,7 +97,34 @@ if (isset($_COOKIE['CurrUser'])) {
     <div class="flex justify-center w-[100vw] items-center">
         <div class="bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
             <h1 class="text-[40px] font-bold text-center pt-6">Update</h1>
-
+            <div class="md:col-span-3">
+                <form id="myForm" action="" method="post">
+                <label for="date">Datum</label>
+                <input required autocomplete="off" name="date" id="date" class="h-10 border mt-1 rounded px-4 w-full bg-white" value="<?php echo formateDatumNl($reservation->getStartTime()) ?>" placeholder="" onchange="submitForm()" />
+            </div>                                
+            <div class="w-full my-4">
+                <p class="font-bold">Starttijd:</p>
+                <select required name="selectStart" id="selectStart" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"  onchange="submitForm()">
+                        <?php for($i = 14; $i <= 23; $i++) { ?>
+                        <option <?php echo (formateTime($reservation->getStartTime()) == formateBackToHoureMinute($i)) ? 'selected' : ''; ?> value="<?php echo $i; ?>:00"><?php echo $i; ?>:00</option>
+                    <?php } ?>
+                </select>   
+            </div>
+            <div class="w-full my-4">
+                <p class="font-bold">Stoptijd:</p>
+                <select required id="selectEnd" name="selectEnd" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" onchange="submitForm()">
+                        <?php for($i = 15; $i <= 24; $i++) { 
+                            $hour = $i;
+                            if($hour == 24)
+                            {
+                                $hour = '00';
+                            }
+                            ?>
+                        <option <?php echo (formateTime($reservation->getEndTime()) == formateBackToHoureMinute($hour)) ? 'selected' : ''; ?> value="<?php echo $hour; ?>:00"><?php echo $hour; ?>:00</option>
+                    <?php } ?>
+                </select>   
+            </div>
+            </form>
     <div class="grid justify-items-center">
         <form method="POST" action="">
             <div class="w-full my-4">
@@ -69,11 +134,25 @@ if (isset($_COOKIE['CurrUser'])) {
             <div class="w-full my-4">
                 <p class="font-bold">Baan:</p>
                 <select name="baan" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
-                    <?php $lanes = getAllLane();
-
+                    <?php 
                     while ($lane = $lanes->fetch_assoc()) {
-                        print_r($lane['username']);
                         if ($lane['username'] == $laneName->getUsername()) {
+                            echo "<option value=" . $lane['username'] . " selected>" . $lane['username'] . "</option>";
+                        } else {
+                            echo "<option value=" . $lane['username'] . ">" . $lane['username'] . "</option>";
+                        }
+                    } ?>
+                </select>
+            </div>
+            <div class="w-full my-4">
+                <p class="font-bold">Extra baan:</p>
+                <select name="extraBaan" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                    <option value="geen">geen</option>
+                    <?php
+
+                    while ($lane = $lanesExtra->fetch_assoc()) {
+                        
+                        if ($lane['username'] == $extraLane) {
                             echo "<option value=" . $lane['username'] . " selected>" . $lane['username'] . "</option>";
                         } else {
                             echo "<option value=" . $lane['username'] . ">" . $lane['username'] . "</option>";
@@ -97,82 +176,7 @@ if (isset($_COOKIE['CurrUser'])) {
                 <p class="font-bold">Kinderen:</p>
                 <input type="number" name="children" class="py-2 px-4 rounded-sm border" value="<?php echo $reservation->getChildren() ?>" required />
             </div>
-            <div class="md:col-span-3">
-                <label for="date">Datum</label>
-                <input required autocomplete="off" name="date" id="date" class="h-10 border mt-1 rounded px-4 w-full bg-white" value="<?php echo formateDatum($reservation->getStartTime()) ?>" placeholder="" />
-            </div>                                
-            <div class="w-full my-4">
-                <p class="font-bold">Starttijd:</p>
-                <input id="appt-time" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" list="times" type="time" name="starttime" value="<?php echo formateTime($reservation->getStartTime()) ?>" step="3600">
-                <?php
-                if (date("l") == "Monday" || date("l") == "Tuesday" || date("l") == "Wednesday" || date("l") == "Thursday") {
-                ?>
-                    <datalist id="times">
-                        <option value="14:00:00">
-                        <option value="15:00:00">
-                        <option value="16:00:00">
-                        <option value="17:00:00">
-                        <option value="18:00:00">
-                        <option value="19:00:00">
-                        <option value="20:00:00">
-                        <option value="21:00:00">
-                    </datalist>
-                <?php
-                }
-                if (date("l") == "Friday" || date("l") == "Saturday" || date("l") == "Sunday") {
-                ?>
-                    <datalist id="times">
-                        <option value="14:00:00">
-                        <option value="15:00:00">
-                        <option value="16:00:00">
-                        <option value="17:00:00">
-                        <option value="18:00:00">
-                        <option value="19:00:00">
-                        <option value="20:00:00">
-                        <option value="21:00:00">
-                        <option value="22:00:00">
-                        <option value="23:00:00">
-                    </datalist>
-                <?php
-                }
-                ?>
-            </div>
-            <div class="w-full my-4">
-                <p class="font-bold">Stoptijd:</p>
-                <input id="appt-time" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" list="times" type="time" name="endTime" value="<?php echo formateTime($reservation->getEndTime()) ?>" step="3600">
-                <?php
-                if (date("l") == "Monday" || date("l") == "Tuesday" || date("l") == "Wednesday" || date("l") == "Thursday") {
-                ?>
-                    <datalist id="times">
-                        <option value="15:00:00">
-                        <option value="16:00:00">
-                        <option value="17:00:00">
-                        <option value="18:00:00">
-                        <option value="19:00:00">
-                        <option value="20:00:00">
-                        <option value="21:00:00">
-                        <option value="22:00:00">
-                    </datalist>
-                <?php
-                }
-                if (date("l") == "Friday" || date("l") == "Saturday" || date("l") == "Sunday") {
-                ?>
-                    <datalist id="times">
-                        <option value="15:00:00">
-                        <option value="16:00:00">
-                        <option value="17:00:00">
-                        <option value="18:00:00">
-                        <option value="19:00:00">
-                        <option value="20:00:00">
-                        <option value="21:00:00">
-                        <option value="22:00:00">
-                        <option value="23:00:00">
-                        <option value="00:00:00">
-                    </datalist>
-                <?php
-                }
-                ?>
-            </div>
+
             <input name="updaten" type="submit" value="updaten" class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur hover:text-whiteKleur hover:border-redKleur" />
             <div class="flex flex-wrap pt-6">
                 <!-- terug knop -->
@@ -186,6 +190,23 @@ if (isset($_COOKIE['CurrUser'])) {
     </div>
     <script>
 $(document).ready(function() {
+
+    $('#date').change(function() {
+            submitForm();
+        });
+
+        // Eindtijdveld
+        $('#selectEnd').change(function() {
+            submitForm();
+        });
+        $('#selectStart').change(function() {
+            submitForm();
+        });
+
+        // Functie om het formulier in te dienen
+        function submitForm() {
+            $("#myForm").submit();
+        }
     <?php
     $reservations = getAllReservationFromUser($user->getId());
     $reservationArr = [];
@@ -220,7 +241,7 @@ $(document).ready(function() {
     }
 
     $("#date").datepicker({
-    dateFormat: 'dd MM yy',
+    dateFormat: 'dd-mm-yy',
     beforeShowDay: unavailable
     });
 });

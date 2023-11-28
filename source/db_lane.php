@@ -7,6 +7,11 @@ function getAllLane()
     return db_getData("SELECT * FROM lane");
 }
 
+function getAllLaneById($laneId)
+{
+    return db_getData("SELECT * FROM lane WHERE id = '$laneId'");
+}
+
 function getLaneById($laneId)
 {
     $query = "SELECT *
@@ -16,7 +21,7 @@ function getLaneById($laneId)
     if ($lane->num_rows > 0) {
         return $lane;
     } else {
-        return "Geen activiteit gevonden";
+        return "Geen baan gevonden";
     }
 }
 

@@ -102,4 +102,46 @@ function deleteReservation($id)
     return $result;
 }
 
+function getLaneIdOption($reservationId, $startTime, $endTime)
+{
+    $result = db_getData("SELECT laneId
+    FROM reservation
+    WHERE laneId NOT IN (
+        SELECT laneId
+        FROM reservation
+        WHERE (
+            ('$startTime' BETWEEN startTime AND endTime)
+            AND
+            ('$endTime' BETWEEN startTime AND endTime)
+        )
+        AND id != '$reservationId'
+    )
+    GROUP BY laneId;");
+        if ($result->num_rows > 0) {
+            return $result;
+        }
+        return false;
+}
+
+function getExtraLaneId($reservationId, $startTime, $endTime)
+{
+    $result = db_getData("SELECT extraBaan
+    FROM reservation
+    WHERE extraBaan NOT IN (
+        SELECT extraBaan
+        FROM reservation
+        WHERE (
+            ('$startTime' BETWEEN startTime AND endTime)
+            AND
+            ('$endTime' BETWEEN startTime AND endTime)
+        )
+        AND id != '$reservationId'
+    )
+    GROUP BY laneId;");
+    if ($result->num_rows > 0) {
+        return $result;
+    }
+    return false;
+}
+
 
