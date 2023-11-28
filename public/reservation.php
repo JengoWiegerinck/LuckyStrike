@@ -229,7 +229,7 @@ include_once 'footer.php';
       var today = new Date();
       today.setHours(0, 0, 0, 0);
 
-      if (date < today) {
+      if (date <= today) {
         return [false, "", "Unavailable"];
       }
 
