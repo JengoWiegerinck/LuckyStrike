@@ -85,7 +85,7 @@ if (isset($_COOKIE['CurrUser'])) {
                 </td>
                 </tr>
                         <?php
-                        }}
+                        }
                         ?>
                     </tbody>
                 </table>
