@@ -16,17 +16,17 @@ class reservationsClass
     {
         try {
             if ($sqlResult) {
-                $activityArr = $sqlResult->fetch_row();
-                $this->id = $activityArr[0];
-                $this->userId = $activityArr[1];
-                $this->laneName = $activityArr[2];
-                $this->priceLane = $activityArr[3];
-                $this->startTime = $activityArr[4];
-                $this->endTime = $activityArr[5];
-                $this->adult = $activityArr[6];
-                $this->priceFood = $activityArr[7];
-                $this->children = $activityArr[8];
-                $this->extraLane = $activityArr[9];
+                $reservationArr = $sqlResult->fetch_row();
+                $this->id = $reservationArr[0];
+                $this->userId = $reservationArr[1];
+                $this->laneName = $reservationArr[2];
+                $this->priceLane = $reservationArr[3];
+                $this->startTime = $reservationArr[4];
+                $this->endTime = $reservationArr[5];
+                $this->adult = $reservationArr[6];
+                $this->priceFood = $reservationArr[7];
+                $this->children = $reservationArr[8];
+                $this->extraLane = $reservationArr[9];
             } else {
                 return $this;
             }
@@ -100,6 +100,6 @@ class reservationsClass
     }
     public function getExtraLane()
     {
-        return $this->endTime;
+        return $this->extraLane;
     }
 }
