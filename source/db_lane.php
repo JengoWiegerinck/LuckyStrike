@@ -7,11 +7,6 @@ function getAllLane()
     return db_getData("SELECT * FROM lane");
 }
 
-function getAllLaneById($laneId)
-{
-    return db_getData("SELECT * FROM lane WHERE id = '$laneId'");
-}
-
 function getLaneById($laneId)
 {
     $query = "SELECT *

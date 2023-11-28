@@ -22,19 +22,6 @@ class laneClass
         }
     }
 
-    function setActivity($id, $username, $gates)
-    {
-        try {
-            $this->id = $id;
-            $this->username = $username;
-            $this->gates = $gates;
-            return $this;
-        } catch (\Throwable $th) {
-            //throw $th;
-            echo "Error: " . $th;
-        }
-    }
-
     public function getId()
     {
         return $this->id;

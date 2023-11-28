@@ -17,6 +17,12 @@ if (isset($_COOKIE['CurrUser'])) {
             $laneName = new laneClass(getLaneById($reservation->getLaneName()));
             $extraLane = " ";
             $lanes = getAllLane();
+            $firstLane = array();
+            while ($lane = $lanes->fetch_assoc()) {
+                $newLane = new laneClass(getLaneById($lane['id']));
+                $firstLane[] = $newLane;
+            }
+
             $lanesExtra = getAllLane();
 
 
@@ -27,31 +33,25 @@ if (isset($_COOKIE['CurrUser'])) {
             }
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    // $lanes = "";
+                    unset($firstLane);
+
                     $geselecteerdeDatum = $_POST['date'];
-                    $geselecteerdeDatum = str_replace(' ', '-', $geselecteerdeDatum);
-                    echo "Geselecteerde datum: " . formateDatumNl($geselecteerdeDatum);
-            
+                    $geselecteerdeDatum = str_replace(' ', '-', $geselecteerdeDatum);           
                     $geselecteerdeStarttijd = $_POST['selectStart'];
-                    echo "Geselecteerde starttijd: " . $geselecteerdeStarttijd;
- 
                     $geselecteerdeEindtijd = $_POST['selectEnd'];
-                    echo "Geselecteerde eindtijd: " . $geselecteerdeEindtijd;
 
                     $startTimeData = formateDateTime($geselecteerdeDatum, $geselecteerdeStarttijd);
                     $endTimeData = formateDateTime($geselecteerdeDatum, $geselecteerdeEindtijd);
                     $lanesId = getLaneIdOption($reservation->getId(), $startTimeData, $endTimeData);
+                    if($lanesId)
+                    {
                     foreach ($lanesId as $row) {
                         $laneId = $row['laneId'];
-                        $lanes = getAllLaneById($laneId);
-                    
-                        // while ($lane = $lanes->fetch_assoc()) {
-                        //     echo $lane['username'];
-                        // } 
+                        $newLane = new laneClass(getLaneById($laneId));
+                        $firstLane[] = $newLane;
                     }
-                    
+                }
             }
-
 
             if (isset($_POST['updaten'])) {
 
@@ -135,11 +135,11 @@ if (isset($_COOKIE['CurrUser'])) {
                 <p class="font-bold">Baan:</p>
                 <select name="baan" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                     <?php 
-                    while ($lane = $lanes->fetch_assoc()) {
-                        if ($lane['username'] == $laneName->getUsername()) {
-                            echo "<option value=" . $lane['username'] . " selected>" . $lane['username'] . "</option>";
+                    foreach ($firstLane as $value) {
+                        if ($value->getUsername() == $laneName->getUsername()) {
+                            echo "<option value=" . $value->getUsername() . " selected>" . $value->getUsername() . "</option>";
                         } else {
-                            echo "<option value=" . $lane['username'] . ">" . $lane['username'] . "</option>";
+                            echo "<option value=" . $value->getUsername() . ">" . $value->getUsername() . "</option>";
                         }
                     } ?>
                 </select>
