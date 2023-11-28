@@ -10,11 +10,14 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
 
     $user = getUser($email, $password);
+    $userObject = (new user($user));
 
     if ($user == "No user found!") {
         echo '<script>alert("Dit is niet de goede combinatie")</script>';
-    } else {
-        setcookie("CurrUser", (new user($user))->getId(), time() + (3600 * 8), "/", "");
+    } else if($userObject->getVerified() < 1) {
+        echo '<script>alert("Verifieer eerst je email!")</script>';
+    }else {
+        setcookie("CurrUser", $userObject->getId(), time() + (3600 * 8), "/", "");
         header('location: index.php');
         exit(); // Make sure to exit after calling header
     }

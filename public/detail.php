@@ -111,8 +111,6 @@ if (isset($_COOKIE['CurrUser'])) {
 
 
 <?php
-
-include_once 'footer.php';
-
-
+} else header('location: login.php'); 
+include 'footer.php';
 ?>
