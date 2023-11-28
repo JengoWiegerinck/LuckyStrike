@@ -1,4 +1,3 @@
-<!-- Author: Luuk -->
 <?php
 ob_start(); // Start output buffering
 
@@ -10,14 +9,14 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
 
     $user = getUser($email, $password);
-    $userObject = (new user($user));
+    $fetchUser = new user($user);
 
     if ($user == "No user found!") {
         echo '<script>alert("Dit is niet de goede combinatie")</script>';
-    } else if($userObject->getVerified() < 1) {
+    } else if($fetchUser->getVerified() < 1) {
         echo '<script>alert("Verifieer eerst je email!")</script>';
     }else {
-        setcookie("CurrUser", $userObject->getId(), time() + (3600 * 8), "/", "");
+        setcookie("CurrUser", $fetchUser->getId(), time() + (3600 * 8), "/", "");
         header('location: index.php');
         exit(); // Make sure to exit after calling header
     }
