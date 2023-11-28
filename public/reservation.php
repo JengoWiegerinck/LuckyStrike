@@ -79,7 +79,7 @@ if (isset($_COOKIE['CurrUser'])) {
                     <div class="md:col-span-2 pr-20">
                       <label for="volwassen">Hoeveel volwassenen?</label>
                       <div class="h-10 w-28 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                        <input required type="number" name="volwassen" id="volwassen" placeholder="0" class="px-2 text-center appearance-none outline-none text-gray-800 w-full bg-transparent" min="0" max="8" />
+                        <input required type="number" name="volwassen" min=1 id="volwassen" placeholder="1" class="px-2 text-center appearance-none outline-none text-gray-800 w-full bg-transparent" min="0" max="8" />
                       </div>
                     </div>
 
