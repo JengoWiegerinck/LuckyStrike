@@ -12,16 +12,14 @@ if (isset($_COOKIE['CurrUser'])) {
             $image = $_POST['image'];
             $category = isset($_POST['category']) ? $_POST['category'] : '';
             $categori;
-            if($category)
-            {
+            if ($category) {
                 $categori = 'Drinken';
-            }else{
+            } else {
                 $categori = 'Eten';
             }
-            if(checkHoreca($name) == "No food found!")
-            {
-            $insertId = insertHoreca($name, $prijs, $image, $categori);
-            }else{
+            if (checkHoreca($name) == "No food found!") {
+                $insertId = insertHoreca($name, $prijs, $image, $categori);
+            } else {
                 echo '<script>alert("Deze naam bestaat al voor een item op de menu kaart")</script>';
                 echo "<script>window.location.href = 'horeca_toevoegen.php';</script>";
                 exit();
@@ -49,43 +47,43 @@ if (isset($_COOKIE['CurrUser'])) {
             <div class="flex justify-center w-[100vw] items-center">
                 <div class="bg-slate-50 m-24 w-fit px-20 border-solid border-2 border-blackKleur rounded-lg">
 
-                <h1 class="text-[40px] font-bold text-center pt-6">Toevoegen</h1>
-    
-                <div class="grid justify-items-center">
-                    <form method="POST" action="">
-                        <div class="w-full my-4">
-                            <p class="font-bold">Naam</p>
-                            <input type="text" name="name" class="py-2 px-4 rounded-sm border" placeholder="Naam" required />
-                        </div>
-                        <div class="w-full my-4">
-                            <p class="font-bold">Prijs</p>
-                            <input type="text" name="price" id="price" class="py-2 px-4 rounded-sm border" placeholder="Prijs" required />
-                        </div>
+                    <h1 class="text-[40px] font-bold text-center pt-6">Toevoegen</h1>
 
-                        <div class="w-full my-4">
-                            <div class="flex items-center">
-                                <p class="font-bold mr-2">Eten</p>
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" name="category" class="sr-only peer">
-                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                                </label>
-                                <p class="font-bold ml-2">Drinken</p>
+                    <div class="grid justify-items-center">
+                        <form method="POST" action="">
+                            <div class="w-full my-4">
+                                <p class="font-bold">Naam</p>
+                                <input type="text" name="name" class="py-2 px-4 rounded-sm border" placeholder="Naam" required />
                             </div>
-                    </div>
+                            <div class="w-full my-4">
+                                <p class="font-bold">Prijs</p>
+                                <input type="text" name="price" id="price" class="py-2 px-4 rounded-sm border" placeholder="Prijs" required />
+                            </div>
 
-                        <div class="w-full my-4">
-                            <p class="font-bold">Image</p>
-                            <input type="text" id="mijnInput" name="image" class="py-2 px-4 rounded-sm border" placeholder="Voer de URL van de afbeelding in..." oninput="updateWeergave()" required>
-                            <img src="" id="weergave" alt="Afbeelding kan niet gevonden worden" width="500" height="600" style="display: none;">
-                        </div>
-                        <input name="toevoegen" type="submit" value="Toevoegen" class="h-10 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" />
-                        <div class="flex flex-wrap pt-6">
-                         <!-- terug knop -->
-                        <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="Terug"  onclick="window.location.href='horeca.php';"/> 
-                        </div> 
-                    </form>
-                    
-                    </div>   
+                            <div class="w-full my-4">
+                                <div class="flex items-center">
+                                    <p class="font-bold mr-2">Eten</p>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" name="category" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    </label>
+                                    <p class="font-bold ml-2">Drinken</p>
+                                </div>
+                            </div>
+
+                            <div class="w-full my-4">
+                                <p class="font-bold">Image</p>
+                                <input type="text" id="mijnInput" name="image" class="py-2 px-4 rounded-sm border" placeholder="Voer de URL van de afbeelding in..." oninput="updateWeergave()" required>
+                                <img src="" id="weergave" alt="Afbeelding kan niet gevonden worden" width="500" height="600" style="display: none;">
+                            </div>
+                            <input name="toevoegen" type="submit" value="Toevoegen" class="h-10 px-5 text-blackKleur transition-colors duration-150 border       border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" />
+                            <div class="flex flex-wrap pt-6">
+                                <!-- terug knop -->
+                                <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="Terug" onclick="window.location.href='horeca.php';" />
+                            </div>
+                        </form>
+
+                    </div>
 
                 </div>
 
@@ -101,8 +99,9 @@ if (isset($_COOKIE['CurrUser'])) {
                             $(this).val('');
                         }
                     });
-                    
+
                 });
+
                 function updateWeergave() {
                     // Haal de waarde op van het input-veld met jQuery
                     var invoerWaarde = $('#mijnInput').val();
@@ -119,14 +118,18 @@ if (isset($_COOKIE['CurrUser'])) {
                         // Update de src van de afbeelding met de ingevoerde waarde met jQuery
                         afbeelding.attr('src', invoerWaarde);
                     }
-                    $('form').submit(function(event) {
+                }
+
+                $('form').submit(function(event) {
+                    // get the image
+                    var afbeelding = $('#weergave');
+
                     // if the url does not show an image
                     if (afbeelding[0].naturalWidth === 0) {
                         alert('Dit is geen geldige URL. Probeer het opnieuw.');
                         event.preventDefault(); // Prevent the form from submitting
                     }
                 });
-                }
             </script>
         </body>
 <?php
