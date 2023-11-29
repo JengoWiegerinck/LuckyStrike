@@ -9,8 +9,8 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
 
     $user = getUser($email, $password);
-    $fetchUser = new user($user);
-
+    if ($user !== "No user found!") $fetchUser = new user($user);
+    
     if ($user == "No user found!") {
         echo '<script>alert("Dit is niet de goede combinatie")</script>';
     } else if($fetchUser->getVerified() < 1) {
