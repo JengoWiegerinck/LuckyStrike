@@ -39,7 +39,7 @@ if (isset($_COOKIE['CurrUser'])) {
                 $urenBowlen = isset($_POST["urenBowlen"]) ? $_POST["urenBowlen"] : '';
                 $dateStart = $_POST['dateStart'];
                 $urenBowlenCheck = 1;
-                if ($urenBowlen == "on") {
+                if ($urenBowlen) {
                     $urenBowlenCheck = 2;
                 }
                 $hour = formateOnlyHours($dateStart);
@@ -50,6 +50,7 @@ if (isset($_COOKIE['CurrUser'])) {
                 $price = kosten($dateStart, $hour);
                 if(!empty(laneID2($selectedLanes)))
                 {
+                  
                   $price = $price * 2;
                 }
                 
@@ -269,7 +270,8 @@ if (isset($_COOKIE['CurrUser'])) {
      <input type="hidden" name="selectedLanes" id="selectedLanes" value="">  
      <input type="hidden" name="adult" id="adult" value="<?php echo $adult;?>">     
      <input type="hidden" name="childs" id="childs" value="<?php echo $childs;?>">     
-     <input type="hidden" name="dateStart" id="dateStart" value="<?php echo $date;?>">   
+     <input type="hidden" name="dateStart" id="dateStart" value="<?php echo $date;?>">  
+     <input type="hidden" name="urenBowlen" id="urenBowlen" value="<?php echo $urenBowlen;?>">  
      <input type="hidden" name="time" id="time" value="<?php echo $time;?>">  
 
      <button type="submit" id="confirmationButton" name="update" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold my-6 py-2 px-4 rounded">Update</button>
