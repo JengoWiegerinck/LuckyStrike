@@ -92,12 +92,18 @@ if (isset($_COOKIE['CurrUser'])) {
                                                         <?php
                                                         $date = formateDateTime($date, $selectedStartTime);
                                                         $bool = laneDateCheck($i, $date);
+                                                        $boolExtra = laneDateCheckExtra($i, $date);
                                                         ?>
                                                         <a href="javascript:void(0)" class="lane-link cursor-default" data-lane="<?php echo $i; ?>">
                                                             <?php
-                                                            echo $bool ? "bezet" : "vrij";
+                                                            
+                                                            if ($bool || $boolExtra) {
+                                                              echo "bezet";
+                                                          } else {
+                                                              echo "vrij";
+                                                          }
                                                             ?>
-                                                            <?php if ($bool) { ?>
+                                                            <?php if ($bool || $boolExtra) { ?>
                                                                 <script>
                                                                     $("#lane<?php echo $i; ?>").removeClass("lane-header");
                                                                     $(".lane-cell:nth-child(<?php echo $i + 1; ?>)").css("opacity", "0.5");
@@ -121,13 +127,18 @@ if (isset($_COOKIE['CurrUser'])) {
                                                             <?php
                                                             $date = formateDateTime($date, $selectedStartTime);
                                                             $bool = laneDateCheck($i, $date);
+                                                            $boolExtra = laneDateCheckExtra($i, $date);
                                                             ?>
                                                             <a href="javascript:void(0)" class="lane-link cursor-default" data-lane="<?php echo $i; ?>">
                                                                 <?php
-                                                                echo $bool ? "bezet" : "vrij";
+                                                                  if ($bool || $boolExtra) {
+                                                                    echo "bezet";
+                                                                } else {
+                                                                    echo "vrij";
+                                                                }
 
                                                                 ?>
-                                                                <?php if ($bool) { ?>
+                                                                <?php if ($bool || $boolExtra) { ?>
                                                                     <script>
                                                                         $("#lane<?php echo $i; ?>").removeClass("lane-header");
                                                                         $(".lane-cell:nth-child(<?php echo $i + 1; ?>)").css("opacity", "0.5");
