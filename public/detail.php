@@ -73,14 +73,15 @@ if (isset($_COOKIE['CurrUser'])) {
                     <?php
                     if(check24Hours($reservation['startTime']))
                     { ?>
-                    <a class="btnEdit" id="<?php echo $reservation['id'] ?>"><i class='fas fa-edit'></i></a>
-                    <a class="btnDelete" id="<?php echo $reservation['id'] ?>"><i class='far fa-trash-alt'></i> </a>
-<?php
-                    }else{ ?>
-                    <p>bellen voor verandering</p>
+                        <a class="btnEdit" id="<?php echo $reservation['id'] ?>"><i class='fas fa-edit'></i></a>
+                        <a class="btnDelete" id="<?php echo $reservation['id'] ?>"><i class='far fa-trash-alt'></i> </a>
                     <?php
-                    }
-                    ?>
+                    } else if(strtotime($reservation["startTime"]) < time()) { ?>
+                            <a href="invoice.php?id=<?php echo  $reservation["id"] ?>">Bekijk bon</a>
+                    <?php } else { ?>
+                        <p>bellen voor verandering</p>
+                        
+                    <?php } ?>
                 </td>
                 </tr>
                         <?php
