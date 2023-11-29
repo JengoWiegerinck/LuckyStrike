@@ -160,10 +160,11 @@ function kosten($startTime, $endTime)
     $uren = (float) getHourDifference($startTime, $endTime);
 
     if (isWeekend($startTime)) {
-        $result = isTimeInRange($startTime, $endTime);
+        $result = isTimeInRange(formateTime($startTime), $endTime);
         if ($result['isInRange']) {
             $urenPrijs = (float) $result['duration'];
-            return $prijsAvond * $urenPrijs + $uren * $prijsWeekend;
+            $uren = $uren - $urenPrijs;
+            return ($prijsAvond * $urenPrijs) + ($uren * $prijsWeekend);
         } else {
             return $prijsWeekend * $uren;
         }
