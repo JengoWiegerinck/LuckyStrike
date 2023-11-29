@@ -50,5 +50,5 @@ $orderlines = db_getData("SELECT * FROM orderlines WHERE reservationId = $id");
             </tr>
         </tfoot>
     </table>
-    <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="Terug" onclick="window.location.href='index.php';" />
+    <input class="h-10 px-5 text-blackKleur transition-colors duration-150 border border-blackKleur rounded-lg focus:shadow-outline hover:bg-redKleur   hover:text-whiteKleur hover:border-redKleur" type="button" value="Terug" onclick="window.location.href='detail.php';" />
 </div>
