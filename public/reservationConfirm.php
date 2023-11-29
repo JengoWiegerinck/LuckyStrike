@@ -92,12 +92,18 @@ if (isset($_COOKIE['CurrUser'])) {
                                                         <?php
                                                         $date = formateDateTime($date, $selectedStartTime);
                                                         $bool = laneDateCheck($i, $date);
+                                                        $boolExtra = laneDateCheckExtra($i, $date);
                                                         ?>
                                                         <a href="javascript:void(0)" class="lane-link cursor-default" data-lane="<?php echo $i; ?>">
                                                             <?php
-                                                            echo $bool ? "bezet" : "vrij";
+                                                            
+                                                            if ($bool || $boolExtra) {
+                                                              echo "bezet";
+                                                          } else {
+                                                              echo "vrij";
+                                                          }
                                                             ?>
-                                                            <?php if ($bool) { ?>
+                                                            <?php if ($bool || $boolExtra) { ?>
                                                                 <script>
                                                                     $("#lane<?php echo $i; ?>").removeClass("lane-header");
                                                                     $(".lane-cell:nth-child(<?php echo $i + 1; ?>)").css("opacity", "0.5");
@@ -121,13 +127,18 @@ if (isset($_COOKIE['CurrUser'])) {
                                                             <?php
                                                             $date = formateDateTime($date, $selectedStartTime);
                                                             $bool = laneDateCheck($i, $date);
+                                                            $boolExtra = laneDateCheckExtra($i, $date);
                                                             ?>
                                                             <a href="javascript:void(0)" class="lane-link cursor-default" data-lane="<?php echo $i; ?>">
                                                                 <?php
-                                                                echo $bool ? "bezet" : "vrij";
+                                                                  if ($bool || $boolExtra) {
+                                                                    echo "bezet";
+                                                                } else {
+                                                                    echo "vrij";
+                                                                }
 
                                                                 ?>
-                                                                <?php if ($bool) { ?>
+                                                                <?php if ($bool || $boolExtra) { ?>
                                                                     <script>
                                                                         $("#lane<?php echo $i; ?>").removeClass("lane-header");
                                                                         $(".lane-cell:nth-child(<?php echo $i + 1; ?>)").css("opacity", "0.5");
@@ -148,7 +159,13 @@ if (isset($_COOKIE['CurrUser'])) {
                                         <input type="hidden" name="volwassen" value="<?php echo htmlspecialchars($volwassen); ?>">
                                         <input type="hidden" name="kinderen" value="<?php echo htmlspecialchars($kinderen); ?>">
                                         <input type="hidden" name="urenBowlen" value="<?php echo isset($urenBowlen) ? htmlspecialchars($urenBowlen) : ''; ?>">
-                                        <input type="hidden" name="selectedLanes" id="selectedLanes" value="">
+                                        <input type="hidden" name="selectedLanes" id="selectedLanes" value="
+                                        <?php
+                                        if (isset($_POST["selectedLanes"])) {
+                                            echo htmlspecialchars($_POST["selectedLanes"]);
+                                        }
+                                        ?>
+                                        ">
 
                                         <a href="reservation.php" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold my-6 py-2 px-4 rounded">Terug</a>
                                         <button type="submit" id="confirmationButton" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold my-6 py-2 px-4 rounded">Bevestigen</button>

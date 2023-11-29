@@ -39,7 +39,7 @@ if (isset($_COOKIE['CurrUser'])) {
                 $urenBowlen = isset($_POST["urenBowlen"]) ? $_POST["urenBowlen"] : '';
                 $dateStart = $_POST['dateStart'];
                 $urenBowlenCheck = 1;
-                if ($urenBowlen == "on") {
+                if (empty($urenBowlen)) {
                     $urenBowlenCheck = 2;
                 }
                 $hour = formateOnlyHours($dateStart);
@@ -50,6 +50,7 @@ if (isset($_COOKIE['CurrUser'])) {
                 $price = kosten($dateStart, $hour);
                 if(!empty(laneID2($selectedLanes)))
                 {
+                  
                   $price = $price * 2;
                 }
                 
@@ -212,12 +213,19 @@ if (isset($_COOKIE['CurrUser'])) {
                         <?php
                         $date = formateDateTime($date, $selectedStartTime);
                         $bool = laneDateCheck($i, $date);
+                        $boolExtra = laneDateCheckExtra($i, $date);
+                                                        
                         ?>
                         <a href="javascript:void(0)" class="lane-link cursor-default" data-lane="<?php echo $i; ?>">
                             <?php
-                            echo $bool ? "bezet" : "vrij";
+                            if ($bool || $boolExtra) {
+                              echo "bezet";
+                          } else {
+                              echo "vrij";
+                          }
+                            
                             ?>
-                            <?php if ($bool) { ?>
+                            <?php if ($bool || $boolExtra) { ?>
                                 <script>
                                     // make the lane$i unclickable
                                     $("#lane<?php echo $i; ?>").removeClass("lane-header");
@@ -236,7 +244,7 @@ if (isset($_COOKIE['CurrUser'])) {
                 <tr class="border-b-2 border-gray-300">
                     <td class="border-r-2 border-gray-300 p-2"><?php echo date('H:i', strtotime($date . '+1 hour')); ?></td>
                     <?php
-                    $selectedStartTime = date('H:i', strtotime($date . '+1 hour'));
+                    $selectedStartTime = date('H:i', strtotime($date));
 
                     for ($i = 1; $i <= getNumberOfLanes(); $i++) {
                     ?>
@@ -269,7 +277,8 @@ if (isset($_COOKIE['CurrUser'])) {
      <input type="hidden" name="selectedLanes" id="selectedLanes" value="">  
      <input type="hidden" name="adult" id="adult" value="<?php echo $adult;?>">     
      <input type="hidden" name="childs" id="childs" value="<?php echo $childs;?>">     
-     <input type="hidden" name="dateStart" id="dateStart" value="<?php echo $date;?>">   
+     <input type="hidden" name="dateStart" id="dateStart" value="<?php echo $date;?>">  
+     <input type="hidden" name="urenBowlen" id="urenBowlen" value="<?php echo $urenBowlen;?>">  
      <input type="hidden" name="time" id="time" value="<?php echo $time;?>">  
 
      <button type="submit" id="confirmationButton" name="update" class="bg-yellowKleur hover:bg-blackKleur text-white font-bold my-6 py-2 px-4 rounded">Update</button>

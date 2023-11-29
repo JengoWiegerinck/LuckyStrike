@@ -43,14 +43,13 @@ if (isset($_COOKIE['CurrUser'])) {
                     $startTimeData = formateDateTime($geselecteerdeDatum, $geselecteerdeStarttijd);
                     $endTimeData = formateDateTime($geselecteerdeDatum, $geselecteerdeEindtijd);
                     $lanesId = getLaneIdOption($reservation->getId(), $startTimeData, $endTimeData);
-                    if($lanesId)
-                    {
-                    foreach ($lanesId as $row) {
-                        $laneId = $row['laneId'];
-                        $newLane = new laneClass(getLaneById($laneId));
+
+                    while ($lane = $lanesId->fetch_assoc()) {
+                        // Assuming 'id' is the unique identifier for a lane, modify it accordingly
+                        $newLane = new laneClass($lane['id']); // Pass the lane ID to the constructor
                         $firstLane[] = $newLane;
-                    }
-                }
+                    }  
+                
             }
 
             if (isset($_POST['updaten'])) {

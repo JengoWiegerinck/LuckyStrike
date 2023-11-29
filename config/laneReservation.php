@@ -39,9 +39,7 @@ if (isset($_COOKIE['CurrUser'])) {
                             <?php $lanes = getAllLane();
                             while ($lane = $lanes->fetch_assoc()) {
                             ?>
-                                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2"><?php echo $lane['username'] ?> <?php if (gates($lane['gates'])) {
-                                                                                                                                                                    echo "*";
-                                                                                                                                                                } ?></th>
+                                <th class="text-center font-semibold text-gray-700 border-l-2 border-r-2 border-gray-300 p-2"><?php echo $lane['username'] ?> <?php if (gates($lane['gates'])) { echo "*";} ?></th>
                             <?php } ?>
                         </tr>
 
@@ -57,7 +55,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                     <a class="" href="<?php $date = formateDateTime($datum, $tijd);
                                                         $bool = laneDateCheck($i, $date);
-                                                        if ($bool) {
+                                                        $boolExtra = laneDateCheckExtra($i, $date);
+                                                        if ($bool || $boolExtra) {
                                                             echo "#";
                                                         } else {
                                                             echo "toevoegen.php?variabele=" . $date . "&id=" . $i;
@@ -66,7 +65,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                         <?php $date = formateDateTime($datum, $tijd);
                                         $bool = laneDateCheck($i, $date);
-                                        if ($bool) {
+                                        $boolExtra = laneDateCheckExtra($i, $date);
+                                        if ($bool || $boolExtra) {
                                             echo "bezet";
                                         } else {
                                             echo "vrij";
@@ -88,7 +88,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                     <a href="<?php $date = formateDateTime($datum, $tijd);
                                                 $bool = laneDateCheck($i, $date);
-                                                if ($bool) {
+                                                $boolExtra = laneDateCheckExtra($i, $date);
+                                                if ($bool || $boolExtra) {
                                                     echo "#";
                                                 } else {
                                                     echo "toevoegen.php?variabele=" . $date . "&id=" . $i;
@@ -97,7 +98,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                         <?php $date = formateDateTime($datum, $tijd);
                                         $bool = laneDateCheck($i, $date);
-                                        if ($bool) {
+                                        $boolExtra = laneDateCheckExtra($i, $date);
+                                        if ($bool || $boolExtra) {
                                             echo "bezet";
                                         } else {
                                             echo "vrij";
@@ -118,7 +120,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                     <a href="<?php $date = formateDateTime($datum, $tijd);
                                                 $bool = laneDateCheck($i, $date);
-                                                if ($bool) {
+                                                $boolExtra = laneDateCheckExtra($i, $date);
+                                                if ($bool || $boolExtra) {
                                                     echo "#";
                                                 } else {
                                                     echo "toevoegen.php?variabele=" . $date . "&id=" . $i;
@@ -127,7 +130,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                         <?php $date = formateDateTime($datum, $tijd);
                                         $bool = laneDateCheck($i, $date);
-                                        if ($bool) {
+                                        $boolExtra = laneDateCheckExtra($i, $date);
+                                        if ($bool || $boolExtra) {
                                             echo "bezet";
                                         } else {
                                             echo "vrij";
@@ -148,7 +152,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                     <a href="<?php $date = formateDateTime($datum, $tijd);
                                                 $bool = laneDateCheck($i, $date);
-                                                if ($bool) {
+                                                $boolExtra = laneDateCheckExtra($i, $date);
+                                                if ($bool || $boolExtra) {
                                                     echo "#";
                                                 } else {
                                                     echo "toevoegen.php?variabele=" . $date . "&id=" . $i;
@@ -157,7 +162,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                         <?php $date = formateDateTime($date, $tijd);
                                         $bool = laneDateCheck($i, $date);
-                                        if ($bool) {
+                                        $boolExtra = laneDateCheckExtra($i, $date);
+                                        if ($bool || $boolExtra) {
                                             echo "bezet";
                                         } else {
                                             echo "vrij";
@@ -178,7 +184,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                     <a href="<?php $date = formateDateTime($datum, $tijd);
                                                 $bool = laneDateCheck($i, $date);
-                                                if ($bool) {
+                                                $boolExtra = laneDateCheckExtra($i, $date);
+                                                if ($bool || $boolExtra) {
                                                     echo "#";
                                                 } else {
                                                     echo "toevoegen.php?variabele=" . $date . "&id=" . $i;
@@ -187,7 +194,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                         <?php $date = formateDateTime($date, $tijd);
                                         $bool = laneDateCheck($i, $date);
-                                        if ($bool) {
+                                        $boolExtra = laneDateCheckExtra($i, $date);
+                                        if ($bool || $boolExtra) {
                                             echo "bezet";
                                         } else {
                                             echo "vrij";
@@ -208,7 +216,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                     <a href="<?php $date = formateDateTime($datum, $tijd);
                                                 $bool = laneDateCheck($i, $date);
-                                                if ($bool) {
+                                                $boolExtra = laneDateCheckExtra($i, $date);
+                                                if ($bool || $boolExtra) {
                                                     echo "#";
                                                 } else {
                                                     echo "toevoegen.php?variabele=" . $date . "&id=" . $i;
@@ -217,7 +226,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                         <?php $date = formateDateTime($date, $tijd);
                                         $bool = laneDateCheck($i, $date);
-                                        if ($bool) {
+                                        $boolExtra = laneDateCheckExtra($i, $date);
+                                        if ($bool || $boolExtra) {
                                             echo "bezet";
                                         } else {
                                             echo "vrij";
@@ -238,7 +248,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                     <a href="<?php $date = formateDateTime($datum, $tijd);
                                                 $bool = laneDateCheck($i, $date);
-                                                if ($bool) {
+                                                $boolExtra = laneDateCheckExtra($i, $date);
+                                                if ($bool || $boolExtra) {
                                                     echo "#";
                                                 } else {
                                                     echo "toevoegen.php?variabele=" . $date . "&id=" . $i;
@@ -247,7 +258,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                         <?php $date = formateDateTime($date, $tijd);
                                         $bool = laneDateCheck($i, $date);
-                                        if ($bool) {
+                                        $boolExtra = laneDateCheckExtra($i, $date);
+                                        if ($bool || $boolExtra) {
                                             echo "bezet";
                                         } else {
                                             echo "vrij";
@@ -268,7 +280,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                     <a href="<?php $date = formateDateTime($datum, $tijd);
                                                 $bool = laneDateCheck($i, $date);
-                                                if ($bool) {
+                                                $boolExtra = laneDateCheckExtra($i, $date);
+                                                if ($bool || $boolExtra) {
                                                     echo "#";
                                                 } else {
                                                     echo "toevoegen.php?variabele=" . $date . "&id=" . $i;
@@ -277,7 +290,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                         <?php $date = formateDateTime($date, $tijd);
                                         $bool = laneDateCheck($i, $date);
-                                        if ($bool) {
+                                        $boolExtra = laneDateCheckExtra($i, $date);
+                                        if ($bool || $boolExtra) {
                                             echo "bezet";
                                         } else {
                                             echo "vrij";
@@ -301,7 +315,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                         <a href="<?php $date = formateDateTime($datum, $tijd);
                                                     $bool = laneDateCheck($i, $date);
-                                                    if ($bool) {
+                                                    $boolExtra = laneDateCheckExtra($i, $date);
+                                                    if ($bool || $boolExtra) {
                                                         echo "#";
                                                     } else {
                                                         echo "toevoegen.php?variabele=" . $date . "&id=" . $i;
@@ -310,7 +325,8 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                             <?php $date = formateDateTime($date, $tijd);
                                             $bool = laneDateCheck($i, $date);
-                                            if ($bool) {
+                                            $boolExtra = laneDateCheckExtra($i, $date);
+                                            if ($bool || $boolExtra) {
                                                 echo "bezet";
                                             } else {
                                                 echo "vrij";
@@ -331,16 +347,18 @@ if (isset($_COOKIE['CurrUser'])) {
 
                                         <a href="<?php $date = formateDateTime($datum, $tijd);
                                                     $bool = laneDateCheck($i, $date);
-                                                    if ($bool) {
-                                                        echo "#";
-                                                    } else {
-                                                        echo "toevoegen.php?variabele=" . $date . "&id=" . $i;
-                                                    }
+                                                    $boolExtra = laneDateCheckExtra($i, $date);
+                                                        if ($bool || $boolExtra) {
+                                                            echo "#";
+                                                        } else {
+                                                            echo "toevoegen.php?variabele=" . $date . "&id=" . $i;
+                                                        }
                                                     ?>">
 
                                             <?php $date = formateDateTime($date, $tijd);
                                             $bool = laneDateCheck($i, $date);
-                                            if ($bool) {
+                                            $boolExtra = laneDateCheckExtra($i, $date);
+                                            if ($bool || $boolExtra) {
                                                 echo "bezet";
                                             } else {
                                                 echo "vrij";
