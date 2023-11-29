@@ -27,6 +27,17 @@ function laneDateCheck($laneId, $startTime)
     }
     return false;
 }
+function laneDateCheckExtra($laneId, $startTime)
+{
+    // Execute the query
+    $result = db_getData("SELECT * FROM reservation WHERE extraBaan = '$laneId'  AND ('$startTime' >= startTime AND '$startTime' < endTime)");
+
+    // Check if there are rows in the result
+    if ($result->num_rows > 0) {
+        return true;
+    }
+    return false;
+}
 
 
 function timeDay($lane, $datumWithoutTime, $beginTijd)
