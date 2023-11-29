@@ -41,8 +41,8 @@ if (isset($_COOKIE['CurrUser'])) {
                                     <td class="border border-blackKleur/30"><?php echo $lane['username'] ?></td>
                                     <td class="border border-blackKleur/30">
                                         <?php if (gates($lane['gates'])) {
-                                            echo "&#10003;";
-                                        } else {
+                                            echo "&#10003;";                                           
+                                        } else {    
                                             echo "&#10005;";
                                         } ?></td>
 
